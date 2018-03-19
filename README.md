@@ -14,5 +14,6 @@ Wiki: https://github.com/LizzardCorp/pv243project/wiki
 # Running the project
 
 `git clone https://github.com/LizzardCorp/pv243project.git`
-`cd pa165project`
+`cd pv243project`
 `mvn clean install`
+
