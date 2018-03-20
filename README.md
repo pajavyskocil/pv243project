@@ -1,6 +1,8 @@
 # PV243 team project - TACOS
 The amazing creative ordering system
 
+[![Build Status](https://travis-ci.org/LizzardCorp/pv243project.svg?branch=master)](https://travis-ci.org/LizzardCorp/pv243project)
+
 A Java school team project.
 
 Team members: 
