@@ -10,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
@@ -22,7 +21,6 @@ import java.util.Objects;
 public class User implements Serializable{
 
     private static final long serialVersionUID = 1L;
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -41,7 +39,7 @@ public class User implements Serializable{
 
     @NotNull
     @NotEmpty
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Enumerated
@@ -102,7 +100,7 @@ public class User implements Serializable{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || !(o instanceof User)) return false;
+        if (!(o instanceof User)) return false;
         User user = (User) o;
 
         return getName().equals(user.getName()) &&
@@ -113,7 +111,6 @@ public class User implements Serializable{
 
     @Override
     public int hashCode() {
-
         return Objects.hash(getName(), getSurname(), getEmail());
     }
 

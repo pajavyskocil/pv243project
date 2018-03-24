@@ -9,4 +9,7 @@
             <!--<property name="jbossHome">C:\Users\Vectoun\wildfly\wildfly-12.0.0.Final</property>-->
         </configuration>
     </container>
+    <extension qualifier="transaction">
+        <property name="manager">java:jboss/UserTransaction</property>
+    </extension>
 </arquillian>
