@@ -28,7 +28,8 @@ public class UserDaoTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class)
-				.addPackages(true, "cz.fi.muni.TACOS.persistence", "org.assertj.core")
+				.addPackages(true, "cz.fi.muni.TACOS.persistence", "org.assertj.core",
+						"java.lang")
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
 	}
