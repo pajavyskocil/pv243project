@@ -9,17 +9,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
-/**
- * @author Vyskocil Pavel <vyskocilpavel@muni.cz>
- */
 @Entity
-public class Product implements Serializable {
+public class ProductAttributeCategory {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -31,21 +27,14 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @NotNull
-    @NotEmpty
-    @Column(nullable = false)
-    private String description;
-
-    @NotNull
-    @NotEmpty
-    @Column(nullable = false)
-    private Double price;
-
-    @NotEmpty
     @ManyToMany
+    private Set<ProductAttribute> attributes = new HashSet<>();
+
+    @ManyToMany(mappedBy = "attributeCategories")
     private Set<ProductTemplate> templates = new HashSet<>();
 
-    public Product() {
+    public ProductAttributeCategory() {
+
     }
 
     public Long getId() {
@@ -64,61 +53,52 @@ public class Product implements Serializable {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public Set<ProductAttribute> getAttributes() {
+        return Collections.unmodifiableSet(attributes);
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void addAttribute(ProductAttribute attribute) {
+        this.attributes.add(attribute);
+        attribute.addProductAttributeCategory(this);
     }
 
-    public Double getPrice() {
-        return price;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
+    public void removeAttribute(ProductAttribute attribute) {
+        this.attributes.remove(attribute);
+        attribute.removeProductAttributeCategory(this);
     }
 
     public Set<ProductTemplate> getTemplates() {
         return Collections.unmodifiableSet(templates);
     }
 
-    public void addTemplate(ProductTemplate template) {
+    public void addProductTemplate(ProductTemplate template) {
         this.templates.add(template);
-        template.addProduct(this);
     }
 
-    public void removeTemplate(ProductTemplate template) {
+    public void removeProductTemplate(ProductTemplate template) {
         this.templates.remove(template);
-        template.removeProduct(this);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Product)) return false;
-        Product product = (Product) o;
-
-        return Objects.equals(getId(), product.getId()) &&
-                Objects.equals(getName(), product.getName()) &&
-                Objects.equals(getDescription(), product.getDescription()) &&
-                Objects.equals(getPrice(), product.getPrice());
+        if (!(o instanceof ProductAttributeCategory)) return false;
+        ProductAttributeCategory that = (ProductAttributeCategory) o;
+        return Objects.equals(getName(), that.getName()) &&
+                Objects.equals(getAttributes(), that.getAttributes());
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(getId(), getName(), getDescription(), getPrice());
+        return Objects.hash(getName(), getAttributes());
     }
 
     @Override
     public String toString() {
-        return "Product{" +
+        return "ProductAttributeCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", price=" + price +
+                ", attributes=" + attributes +
                 '}';
     }
 }
