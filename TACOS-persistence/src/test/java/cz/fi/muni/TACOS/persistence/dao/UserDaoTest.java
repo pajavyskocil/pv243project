@@ -1,6 +1,8 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
+import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
+import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -15,11 +17,19 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
+/**
+ * Tests for User Dao
+ * @author Sassmann Vojtech <vojtech.sassmann@gmail.com>
+ * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
+ */
 @Transactional(TransactionMode.ROLLBACK)
 @RunWith(Arquillian.class)
 public class UserDaoTest {
@@ -37,6 +47,9 @@ public class UserDaoTest {
 	@Inject
 	private UserDao userDao;
 
+	@Inject
+	private OrderDao orderDao;
+
 	private User createTestUser() {
 		User user = new User();
 		user.setName("Regular");
@@ -52,9 +65,19 @@ public class UserDaoTest {
 		user.setName("Second");
 		user.setSurname("Regularuser");
 		user.setEmail("secondrandomuserwithemail@worldofjava.com");
-		user.setRole(UserRole.SUBMITTER);
+		user.setRole(UserRole.SUPERADMIN);
 		userDao.create(user);
 		return user;
+	}
+
+	private Order createTestOrder() {
+		Order order = new Order();
+		order.setState(OrderState.NEW);
+		order.setSubmitted(LocalDate.now());
+		order.setFinished(LocalDate.now());
+		order.setPrice(BigDecimal.ONE);
+		orderDao.create(order);
+		return order;
 	}
 
 	@Test
@@ -154,5 +177,65 @@ public class UserDaoTest {
 	public void testGetAllNothingFound() {
 		List<User> foundUsers = userDao.getAll();
 		assertThat(foundUsers).isEmpty();
+	}
+
+	@Test
+	public void testGetAllForRoleWithNull(){
+		assertThatExceptionOfType(Exception.class)
+				.isThrownBy(() -> userDao.getAllForRole(null));
+	}
+
+	@Test
+	public void testGetAllForRole() {
+		createTestUser();
+		User secondUser = createTestSecondUser();
+		List<User> foundUsers = userDao.getAllForRole(UserRole.SUPERADMIN);
+
+		assertThat(foundUsers).containsOnly(secondUser);
+	}
+
+	@Test
+	public void testGetAllForRoleNothingFound(){
+		createTestUser();
+		List<User> foundUsers = userDao.getAllForRole(UserRole.SUPERADMIN);
+
+		assertThat(foundUsers).isEqualTo(new ArrayList<User>());
+	}
+
+	@Test
+	public void testAddSubmittedOrder(){
+		Order order = createTestOrder();
+		User user = createTestUser();
+		user.addSubmittedOrder(order);
+		User foundUser = userDao.findById(user.getId());
+
+		assertThat(foundUser.getSubmittedOrders()).containsExactly(order);
+	}
+
+	@Test
+	public void testAddSubmittedOrderWithNull(){
+		User user = createTestUser();
+		assertThatExceptionOfType(Exception.class)
+				.isThrownBy(() -> user.addSubmittedOrder(null));
+	}
+
+	@Test
+	public void testRemoveSubmittedOrder(){
+		Order order = createTestOrder();
+		User user = createTestUser();
+		user.addSubmittedOrder(order);
+
+		User foundUser = userDao.findById(user.getId());
+		foundUser.removeSubmittedOrder(order);
+		foundUser = userDao.findById(user.getId());
+
+		assertThat(foundUser.getSubmittedOrders()).doesNotContain(order);
+	}
+
+	@Test
+	public void testRemoveSubmittedOrderWithNull(){
+		User user = createTestUser();
+		assertThatExceptionOfType(Exception.class)
+				.isThrownBy(() -> user.removeSubmittedOrder(null));
 	}
 }
