@@ -1,14 +1,10 @@
 package cz.fi.muni.TACOS.persistence.entity;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
@@ -42,13 +38,11 @@ public class CreatedProduct {
     private String description;
 
     @NotNull
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="order_id")
+    @ManyToOne
     private Order order;
 
     @NotNull
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="product_id")
+    @ManyToOne
     private Product product;
 
     public CreatedProduct() {
@@ -111,14 +105,13 @@ public class CreatedProduct {
         return Objects.equals(getPrice(), that.getPrice()) &&
                 Objects.equals(getCount(), that.getCount()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
-                Objects.equals(getProduct(), that.getProduct()) &&
-                Objects.equals(getOrder(), that.getOrder());
+                Objects.equals(getProduct(), that.getProduct());
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getPrice(), getCount(), getDescription(), getProduct(), getOrder());
+        return Objects.hash(getPrice(), getCount(), getDescription(), getProduct());
     }
 
     @Override
@@ -128,7 +121,6 @@ public class CreatedProduct {
                 ", price=" + price +
                 ", count=" + count +
                 ", description='" + description + '\'' +
-                ", order=" + order +
                 ", product=" + product +
                 '}';
     }

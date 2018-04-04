@@ -4,10 +4,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -50,6 +52,11 @@ public class Product implements Serializable {
     @Column(nullable = false)
     @ManyToMany(mappedBy = "products")
     private Set<ProductCategory> productCategories = new HashSet<>();
+
+    @NotNull
+    @Column(nullable = false)
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private Set<CreatedProduct> createdProducts = new HashSet<>();
 
     public Product() {
     }
@@ -102,6 +109,10 @@ public class Product implements Serializable {
         template.removeProduct(this);
     }
 
+    public Set<ProductCategory> getProductCategories() {
+        return Collections.unmodifiableSet(productCategories);
+    }
+
     public void addProductCategory(ProductCategory category) {
         this.productCategories.add(category);
     }
@@ -110,14 +121,28 @@ public class Product implements Serializable {
         this.productCategories.remove(category);
     }
 
+    public Set<CreatedProduct> getCreatedProducts() {
+        return Collections.unmodifiableSet(createdProducts);
+    }
+
+    public void addCreatedProduct(CreatedProduct product) {
+        this.createdProducts.add(product);
+        product.setProduct(this);
+    }
+
+    public void removeCreatedProduct(CreatedProduct product) {
+        this.createdProducts.remove(product);
+        product.setProduct(null);
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Product)) return false;
         Product product = (Product) o;
 
-        return Objects.equals(getId(), product.getId()) &&
-                Objects.equals(getName(), product.getName()) &&
+        return Objects.equals(getName(), product.getName()) &&
                 Objects.equals(getDescription(), product.getDescription()) &&
                 Objects.equals(getPrice(), product.getPrice());
     }
@@ -125,7 +150,7 @@ public class Product implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(getId(), getName(), getDescription(), getPrice());
+        return Objects.hash(getName(), getDescription(), getPrice());
     }
 
     @Override
@@ -143,7 +168,7 @@ public class Product implements Serializable {
             throw new IllegalArgumentException("Name cannot be null.");
         }
         if (value.isEmpty()) {
-            throw new IllegalArgumentException("NAme cannot be empty.");
+            throw new IllegalArgumentException("Name cannot be empty.");
         }
     }
     private void checkDescription(String value) {
