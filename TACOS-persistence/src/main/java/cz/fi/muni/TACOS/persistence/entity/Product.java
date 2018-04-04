@@ -41,9 +41,15 @@ public class Product implements Serializable {
     @Column(nullable = false)
     private Double price;
 
-    @NotEmpty
+    @NotNull
+    @Column(nullable = false)
     @ManyToMany
     private Set<ProductTemplate> templates = new HashSet<>();
+
+    @NotNull
+    @Column(nullable = false)
+    @ManyToMany(mappedBy = "products")
+    private Set<ProductCategory> productCategories = new HashSet<>();
 
     public Product() {
     }
@@ -92,6 +98,14 @@ public class Product implements Serializable {
     public void removeTemplate(ProductTemplate template) {
         this.templates.remove(template);
         template.removeProduct(this);
+    }
+
+    public void addProductCategory(ProductCategory category) {
+        this.productCategories.add(category);
+    }
+
+    public void removeProductCategory(ProductCategory category) {
+        this.productCategories.remove(category);
     }
 
     @Override
