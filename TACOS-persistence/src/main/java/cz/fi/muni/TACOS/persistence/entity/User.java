@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.persistence.entity;
 
 
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
@@ -10,9 +11,12 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Vyskocil Pavel <vyskocilpavel@muni.cz>
@@ -37,6 +41,7 @@ public class User implements Serializable{
     @Column(nullable = false)
     private String surname;
 
+    @Email
     @NotNull
     @NotEmpty
     @Column(nullable = false, unique = true)
@@ -47,10 +52,17 @@ public class User implements Serializable{
     @Column(nullable = false)
     private UserRole role;
 
+    @NotNull
+    @Column(nullable = false)
+    @OneToMany(mappedBy = "submitter")
+    private Set<Order> submittedOrders = new HashSet<Order>();
+
     public User() {
     }
 
     public User(String name, String surname, String email, UserRole role) {
+        checkString(name, "Name");
+        checkString(surname, "Surname");
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -70,6 +82,7 @@ public class User implements Serializable{
     }
 
     public void setName(String name) {
+        checkString(name, "Name");
         this.name = name;
     }
 
@@ -78,6 +91,7 @@ public class User implements Serializable{
     }
 
     public void setSurname(String surname) {
+        checkString(surname, "Surname");
         this.surname = surname;
     }
 
@@ -124,4 +138,14 @@ public class User implements Serializable{
                 ", role=" + role +
                 '}';
     }
+
+    private void checkString(String value, String name) {
+        if (value == null) {
+            throw new IllegalArgumentException(name +" cannot be null.");
+        }
+        if (value.isEmpty()) {
+            throw new IllegalArgumentException(name + " cannot be empty.");
+        }
+    }
+
 }

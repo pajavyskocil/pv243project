@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -32,14 +34,12 @@ public class Product implements Serializable {
     private String name;
 
     @NotNull
-    @NotEmpty
     @Column(nullable = false)
     private String description;
 
     @NotNull
-    @NotEmpty
-    @Column(nullable = false)
-    private Double price;
+    @DecimalMin("0.00")
+    private BigDecimal price;
 
     @NotNull
     @Column(nullable = false)
@@ -67,6 +67,7 @@ public class Product implements Serializable {
     }
 
     public void setName(String name) {
+        checkName(name);
         this.name = name;
     }
 
@@ -75,14 +76,15 @@ public class Product implements Serializable {
     }
 
     public void setDescription(String description) {
+        checkDescription(description);
         this.description = description;
     }
 
-    public Double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
@@ -134,5 +136,19 @@ public class Product implements Serializable {
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 '}';
+    }
+
+    private void checkName(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Name cannot be null.");
+        }
+        if (value.isEmpty()) {
+            throw new IllegalArgumentException("NAme cannot be empty.");
+        }
+    }
+    private void checkDescription(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException("Description cannot be null.");
+        }
     }
 }
