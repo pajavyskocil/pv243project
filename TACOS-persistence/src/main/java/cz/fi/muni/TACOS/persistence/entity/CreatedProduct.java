@@ -42,13 +42,11 @@ public class CreatedProduct {
     private String description;
 
     @NotNull
-    @Column(nullable = false)
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="order_id")
     private Order order;
 
     @NotNull
-    @Column(nullable = false)
     @ManyToOne(fetch= FetchType.LAZY)
     @JoinColumn(name="product_id")
     private Product product;
