@@ -23,6 +23,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
             throw new IllegalArgumentException("Parameter entity cannot be null!");
         }
         em.persist(entity);
+        em.flush();
     }
 
     @Override
@@ -31,6 +32,7 @@ public abstract class AbstractDao<T> implements Dao<T> {
             throw new IllegalArgumentException("Parameter entity cannot be null!");
         }
         em.remove(entity);
+        em.flush();
     }
 
     @Override

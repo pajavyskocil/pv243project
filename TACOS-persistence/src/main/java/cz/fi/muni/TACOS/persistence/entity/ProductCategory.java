@@ -15,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -25,7 +26,7 @@ import java.util.Set;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  */
 @Entity
-public class ProductCategory {
+public class ProductCategory  implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,7 +35,7 @@ public class ProductCategory {
 
     @NotNull
     @NotEmpty
-    @Column(nullable = false)
+    @Column(nullable = false, unique=true)
     private String name;
 
     @NotNull
@@ -43,7 +44,7 @@ public class ProductCategory {
     private Set<Product> products = new HashSet<>();
 
     @Lob
-    @Column(columnDefinition = "mediumblob", nullable = false)
+    @Column(columnDefinition = "mediumblob")
     private Byte[] image;
 
     @ManyToOne(cascade={CascadeType.ALL})
@@ -98,11 +99,11 @@ public class ProductCategory {
         this.image = image;
     }
 
-    public ProductCategory getCategory() {
+    public ProductCategory getParentCategory() {
         return parentCategory;
     }
 
-    public void setCategory(ProductCategory category) {
+    public void setParentCategory(ProductCategory category) {
         this.parentCategory = category;
     }
 
@@ -112,12 +113,12 @@ public class ProductCategory {
 
     public void addSubCategory(ProductCategory subCategory) {
         this.subCategories.add(subCategory);
-        subCategory.setCategory(this);
+        subCategory.setParentCategory(this);
     }
 
     public void removeSubCategory(ProductCategory subCategory) {
         this.subCategories.remove(subCategory);
-        subCategory.setCategory(null);
+        subCategory.setParentCategory(null);
     }
 
     @Override
@@ -126,16 +127,13 @@ public class ProductCategory {
         if (!(o instanceof ProductCategory)) return false;
         ProductCategory that = (ProductCategory) o;
         return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getProducts(), that.getProducts()) &&
-                Arrays.equals(getImage(), that.getImage()) &&
-                Objects.equals(getCategory(), that.getCategory()) &&
-                Objects.equals(getSubCategories(), that.getSubCategories());
+                Arrays.equals(getImage(), that.getImage());
     }
 
     @Override
     public int hashCode() {
 
-        int result = Objects.hash(getName(), getProducts(), getCategory(), getSubCategories());
+        int result = Objects.hash(getName());
         result = 31 * result + Arrays.hashCode(getImage());
         return result;
     }
@@ -147,8 +145,7 @@ public class ProductCategory {
                 ", name='" + name + '\'' +
                 ", products=" + products +
                 ", image=" + Arrays.toString(image) +
-                ", category=" + parentCategory +
-                ", subCategories=" + subCategories +
+                ", parentCategory=" + parentCategory +
                 '}';
     }
 

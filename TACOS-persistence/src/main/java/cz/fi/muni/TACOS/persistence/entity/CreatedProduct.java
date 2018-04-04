@@ -9,6 +9,7 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Objects;
 
@@ -16,7 +17,7 @@ import java.util.Objects;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  */
 @Entity
-public class CreatedProduct {
+public class CreatedProduct implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
