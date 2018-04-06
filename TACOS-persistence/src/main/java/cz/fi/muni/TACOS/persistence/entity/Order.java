@@ -7,14 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -23,6 +24,7 @@ import java.util.Set;
  * @author Vyskocil Pavel <vyskocilpavel@muni.cz>
  */
 @Entity
+@Table(name = "Orders")
 public class Order implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -40,7 +42,6 @@ public class Order implements Serializable {
     private LocalDate submitted;
 
     @ManyToOne
-    @JoinColumn(name = "submitter_id")
     private User submitter;
 
     private LocalDate finished;
@@ -108,7 +109,7 @@ public class Order implements Serializable {
     }
 
     public Set<CreatedProduct> getProducts() {
-        return products;
+        return Collections.unmodifiableSet(products);
     }
 
     public void addProduct(CreatedProduct product) {
@@ -129,7 +130,6 @@ public class Order implements Serializable {
         Order order = (Order) o;
         return getState() == order.getState() &&
                 Objects.equals(getSubmitted(), order.getSubmitted()) &&
-                Objects.equals(getSubmitter(), order.getSubmitter()) &&
                 Objects.equals(getFinished(), order.getFinished()) &&
                 Objects.equals(getPrice(), order.getPrice()) &&
                 Objects.equals(getProducts(), order.getProducts());
@@ -138,7 +138,7 @@ public class Order implements Serializable {
     @Override
     public int hashCode() {
 
-        return Objects.hash(getState(), getSubmitted(), getSubmitter(), getFinished(), getPrice(), getProducts());
+        return Objects.hash(getState(), getSubmitted(), getFinished(), getPrice(), getProducts());
     }
 
     @Override

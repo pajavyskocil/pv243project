@@ -8,12 +8,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -54,7 +56,7 @@ public class User implements Serializable{
 
     @NotNull
     @Column(nullable = false)
-    @OneToMany(mappedBy = "submitter")
+    @OneToMany(mappedBy = "submitter", fetch = FetchType.EAGER)
     private Set<Order> submittedOrders = new HashSet<Order>();
 
     public User() {
@@ -111,6 +113,20 @@ public class User implements Serializable{
         this.role = role;
     }
 
+    public Set<Order> getSubmittedOrders() {
+        return Collections.unmodifiableSet(submittedOrders);
+    }
+
+    public void addSubmittedOrder(Order order) {
+        this.submittedOrders.add(order);
+        order.setSubmitter(this);
+    }
+
+    public void removeSubmittedOrder(Order order) {
+        this.submittedOrders.remove(order);
+        order.setSubmitter(null);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -119,13 +135,15 @@ public class User implements Serializable{
 
         return getName().equals(user.getName()) &&
                 getSurname().equals(user.getSurname()) &&
-                getEmail().equals(user.getEmail());
+                getEmail().equals(user.getEmail()) &&
+                getRole().equals(user.getRole()) &&
+                getSubmittedOrders().equals(user.getSubmittedOrders());
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getSurname(), getEmail());
+        return Objects.hash(getName(), getSurname(), getEmail(), getRole(), getSubmittedOrders());
     }
 
     @Override
