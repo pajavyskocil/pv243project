@@ -48,11 +48,11 @@ public class ProductCategory {
 
     @ManyToOne(cascade={CascadeType.ALL})
     @JoinColumn(name="category_id")
-    private ProductCategory category;
+    private ProductCategory parentCategory;
 
     @NotNull
     @Column(nullable = false)
-    @OneToMany(mappedBy="category")
+    @OneToMany(mappedBy="parentCategory")
     private Set<ProductCategory> subCategories = new HashSet<>();
 
     public ProductCategory() {
@@ -99,11 +99,11 @@ public class ProductCategory {
     }
 
     public ProductCategory getCategory() {
-        return category;
+        return parentCategory;
     }
 
     public void setCategory(ProductCategory category) {
-        this.category = category;
+        this.parentCategory = category;
     }
 
     public Set<ProductCategory> getSubCategories() {
@@ -147,7 +147,7 @@ public class ProductCategory {
                 ", name='" + name + '\'' +
                 ", products=" + products +
                 ", image=" + Arrays.toString(image) +
-                ", category=" + category +
+                ", category=" + parentCategory +
                 ", subCategories=" + subCategories +
                 '}';
     }
