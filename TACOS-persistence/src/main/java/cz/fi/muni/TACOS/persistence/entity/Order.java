@@ -150,7 +150,6 @@ public class Order implements Serializable {
                 ", submitter=" + submitter +
                 ", finished=" + finished +
                 ", price=" + price +
-                ", products=" + products +
                 '}';
     }
 

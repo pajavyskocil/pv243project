@@ -1,6 +1,7 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
 import cz.fi.muni.TACOS.persistence.entity.User;
+import cz.fi.muni.TACOS.persistence.enums.UserRole;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -29,12 +30,23 @@ public class UserDaoImpl extends AbstractDao<User> implements UserDao {
 		}
 		try {
 			return em
-					.createQuery("select u from User u where email = :email",
+					.createQuery("select u from User u where u.email = :email",
 							User.class).setParameter("email", email)
 					.getSingleResult();
 		} catch (NoResultException nrf) {
 			return null;
 		}
+	}
+
+	@Override
+	public List<User> getAllForRole(UserRole role) {
+		if (role == null) {
+			throw new IllegalArgumentException("Parameter role cannot be null!");
+		}
+		return em
+				.createQuery("select u from User u where u.role= :role",User.class)
+				.setParameter("role", role)
+				.getResultList();
 	}
 }
 
