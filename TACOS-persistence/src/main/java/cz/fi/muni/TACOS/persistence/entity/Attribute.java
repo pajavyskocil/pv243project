@@ -19,7 +19,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class ProductAttribute {
+public class Attribute {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,19 +38,21 @@ public class ProductAttribute {
     private String description;
 
     @NotNull
-    @NotEmpty
     @Column(nullable = false)
     private ProductAttributeStatus status;
 
     @NotEmpty
     @ManyToMany(mappedBy = "attributes")
-    private Set<ProductAttributeCategory> attributeCategories = new HashSet<>();
+    private Set<AttributeCategory> attributeCategories = new HashSet<>();
 
     @Lob
-    @Column(columnDefinition = "mediumblob", nullable = false)
+    @Column(columnDefinition = "mediumblob")
     private Byte[] image;
 
-    public ProductAttribute() {
+    @ManyToMany(mappedBy = "attributes")
+    private Set<CreatedProduct> createdProducts = new HashSet<>();
+
+    public Attribute() {
 
     }
 
@@ -102,23 +104,35 @@ public class ProductAttribute {
         this.image = image;
     }
 
-    public Set<ProductAttributeCategory> getAttributeCategories() {
+    public Set<AttributeCategory> getAttributeCategories() {
         return Collections.unmodifiableSet(attributeCategories);
     }
 
-    public void addProductAttributeCategory(ProductAttributeCategory category) {
+    public void addProductAttributeCategoryFromOneSide(AttributeCategory category) {
         this.attributeCategories.add(category);
     }
 
-    public void removeProductAttributeCategory(ProductAttributeCategory category) {
+    public void removeProductAttributeCategoryFromOneSide(AttributeCategory category) {
         this.attributeCategories.remove(category);
+    }
+
+    public void addProductFromOneSide(CreatedProduct createdProduct) {
+        this.createdProducts.add(createdProduct);
+    }
+
+    public void removeProductFromOneSide(CreatedProduct createdProduct) {
+        this.createdProducts.remove(createdProduct);
+    }
+
+    public Set<CreatedProduct> getCreatedProducts() {
+        return Collections.unmodifiableSet(createdProducts);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductAttribute)) return false;
-        ProductAttribute that = (ProductAttribute) o;
+        if (!(o instanceof Attribute)) return false;
+        Attribute that = (Attribute) o;
         return Objects.equals(getName(), that.getName()) &&
                 Objects.equals(getPrice(), that.getPrice()) &&
                 Objects.equals(getDescription(), that.getDescription()) &&
@@ -135,7 +149,7 @@ public class ProductAttribute {
 
     @Override
     public String toString() {
-        return "ProductAttribute{" +
+        return "Attribute{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +

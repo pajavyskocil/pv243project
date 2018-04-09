@@ -88,7 +88,7 @@ public class Order implements Serializable {
         return submitter;
     }
 
-    public void setSubmitter(User submitter) {
+    public void setSubmitterFromOneSide(User submitter) {
         this.submitter = submitter;
     }
 
@@ -114,12 +114,12 @@ public class Order implements Serializable {
 
     public void addProduct(CreatedProduct product) {
         this.products.add(product);
-        product.setOrder(this);
+        product.setOrderFromOneSide(this);
     }
 
     public void removeProduct(CreatedProduct product) {
         this.products.remove(product);
-        product.setOrder(null);
+        product.setOrderFromOneSide(null);
     }
 
 

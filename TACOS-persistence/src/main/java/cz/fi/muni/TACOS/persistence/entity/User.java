@@ -24,7 +24,7 @@ import java.util.Set;
  * @author Vyskocil Pavel <vyskocilpavel@muni.cz>
  */
 @Entity
-public class User implements Serializable{
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -57,7 +57,7 @@ public class User implements Serializable{
     @NotNull
     @Column(nullable = false)
     @OneToMany(mappedBy = "submitter", fetch = FetchType.EAGER)
-    private Set<Order> submittedOrders = new HashSet<Order>();
+    private Set<Order> submittedOrders = new HashSet<>();
 
     public User() {
     }
@@ -119,12 +119,12 @@ public class User implements Serializable{
 
     public void addSubmittedOrder(Order order) {
         this.submittedOrders.add(order);
-        order.setSubmitter(this);
+        order.setSubmitterFromOneSide(this);
     }
 
     public void removeSubmittedOrder(Order order) {
         this.submittedOrders.remove(order);
-        order.setSubmitter(null);
+        order.setSubmitterFromOneSide(null);
     }
 
     @Override

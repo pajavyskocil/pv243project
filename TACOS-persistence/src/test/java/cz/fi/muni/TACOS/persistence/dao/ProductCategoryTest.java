@@ -1,5 +1,6 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
+import cz.fi.muni.TACOS.persistence.dao.utils.EntityCreator;
 import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
 import cz.fi.muni.TACOS.persistence.entity.Product;
 import org.jboss.arquillian.container.test.api.Deployment;
@@ -15,7 +16,6 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -46,33 +46,10 @@ public class ProductCategoryTest {
     @Inject
     private ProductDao productDao;
 
-    private ProductCategory createProductCategory() {
-        ProductCategory category = new ProductCategory();
-        category.setName("categoryOne");
-        productCategoryDao.create(category);
-        return category;
-    }
-
-    private ProductCategory createSecondProductCategory() {
-        ProductCategory category = new ProductCategory();
-        category.setName("categoryTwo");
-        productCategoryDao.create(category);
-        return category;
-    }
-
-    private Product createProduct() {
-        Product product = new Product();
-        product.setDescription("desc");
-        product.setName("productOne");
-        product.setPrice(BigDecimal.valueOf(10));
-        productDao.create(product);
-        return product;
-    }
-
     @Test
     public void testGetAll() {
-        ProductCategory categoryOne = createProductCategory();
-        ProductCategory categorySecond = createSecondProductCategory();
+        ProductCategory categoryOne = EntityCreator.createProductCategory(productCategoryDao);
+        ProductCategory categorySecond = EntityCreator.createSecondProductCategory(productCategoryDao);
 
         List<ProductCategory> foundCategories = productCategoryDao.getAll();
 
@@ -81,7 +58,7 @@ public class ProductCategoryTest {
 
     @Test
     public void testFindById() {
-        ProductCategory category = createProductCategory();
+        ProductCategory category = EntityCreator.createProductCategory(productCategoryDao);
 
         ProductCategory foundCategory = productCategoryDao.findById(category.getId());
 
@@ -90,7 +67,7 @@ public class ProductCategoryTest {
 
     @Test
     public void testFindByName() {
-        ProductCategory category = createProductCategory();
+        ProductCategory category = EntityCreator.createProductCategory(productCategoryDao);
 
         ProductCategory foundCategory = productCategoryDao.findByName(category.getName());
 
@@ -129,7 +106,7 @@ public class ProductCategoryTest {
 
     @Test
     public void testCreate() {
-        ProductCategory category = createProductCategory();
+        ProductCategory category = EntityCreator.createProductCategory(productCategoryDao);
         ProductCategory foundCategory = productCategoryDao.findById(category.getId());
         assertThat(foundCategory).isEqualToComparingFieldByField(category);
     }
@@ -142,7 +119,7 @@ public class ProductCategoryTest {
 
     @Test
     public void testDelete() {
-        ProductCategory category = createProductCategory();
+        ProductCategory category = EntityCreator.createProductCategory(productCategoryDao);
 
         productCategoryDao.delete(category);
 
@@ -164,8 +141,8 @@ public class ProductCategoryTest {
 
     @Test
     public void testAddSubCategory() {
-        ProductCategory categoryOne = createProductCategory();
-        ProductCategory categorySecond = createSecondProductCategory();
+        ProductCategory categoryOne = EntityCreator.createProductCategory(productCategoryDao);
+        ProductCategory categorySecond = EntityCreator.createSecondProductCategory(productCategoryDao);
 
         categoryOne.addSubCategory(categorySecond);
         Set<ProductCategory> subCategories = categoryOne.getSubCategories();
@@ -177,8 +154,8 @@ public class ProductCategoryTest {
 
     @Test
     public void testRemoveSubCategory() {
-        ProductCategory categoryOne = createProductCategory();
-        ProductCategory categorySecond = createSecondProductCategory();
+        ProductCategory categoryOne = EntityCreator.createProductCategory(productCategoryDao);
+        ProductCategory categorySecond = EntityCreator.createSecondProductCategory(productCategoryDao);
 
         categoryOne.addSubCategory(categorySecond);
         categoryOne.removeSubCategory(categorySecond);
@@ -192,8 +169,8 @@ public class ProductCategoryTest {
 
     @Test
     public void testAddProduct() {
-        ProductCategory categoryOne = createProductCategory();
-        Product product = createProduct();
+        ProductCategory categoryOne = EntityCreator.createProductCategory(productCategoryDao);
+        Product product = EntityCreator.createProduct(productDao);
 
         categoryOne.addProduct(product);
 
@@ -203,8 +180,8 @@ public class ProductCategoryTest {
 
     @Test
     public void testRemoveProduct() {
-        ProductCategory categoryOne = createProductCategory();
-        Product product = createProduct();
+        ProductCategory categoryOne = EntityCreator.createProductCategory(productCategoryDao);
+        Product product = EntityCreator.createProduct(productDao);
 
         categoryOne.addProduct(product);
         categoryOne.removeProduct(product);
@@ -212,5 +189,4 @@ public class ProductCategoryTest {
         assertThat(product.getProductCategories()).isEmpty();
         assertThat(categoryOne.getProducts()).isEmpty();
     }
-
 }

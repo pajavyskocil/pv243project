@@ -3,6 +3,7 @@ package cz.fi.muni.TACOS.persistence.dao;
 import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
 import cz.fi.muni.TACOS.persistence.entity.User;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import javax.persistence.PersistenceContext;
  * Implementation of ProductCategoryDao
  * @author Balcirak Peter <peter.balcirak@gmail.com>
  */
+@Stateless
 public class ProductCategoryDaoImpl extends AbstractDao<ProductCategory> implements ProductCategoryDao {
 
     @PersistenceContext(unitName = "primary")

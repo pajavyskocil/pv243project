@@ -46,7 +46,7 @@ public class Product implements Serializable {
     @NotNull
     @Column(nullable = false)
     @ManyToMany
-    private Set<ProductTemplate> templates = new HashSet<>();
+    private Set<Template> templates = new HashSet<>();
 
     @NotNull
     @Column(nullable = false)
@@ -95,29 +95,29 @@ public class Product implements Serializable {
         this.price = price;
     }
 
-    public Set<ProductTemplate> getTemplates() {
+    public Set<Template> getTemplates() {
         return Collections.unmodifiableSet(templates);
     }
 
-    public void addTemplate(ProductTemplate template) {
+    public void addTemplate(Template template) {
         this.templates.add(template);
-        template.addProduct(this);
+        template.addProductFromOneSide(this);
     }
 
-    public void removeTemplate(ProductTemplate template) {
+    public void removeTemplate(Template template) {
         this.templates.remove(template);
-        template.removeProduct(this);
+        template.removeProductFromOneSide(this);
     }
 
     public Set<ProductCategory> getProductCategories() {
         return Collections.unmodifiableSet(productCategories);
     }
 
-    public void addProductCategory(ProductCategory category) {
+    public void addProductCategoryFromOneSide(ProductCategory category) {
         this.productCategories.add(category);
     }
 
-    public void removeProductCategory(ProductCategory category) {
+    public void removeProductCategoryFromOneSide(ProductCategory category) {
         this.productCategories.remove(category);
     }
 
@@ -127,12 +127,12 @@ public class Product implements Serializable {
 
     public void addCreatedProduct(CreatedProduct product) {
         this.createdProducts.add(product);
-        product.setProduct(this);
+        product.setProductFromOneSide(this);
     }
 
     public void removeCreatedProduct(CreatedProduct product) {
         this.createdProducts.remove(product);
-        product.setProduct(null);
+        product.setProductFromOneSide(null);
 
     }
 

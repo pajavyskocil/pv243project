@@ -3,13 +3,11 @@ package cz.fi.muni.TACOS.persistence.entity;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
@@ -47,12 +45,10 @@ public class ProductCategory  implements Serializable {
     @Column(columnDefinition = "mediumblob")
     private Byte[] image;
 
-    @ManyToOne(cascade={CascadeType.ALL})
-    @JoinColumn(name="category_id")
+    @ManyToOne
     private ProductCategory parentCategory;
 
     @NotNull
-    @Column(nullable = false)
     @OneToMany(mappedBy="parentCategory")
     private Set<ProductCategory> subCategories = new HashSet<>();
 
@@ -83,12 +79,12 @@ public class ProductCategory  implements Serializable {
 
     public void addProduct(Product product) {
         this.products.add(product);
-        product.addProductCategory(this);
+        product.addProductCategoryFromOneSide(this);
     }
 
     public void removeProduct(Product product) {
         this.products.remove(product);
-        product.removeProductCategory(this);
+        product.removeProductCategoryFromOneSide(this);
     }
 
     public Byte[] getImage() {
@@ -103,7 +99,7 @@ public class ProductCategory  implements Serializable {
         return parentCategory;
     }
 
-    public void setParentCategory(ProductCategory category) {
+    public void setParentCategoryFromOneSide(ProductCategory category) {
         this.parentCategory = category;
     }
 
@@ -113,12 +109,12 @@ public class ProductCategory  implements Serializable {
 
     public void addSubCategory(ProductCategory subCategory) {
         this.subCategories.add(subCategory);
-        subCategory.setParentCategory(this);
+        subCategory.setParentCategoryFromOneSide(this);
     }
 
     public void removeSubCategory(ProductCategory subCategory) {
         this.subCategories.remove(subCategory);
-        subCategory.setParentCategory(null);
+        subCategory.setParentCategoryFromOneSide(null);
     }
 
     @Override

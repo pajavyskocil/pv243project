@@ -5,13 +5,17 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * @author Peter Balcirak <peter.balcirak@gmail.com>
@@ -45,6 +49,9 @@ public class CreatedProduct implements Serializable {
     @NotNull
     @ManyToOne
     private Product product;
+
+    @ManyToMany
+    private Set<Attribute> attributes = new HashSet<>();
 
     public CreatedProduct() {
 
@@ -86,7 +93,7 @@ public class CreatedProduct implements Serializable {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrderFromOneSide(Order order) {
         this.order = order;
     }
 
@@ -94,8 +101,22 @@ public class CreatedProduct implements Serializable {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProductFromOneSide(Product product) {
         this.product = product;
+    }
+
+    public Set<Attribute> getAttributes() {
+        return Collections.unmodifiableSet(attributes);
+    }
+
+    public void addAttribute(Attribute attribute) {
+        this.attributes.add(attribute);
+        attribute.addProductFromOneSide(this);
+    }
+
+    public void removeAttribute(Attribute attribute) {
+        this.attributes.remove(attribute);
+        attribute.removeProductFromOneSide(this);
     }
 
     @Override

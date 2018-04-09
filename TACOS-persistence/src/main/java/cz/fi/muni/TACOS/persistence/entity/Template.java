@@ -15,7 +15,7 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-public class ProductAttributeCategory {
+public class Template {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,12 +28,12 @@ public class ProductAttributeCategory {
     private String name;
 
     @ManyToMany
-    private Set<ProductAttribute> attributes = new HashSet<>();
+    private Set<AttributeCategory> attributeCategories = new HashSet<>();
 
-    @ManyToMany(mappedBy = "attributeCategories")
-    private Set<ProductTemplate> templates = new HashSet<>();
+    @ManyToMany(mappedBy = "templates")
+    private Set<Product> products = new HashSet<>();
 
-    public ProductAttributeCategory() {
+    public Template() {
 
     }
 
@@ -53,52 +53,52 @@ public class ProductAttributeCategory {
         this.name = name;
     }
 
-    public Set<ProductAttribute> getAttributes() {
-        return Collections.unmodifiableSet(attributes);
+    public Set<AttributeCategory> getAttributeCategories() {
+        return Collections.unmodifiableSet(attributeCategories);
     }
 
-    public void addAttribute(ProductAttribute attribute) {
-        this.attributes.add(attribute);
-        attribute.addProductAttributeCategory(this);
+    public void addAttributeCategory(AttributeCategory category) {
+        this.attributeCategories.add(category);
+        category.addProductTemplateFromOneSide(this);
     }
 
-    public void removeAttribute(ProductAttribute attribute) {
-        this.attributes.remove(attribute);
-        attribute.removeProductAttributeCategory(this);
+    public void removeAttributeCategory(AttributeCategory category) {
+        this.attributeCategories.remove(category);
+        category.removeProductTemplateFromOneSide(this);
     }
 
-    public Set<ProductTemplate> getTemplates() {
-        return Collections.unmodifiableSet(templates);
+    public Set<Product> getProducts() {
+        return Collections.unmodifiableSet(products);
     }
 
-    public void addProductTemplate(ProductTemplate template) {
-        this.templates.add(template);
+    public void addProductFromOneSide(Product product) {
+        this.products.add(product);
     }
 
-    public void removeProductTemplate(ProductTemplate template) {
-        this.templates.remove(template);
+    public void removeProductFromOneSide(Product product) {
+        this.products.remove(product);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ProductAttributeCategory)) return false;
-        ProductAttributeCategory that = (ProductAttributeCategory) o;
+        if (!(o instanceof Template)) return false;
+        Template that = (Template) o;
         return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getAttributes(), that.getAttributes());
+                Objects.equals(getAttributeCategories(), that.getAttributeCategories());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getAttributes());
+        return Objects.hash(getName(), getAttributeCategories());
     }
 
     @Override
     public String toString() {
-        return "ProductAttributeCategory{" +
+        return "Template{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", attributes=" + attributes +
+                ", attributeCategories=" + attributeCategories +
                 '}';
     }
 }
