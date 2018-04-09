@@ -19,5 +19,4 @@ public interface OrderDao extends Dao<Order> {
 	 * @throws IllegalArgumentException when given parameter is null
 	 */
 	List<Order> getAllForState(OrderState state);
-
 }

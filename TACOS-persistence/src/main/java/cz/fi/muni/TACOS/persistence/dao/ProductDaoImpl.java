@@ -8,7 +8,5 @@ import javax.ejb.Stateless;
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 @Stateless
-public class ProductDaoImpl extends AbstractDao<Product> {
-
-
+public class ProductDaoImpl extends AbstractDao<Product> implements ProductDao {
 }
