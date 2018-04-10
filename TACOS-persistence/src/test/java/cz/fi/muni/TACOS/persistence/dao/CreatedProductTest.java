@@ -1,5 +1,6 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
+import cz.fi.muni.TACOS.persistence.dao.utils.EntityCreator;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.Product;
@@ -49,61 +50,10 @@ public class CreatedProductTest {
     @Inject
     private OrderDao orderDao;
 
-    private CreatedProduct createCreatedProduct() {
-        CreatedProduct createdProduct = new CreatedProduct();
-        createdProduct.setCount(1L);
-        createdProduct.setOrder(createOrder());
-        createdProduct.setProduct(createProduct());
-        createdProduct.setDescription("desc");
-        createdProduct.setPrice(BigDecimal.valueOf(20));
-        createdProductDao.create(createdProduct);
-        return createdProduct;
-    }
-
-    private CreatedProduct createSecondCreatedProduct() {
-        CreatedProduct createdProduct = new CreatedProduct();
-        createdProduct.setCount(2L);
-        createdProduct.setOrder(createSecondOrder());
-        createdProduct.setProduct(createProduct());
-        createdProduct.setDescription("desc");
-        createdProduct.setPrice(BigDecimal.valueOf(10));
-        createdProductDao.create(createdProduct);
-        return createdProduct;
-    }
-
-    private Product createProduct() {
-        Product product = new Product();
-        product.setDescription("desc");
-        product.setName("product");
-        product.setPrice(BigDecimal.valueOf(10));
-        productDao.create(product);
-        return product;
-    }
-
-    private Order createOrder() {
-        Order order = new Order();
-        order.setState(OrderState.NEW);
-        order.setSubmitted(LocalDate.now());
-        order.setFinished(LocalDate.now());
-        order.setPrice(BigDecimal.ONE);
-        orderDao.create(order);
-        return order;
-    }
-
-    private Order createSecondOrder() {
-        Order order = new Order();
-        order.setState(OrderState.PROCESSED);
-        order.setSubmitted(LocalDate.now());
-        order.setFinished(LocalDate.now());
-        order.setPrice(BigDecimal.valueOf(10));
-        orderDao.create(order);
-        return order;
-    }
-
     @Test
     public void testGetAll() {
-        CreatedProduct createdProductOne = createCreatedProduct();
-        CreatedProduct createdProductSecond = createSecondCreatedProduct();
+        CreatedProduct createdProductOne = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProductSecond = EntityCreator.createSecondCreatedProduct(createdProductDao, orderDao, productDao);
 
         List<CreatedProduct> foundCreatedProducts = createdProductDao.getAll();
 
@@ -112,7 +62,7 @@ public class CreatedProductTest {
 
     @Test
     public void testFindById() {
-        CreatedProduct createdProduct = createCreatedProduct();
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
 
         CreatedProduct foundCreatedProduct = createdProductDao.findById(createdProduct.getId());
 
@@ -139,7 +89,7 @@ public class CreatedProductTest {
 
     @Test
     public void testCreate() {
-        CreatedProduct createdProduct = createCreatedProduct();
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
         CreatedProduct foundCreatedProduct =createdProductDao.findById(createdProduct.getId());
         assertThat(foundCreatedProduct).isEqualToComparingFieldByField(createdProduct);
     }
@@ -152,7 +102,7 @@ public class CreatedProductTest {
 
     @Test
     public void testDelete() {
-        CreatedProduct createdProduct = createCreatedProduct();
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
 
         createdProductDao.delete(createdProduct);
 

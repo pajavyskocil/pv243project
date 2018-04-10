@@ -1,8 +1,8 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
+import cz.fi.muni.TACOS.persistence.dao.utils.EntityCreator;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.entity.Product;
 import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -17,8 +17,6 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,53 +45,10 @@ public class OrderDaoImplTest {
 	private OrderDao orderDao;
 
 	@Inject
-	private AbstractDao<Product> productDao;
+	private ProductDao productDao;
 
 	@Inject
-	private AbstractDao<CreatedProduct> createdProductDao;
-
-	private Order createTestOrder() {
-		Order order = new Order();
-		order.setState(OrderState.NEW);
-		order.setSubmitted(LocalDate.now());
-		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.ONE);
-		orderDao.create(order);
-		return order;
-	}
-
-	private Order createFinishedOrder() {
-		Order order = new Order();
-		order.setState(OrderState.FINISHED);
-		order.setSubmitted(LocalDate.now());
-		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.ONE);
-		orderDao.create(order);
-		return order;
-	}
-
-	private Product createTestProduct() {
-		Product product = new Product();
-		product.setName("product");
-		product.setDescription("productDescription");
-		product.setPrice(BigDecimal.valueOf(10.0));
-		productDao.create(product);
-		return product;
-	}
-
-	private CreatedProduct createCreatedProductWithOrder() {
-		CreatedProduct createdProduct = new CreatedProduct();
-		createdProduct.setProduct(createTestProduct());
-		createdProduct.setPrice(BigDecimal.valueOf(10));
-		createdProduct.setDescription("Description");
-		createdProduct.setCount(10L);
-
-		Order order = createTestOrder();
-		order.addProduct(createdProduct);
-
-		createdProductDao.create(createdProduct);
-		return createdProduct;
-	}
+	private CreatedProductDao createdProductDao;
 
 	@Test
 	public void testCreateWithNull() {
@@ -103,10 +58,9 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testCreate() {
-		Order order = createTestOrder();
+		Order order = EntityCreator.createTestOrder(orderDao);
 		Order foundOrder = orderDao.findById(order.getId());
-		System.out.println(order.toString());
-		System.out.println(foundOrder.toString());
+
 		assertThat(foundOrder).isEqualToComparingFieldByField(order);
 	}
 
@@ -118,7 +72,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testDelete() {
-		Order order = createTestOrder();
+		Order order = EntityCreator.createTestOrder(orderDao);
 		orderDao.delete(order);
 		Order foundOrder = orderDao.findById(order.getId());
 		assertThat(foundOrder).isEqualTo(null);
@@ -138,7 +92,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testFindById() {
-		Order order = createTestOrder();
+		Order order = EntityCreator.createTestOrder(orderDao);
 		Order foundOrder = orderDao.findById(order.getId());
 		assertThat(foundOrder).isEqualToComparingFieldByField(order);
 	}
@@ -151,8 +105,8 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testGetAll() {
-		Order order = createTestOrder();
-		Order finishedOrder = createFinishedOrder();
+		Order order = EntityCreator.createTestOrder(orderDao);
+		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao);
 		List<Order> foundOrders = orderDao.getAll();
 
 		assertThat(foundOrders).containsExactly(order, finishedOrder);
@@ -173,9 +127,9 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testGetAllForState() {
-		createTestOrder();
+		EntityCreator.createTestOrder(orderDao);
 
-		Order finishedOrder = createFinishedOrder();
+		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao);
 		List<Order> foundOrders = orderDao.getAllForState(OrderState.FINISHED);
 
 		assertThat(foundOrders).containsOnly(finishedOrder);
@@ -183,7 +137,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testGetAllForStateNothingFound() {
-		createTestOrder();
+		EntityCreator.createTestOrder(orderDao);
 		List<Order> foundOrders = orderDao.getAllForState(OrderState.FINISHED);
 		assertThat(foundOrders).isEqualTo(new ArrayList<Order>());
 
@@ -191,36 +145,34 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testAddCreatedProduct() {
-		CreatedProduct createdProduct = createCreatedProductWithOrder();
+		CreatedProduct createdProduct = EntityCreator
+				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao);
 		Order foundOrder = orderDao.findById(createdProduct.getOrder().getId());
 		assertThat(foundOrder.getProducts()).containsExactly(createdProduct);
 	}
 
 	@Test
 	public void testAddCreatedProductWithNull() {
-		Order order = createTestOrder();
+		Order order = EntityCreator.createTestOrder(orderDao);
 		assertThatExceptionOfType(Exception.class)
 				.isThrownBy(() -> order.addProduct(null));
 	}
 
 	@Test
 	public void testRemoveCreatedProduct() {
-		CreatedProduct createdProduct = createCreatedProductWithOrder();
-		System.out.println(createdProduct.toString());
+		CreatedProduct createdProduct = EntityCreator
+				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao);
 		Long id = createdProduct.getOrder().getId();
 		Order foundOrder = orderDao.findById(id);
-		System.out.println(foundOrder.getProducts().toString());
-		System.out.println(foundOrder.toString());
 		foundOrder.removeProduct(createdProduct);
 		foundOrder = orderDao.findById(id);
-		System.out.println(foundOrder.getProducts().toString());
-		System.out.println(foundOrder.toString());
+
 		assertThat(foundOrder.getProducts()).doesNotContain(createdProduct);
 	}
 
 	@Test
 	public void testRemoveCreatedProductWithNull() {
-		Order order = createTestOrder();
+		Order order = EntityCreator.createTestOrder(orderDao);
 		assertThatExceptionOfType(Exception.class)
 				.isThrownBy(() -> order.removeProduct(null));
 	}
