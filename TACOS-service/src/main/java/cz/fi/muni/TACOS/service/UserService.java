@@ -7,11 +7,11 @@ import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import java.util.List;
 
 /**
- * Service interface for managing User entities
+ * EntityService interface for managing User entities
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface UserService extends Service<User>{
+public interface UserService extends EntityService<User> {
 
     /**
      * Finds User entity by given email

@@ -7,11 +7,11 @@ import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import java.util.List;
 
 /**
- * Service interface for managing Order entities
+ * EntityService interface for managing Order entities
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface OrderService extends Service<Order> {
+public interface OrderService extends EntityService<Order> {
 
 	/**
 	 * Find all orders in given state
@@ -36,4 +36,32 @@ public interface OrderService extends Service<Order> {
 	 * @param product CreatedProduct
 	 */
 	void removeProduct(Order order, CreatedProduct product);
+
+	/**
+	 * Submits given order.
+	 *
+	 * @param order order
+	 */
+	void submitOrder(Order order);
+
+	/**
+	 * Cancels the given order.
+	 *
+	 * @param order order
+	 */
+	void cancelOrder(Order order);
+
+	/**
+	 * Finishes the given order.
+	 *
+	 * @param order order
+	 */
+	void finishOrder(Order order);
+
+	/**
+	 * Sets given order's state to Processed.
+	 *
+	 * @param order order
+	 */
+	void processOrder(Order order);
 }

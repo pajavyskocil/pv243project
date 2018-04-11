@@ -4,11 +4,11 @@ package cz.fi.muni.TACOS.service;
 import java.util.List;
 
 /**
- * Service interface for managing Entities
+ * EntityService interface for managing Entities
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface Service<T> {
+public interface EntityService<T> {
 
     /**
      * Creates T entity

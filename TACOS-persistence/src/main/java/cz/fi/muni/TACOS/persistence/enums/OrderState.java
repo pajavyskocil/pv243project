@@ -5,6 +5,7 @@ package cz.fi.muni.TACOS.persistence.enums;
  */
 public enum OrderState {
     NEW,
+    SUBMITTED,
     CANCELED,
     FINISHED,
     PROCESSED

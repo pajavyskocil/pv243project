@@ -4,11 +4,11 @@ import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 
 /**
- * Service interface for managing CreatedProduct entities
+ * EntityService interface for managing CreatedProduct entities
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface CreatedProductService extends Service<CreatedProduct> {
+public interface CreatedProductService extends EntityService<CreatedProduct> {
 
 	/**
 	 * Add attribute to CreatedProduct's list of attributes

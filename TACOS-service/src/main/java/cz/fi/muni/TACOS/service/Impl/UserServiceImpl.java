@@ -4,52 +4,35 @@ import cz.fi.muni.TACOS.persistence.dao.UserDao;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.service.AbstractEntityService;
 import cz.fi.muni.TACOS.service.UserService;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import java.util.List;
 
 
 /**
- * Service layer for Order Entity
+ * EntityService layer for Order Entity
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-@ApplicationScoped
-public class UserServiceImpl implements UserService {
+@Stateless
+public class UserServiceImpl extends AbstractEntityService<User> implements UserService {
 
 
     private final UserDao userDao;
 
     @Inject
     public UserServiceImpl(UserDao userDao) {
+        super(userDao);
+
         this.userDao = userDao;
-    }
-
-    @Override
-    public void create(User user) {
-        userDao.create(user);
-    }
-
-    @Override
-    public void delete(User user) {
-        userDao.delete(user);
-    }
-
-    @Override
-    public User findById(Long id) {
-        return userDao.findById(id);
     }
 
     @Override
     public User findByEmail(String email) {
         return userDao.findByEmail(email);
-    }
-
-    @Override
-    public List<User> getAll() {
-        return userDao.getAll();
     }
 
     @Override
