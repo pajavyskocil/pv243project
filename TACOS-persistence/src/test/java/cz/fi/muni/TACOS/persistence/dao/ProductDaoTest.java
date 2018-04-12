@@ -44,6 +44,9 @@ public class ProductDaoTest {
 	private ProductDao productDao;
 
 	@Inject
+	private UserDao userDao;
+
+	@Inject
 	private TemplateDao templateDao;
 
 	@Inject
@@ -156,7 +159,7 @@ public class ProductDaoTest {
 	public void testAddCreatedProduct() {
 		Product product = EntityCreator.createTestProduct(productDao);
 		CreatedProduct createdProduct = EntityCreator
-				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao);
+				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao, userDao);
 
 		product.addCreatedProduct(createdProduct);
 		Product foundProduct = productDao.findById(product.getId());
@@ -178,7 +181,7 @@ public class ProductDaoTest {
 	public void testRemoveCreatedProduct() {
 		Product product = EntityCreator.createTestProduct(productDao);
 		CreatedProduct createdProduct = EntityCreator
-				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao);
+				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao, userDao);
 
 		product.addCreatedProduct(createdProduct);
 		Product foundProduct = productDao.findById(product.getId());

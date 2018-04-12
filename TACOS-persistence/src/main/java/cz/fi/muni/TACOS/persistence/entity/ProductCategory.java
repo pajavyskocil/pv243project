@@ -24,7 +24,8 @@ import java.util.Set;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  */
 @Entity
-public class ProductCategory  implements Serializable {
+public class ProductCategory implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

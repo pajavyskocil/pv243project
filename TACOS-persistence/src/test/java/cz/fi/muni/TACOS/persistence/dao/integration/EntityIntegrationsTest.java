@@ -76,22 +76,22 @@ public class EntityIntegrationsTest {
 
     @Test
     public void testUserOrderRelations() {
-        User user = EntityCreator.createTestUser(userDao);
-        Order order = EntityCreator.createTestOrder(orderDao);
+        User user = EntityCreator.createTestUser(userDao, "OrdeRelations");
+        Order order = EntityCreator.createTestOrder(orderDao, userDao);
 
         user.addSubmittedOrder(order);
 
         User foundUser = userDao.findById(user.getId());
         Order foundOrder = orderDao.findById(order.getId());
 
-        assertThat(foundUser.getSubmittedOrders()).contains(foundOrder);
+        assertThat(foundUser.getOrders()).contains(foundOrder);
         assertThat(foundOrder.getSubmitter()).isEqualTo(foundUser);
     }
 
     @Test
     public void testOrderCreatedProductRelations() {
-        Order order = EntityCreator.createTestOrder(orderDao);
-        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        Order order = EntityCreator.createTestOrder(orderDao, userDao);
+        CreatedProduct createdProduct = EntityCreator.createSecondCreatedProduct(createdProductDao, orderDao, productDao, userDao);
 
         order.addProduct(createdProduct);
 
@@ -105,7 +105,7 @@ public class EntityIntegrationsTest {
     @Test
     public void testProductCreatedProductRelations() {
         Product product = EntityCreator.createProduct(productDao);
-        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao, userDao);
 
         product.addCreatedProduct(createdProduct);
 
@@ -118,7 +118,7 @@ public class EntityIntegrationsTest {
 
     @Test
     public void testAttributeCreatedProductRelations() {
-        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao, userDao);
         Attribute attribute = EntityCreator.createTestProductAttribute(attributeDao, attributeCategoryDao);
 
         createdProduct.addAttribute(attribute);

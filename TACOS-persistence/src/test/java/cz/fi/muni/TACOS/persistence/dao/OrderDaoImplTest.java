@@ -48,6 +48,9 @@ public class OrderDaoImplTest {
 	private ProductDao productDao;
 
 	@Inject
+	private UserDao userDao;
+
+	@Inject
 	private CreatedProductDao createdProductDao;
 
 	@Test
@@ -58,7 +61,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testCreate() {
-		Order order = EntityCreator.createTestOrder(orderDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
 		Order foundOrder = orderDao.findById(order.getId());
 
 		assertThat(foundOrder).isEqualToComparingFieldByField(order);
@@ -72,7 +75,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testDelete() {
-		Order order = EntityCreator.createTestOrder(orderDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
 		orderDao.delete(order);
 		Order foundOrder = orderDao.findById(order.getId());
 		assertThat(foundOrder).isEqualTo(null);
@@ -92,7 +95,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testFindById() {
-		Order order = EntityCreator.createTestOrder(orderDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
 		Order foundOrder = orderDao.findById(order.getId());
 		assertThat(foundOrder).isEqualToComparingFieldByField(order);
 	}
@@ -105,8 +108,8 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testGetAll() {
-		Order order = EntityCreator.createTestOrder(orderDao);
-		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
+		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao, userDao);
 		List<Order> foundOrders = orderDao.getAll();
 
 		assertThat(foundOrders).containsExactly(order, finishedOrder);
@@ -127,9 +130,9 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testGetAllForState() {
-		EntityCreator.createTestOrder(orderDao);
+		EntityCreator.createTestOrder(orderDao, userDao);
 
-		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao);
+		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao, userDao);
 		List<Order> foundOrders = orderDao.getAllForState(OrderState.FINISHED);
 
 		assertThat(foundOrders).containsOnly(finishedOrder);
@@ -137,7 +140,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testGetAllForStateNothingFound() {
-		EntityCreator.createTestOrder(orderDao);
+		EntityCreator.createTestOrder(orderDao, userDao);
 		List<Order> foundOrders = orderDao.getAllForState(OrderState.FINISHED);
 		assertThat(foundOrders).isEqualTo(new ArrayList<Order>());
 
@@ -146,14 +149,14 @@ public class OrderDaoImplTest {
 	@Test
 	public void testAddCreatedProduct() {
 		CreatedProduct createdProduct = EntityCreator
-				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao);
+				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao, userDao);
 		Order foundOrder = orderDao.findById(createdProduct.getOrder().getId());
 		assertThat(foundOrder.getProducts()).containsExactly(createdProduct);
 	}
 
 	@Test
 	public void testAddCreatedProductWithNull() {
-		Order order = EntityCreator.createTestOrder(orderDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
 		assertThatExceptionOfType(Exception.class)
 				.isThrownBy(() -> order.addProduct(null));
 	}
@@ -161,7 +164,7 @@ public class OrderDaoImplTest {
 	@Test
 	public void testRemoveCreatedProduct() {
 		CreatedProduct createdProduct = EntityCreator
-				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao);
+				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao, userDao);
 		Long id = createdProduct.getOrder().getId();
 		Order foundOrder = orderDao.findById(id);
 		foundOrder.removeProduct(createdProduct);
@@ -172,7 +175,7 @@ public class OrderDaoImplTest {
 
 	@Test
 	public void testRemoveCreatedProductWithNull() {
-		Order order = EntityCreator.createTestOrder(orderDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
 		assertThatExceptionOfType(Exception.class)
 				.isThrownBy(() -> order.removeProduct(null));
 	}
