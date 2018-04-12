@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.mockito.InjectMocks;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -87,7 +88,7 @@ public class UserServiceImplTest {
 
 	@Test
 	public void testGetAllForRole() {
-		when(userDao.getAllForRole(user.getRole())).thenReturn(Arrays.asList(user));
+		when(userDao.getAllForRole(user.getRole())).thenReturn(Collections.singletonList(user));
 
 		List<User> allSubmitters = userService.getAllForRole(user.getRole());
 		assertThat(allSubmitters).containsOnly(user);
@@ -100,7 +101,7 @@ public class UserServiceImplTest {
 
 		userService.addOrderAsSubmittedOrder(user, order);
 
-		assertThat(user.getSubmittedOrders()).containsOnly(order, secondOrder);
+		assertThat(user.getOrders()).containsOnly(order, secondOrder);
 	}
 
 	@Test
@@ -110,7 +111,7 @@ public class UserServiceImplTest {
 
 		userService.removeOrderFromSubmittedOrders(user, secondOrder);
 
-		assertThat(user.getSubmittedOrders()).isEmpty();
+		assertThat(user.getOrders()).isEmpty();
 
 	}
 

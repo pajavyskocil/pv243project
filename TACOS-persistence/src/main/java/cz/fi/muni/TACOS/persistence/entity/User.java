@@ -57,7 +57,7 @@ public class User implements Serializable {
     @NotNull
     @Column(nullable = false)
     @OneToMany(mappedBy = "submitter", fetch = FetchType.EAGER)
-    private Set<Order> submittedOrders = new HashSet<>();
+    private Set<Order> orders = new HashSet<>();
 
     public User() {
     }
@@ -113,17 +113,17 @@ public class User implements Serializable {
         this.role = role;
     }
 
-    public Set<Order> getSubmittedOrders() {
-        return Collections.unmodifiableSet(submittedOrders);
+    public Set<Order> getOrders() {
+        return Collections.unmodifiableSet(orders);
     }
 
     public void addSubmittedOrder(Order order) {
-        this.submittedOrders.add(order);
+        this.orders.add(order);
         order.setSubmitterFromOneSide(this);
     }
 
     public void removeSubmittedOrder(Order order) {
-        this.submittedOrders.remove(order);
+        this.orders.remove(order);
         order.setSubmitterFromOneSide(null);
     }
 
@@ -137,13 +137,13 @@ public class User implements Serializable {
                 getSurname().equals(user.getSurname()) &&
                 getEmail().equals(user.getEmail()) &&
                 getRole().equals(user.getRole()) &&
-                getSubmittedOrders().equals(user.getSubmittedOrders());
+                getOrders().equals(user.getOrders());
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getSurname(), getEmail(), getRole(), getSubmittedOrders());
+        return Objects.hash(getName(), getSurname(), getEmail(), getRole(), getOrders());
     }
 
     @Override

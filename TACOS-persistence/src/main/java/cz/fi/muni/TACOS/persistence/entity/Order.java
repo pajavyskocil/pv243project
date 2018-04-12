@@ -37,10 +37,9 @@ public class Order implements Serializable {
     @Column(nullable = false)
     private OrderState state;
 
-    @NotNull
-    @Column(nullable = false)
     private LocalDate submitted;
 
+    @NotNull
     @ManyToOne
     private User submitter;
 

@@ -2,9 +2,6 @@ package cz.fi.muni.TACOS.persistence.dao;
 
 import cz.fi.muni.TACOS.persistence.dao.utils.EntityCreator;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
-import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.entity.Product;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -17,8 +14,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,12 +43,15 @@ public class CreatedProductTest {
     private ProductDao productDao;
 
     @Inject
+    private UserDao userDao;
+
+    @Inject
     private OrderDao orderDao;
 
     @Test
     public void testGetAll() {
-        CreatedProduct createdProductOne = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
-        CreatedProduct createdProductSecond = EntityCreator.createSecondCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProductOne = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao, userDao);
+        CreatedProduct createdProductSecond = EntityCreator.createSecondCreatedProduct(createdProductDao, orderDao, productDao, userDao);
 
         List<CreatedProduct> foundCreatedProducts = createdProductDao.getAll();
 
@@ -62,7 +60,7 @@ public class CreatedProductTest {
 
     @Test
     public void testFindById() {
-        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao, userDao);
 
         CreatedProduct foundCreatedProduct = createdProductDao.findById(createdProduct.getId());
 
@@ -89,7 +87,7 @@ public class CreatedProductTest {
 
     @Test
     public void testCreate() {
-        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao, userDao);
         CreatedProduct foundCreatedProduct =createdProductDao.findById(createdProduct.getId());
         assertThat(foundCreatedProduct).isEqualToComparingFieldByField(createdProduct);
     }
@@ -102,7 +100,7 @@ public class CreatedProductTest {
 
     @Test
     public void testDelete() {
-        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao);
+        CreatedProduct createdProduct = EntityCreator.createCreatedProduct(createdProductDao, orderDao, productDao, userDao);
 
         createdProductDao.delete(createdProduct);
 

@@ -3,7 +3,6 @@ package cz.fi.muni.TACOS.persistence.dao;
 import cz.fi.muni.TACOS.persistence.dao.utils.EntityCreator;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -18,8 +17,6 @@ import org.junit.runner.RunWith;
 
 import javax.inject.Inject;
 
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,7 +56,7 @@ public class UserDaoTest {
 
 	@Test
 	public void testCreate() {
-		User user = EntityCreator.createTestUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 		User foundUser = userDao.findById(user.getId());
 		assertThat(foundUser).isEqualToComparingFieldByField(user);
 	}
@@ -72,7 +69,7 @@ public class UserDaoTest {
 
 	@Test
 	public void testDelete() {
-		User user = EntityCreator.createTestUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 
 		userDao.delete(user);
 
@@ -88,7 +85,7 @@ public class UserDaoTest {
 
 	@Test
 	public void testFindById() {
-		User user = EntityCreator.createTestUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 
 		User foundUser = userDao.findById(user.getId());
 
@@ -121,7 +118,7 @@ public class UserDaoTest {
 
 	@Test
 	public void testFindByEmail() {
-		User user = EntityCreator.createTestUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 
 		User foundUser = userDao.findByEmail(user.getEmail());
 
@@ -136,8 +133,8 @@ public class UserDaoTest {
 
 	@Test
 	public void testGetAll() {
-		User user = EntityCreator.createTestUser(userDao);
-		User secondUser = EntityCreator.createTestSecondUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
+		User secondUser = EntityCreator.createTestUser(userDao, "B");
 
 		List<User> foundUsers = userDao.getAll();
 
@@ -158,8 +155,8 @@ public class UserDaoTest {
 
 	@Test
 	public void testGetAllForRole() {
-		EntityCreator.createTestUser(userDao);
-		User secondUser = EntityCreator.createTestSecondUser(userDao);
+		EntityCreator.createTestUser(userDao, "A");
+		User secondUser = EntityCreator.createTestUser(userDao, "B", UserRole.SUPERADMIN);
 		List<User> foundUsers = userDao.getAllForRole(UserRole.SUPERADMIN);
 
 		assertThat(foundUsers).containsOnly(secondUser);
@@ -167,7 +164,7 @@ public class UserDaoTest {
 
 	@Test
 	public void testGetAllForRoleNothingFound(){
-		EntityCreator.createTestUser(userDao);
+		EntityCreator.createTestUser(userDao, "A");
 		List<User> foundUsers = userDao.getAllForRole(UserRole.SUPERADMIN);
 
 		assertThat(foundUsers).isEqualTo(new ArrayList<User>());
@@ -175,37 +172,37 @@ public class UserDaoTest {
 
 	@Test
 	public void testAddSubmittedOrder(){
-		Order order = EntityCreator.createTestOrder(orderDao);
-		User user = EntityCreator.createTestUser(userDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 		user.addSubmittedOrder(order);
 		User foundUser = userDao.findById(user.getId());
 
-		assertThat(foundUser.getSubmittedOrders()).containsExactly(order);
+		assertThat(foundUser.getOrders()).containsExactly(order);
 	}
 
 	@Test
 	public void testAddSubmittedOrderWithNull(){
-		User user = EntityCreator.createTestUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 		assertThatExceptionOfType(Exception.class)
 				.isThrownBy(() -> user.addSubmittedOrder(null));
 	}
 
 	@Test
 	public void testRemoveSubmittedOrder(){
-		Order order = EntityCreator.createTestOrder(orderDao);
-		User user = EntityCreator.createTestUser(userDao);
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 		user.addSubmittedOrder(order);
 
 		User foundUser = userDao.findById(user.getId());
 		foundUser.removeSubmittedOrder(order);
 		foundUser = userDao.findById(user.getId());
 
-		assertThat(foundUser.getSubmittedOrders()).doesNotContain(order);
+		assertThat(foundUser.getOrders()).doesNotContain(order);
 	}
 
 	@Test
 	public void testRemoveSubmittedOrderWithNull(){
-		User user = EntityCreator.createTestUser(userDao);
+		User user = EntityCreator.createTestUser(userDao, "A");
 		assertThatExceptionOfType(Exception.class)
 				.isThrownBy(() -> user.removeSubmittedOrder(null));
 	}

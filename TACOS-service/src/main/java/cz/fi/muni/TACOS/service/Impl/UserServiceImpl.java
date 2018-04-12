@@ -42,7 +42,7 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
 
     @Override
     public void addOrderAsSubmittedOrder(User user, Order order) {
-        if (user.getSubmittedOrders().contains(order)) {
+        if (user.getOrders().contains(order)) {
             throw new IllegalArgumentException("Order is already in submittedOrders for user");
         }
         user.addSubmittedOrder(order);
@@ -50,7 +50,7 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
 
     @Override
     public void removeOrderFromSubmittedOrders(User user, Order order) {
-        if (!user.getSubmittedOrders().contains(order)) {
+        if (!user.getOrders().contains(order)) {
             throw new IllegalArgumentException("Order is not in submittedOrders for user");
         }
         user.removeSubmittedOrder(order);

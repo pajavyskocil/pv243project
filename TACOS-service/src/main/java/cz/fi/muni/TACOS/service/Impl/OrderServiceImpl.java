@@ -9,6 +9,7 @@ import cz.fi.muni.TACOS.service.OrderService;
 
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -61,6 +62,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 			throw new IllegalArgumentException("Product is not in New state: " + order.getState());
 		}
 
+		order.setSubmitted(LocalDate.now());
 		order.setState(OrderState.SUBMITTED);
 	}
 

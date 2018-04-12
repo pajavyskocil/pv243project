@@ -28,12 +28,16 @@ import java.time.LocalDate;
  */
 public final class EntityCreator {
 
-    public static User createTestUser(UserDao userDao) {
+    public static User createTestUser(UserDao userDao, String randomPrefix) {
+        return createTestUser(userDao, randomPrefix, UserRole.SUBMITTER);
+    }
+
+    public static User createTestUser(UserDao userDao, String randomPrefix, UserRole userRole) {
         User user = new User();
-        user.setName("Regular");
-        user.setSurname("User");
-        user.setEmail("somerandomregularuser@worldofjava.com");
-        user.setRole(UserRole.SUBMITTER);
+        user.setName(randomPrefix + "Regular");
+        user.setSurname(randomPrefix + "User");
+        user.setEmail(randomPrefix + "somerandomregularuser@worldofjava.com");
+        user.setRole(userRole);
         userDao.create(user);
         return user;
     }
@@ -50,23 +54,15 @@ public final class EntityCreator {
         return attribute;
     }
 
-    public static User createTestSecondUser(UserDao userDao) {
-        User user = new User();
-        user.setName("Second");
-        user.setSurname("Regularuser");
-        user.setEmail("secondrandomuserwithemail@worldofjava.com");
-        user.setRole(UserRole.SUPERADMIN);
-        userDao.create(user);
-        return user;
-    }
+    public static Order createTestOrder(OrderDao orderDao, UserDao userDao) {
+        User user = createTestUser(userDao, "TestOrder");
 
-
-    public static Order createTestOrder(OrderDao orderDao) {
         Order order = new Order();
         order.setState(OrderState.NEW);
         order.setSubmitted(LocalDate.now());
         order.setFinished(LocalDate.now());
         order.setPrice(BigDecimal.ONE);
+        user.addSubmittedOrder(order);
         orderDao.create(order);
         return order;
     }
@@ -90,14 +86,14 @@ public final class EntityCreator {
     }
 
     public static CreatedProduct createCreatedProductWithOrder(ProductDao productDao, OrderDao orderDao,
-                                                               CreatedProductDao createdProductDao) {
+                                                               CreatedProductDao createdProductDao, UserDao userDao) {
         CreatedProduct createdProduct = new CreatedProduct();
         createdProduct.setProductFromOneSide(createTestProduct(productDao));
         createdProduct.setPrice(BigDecimal.valueOf(10));
         createdProduct.setDescription("Description");
         createdProduct.setCount(10L);
 
-        Order order = createTestOrder(orderDao);
+        Order order = createTestOrder(orderDao, userDao);
         order.addProduct(createdProduct);
 
         createdProductDao.create(createdProduct);
@@ -136,11 +132,11 @@ public final class EntityCreator {
     }
 
     public static CreatedProduct createCreatedProduct(CreatedProductDao createdProductDao, OrderDao orderDao,
-                                                      ProductDao productDao) {
+                                                      ProductDao productDao, UserDao userDao) {
         CreatedProduct createdProduct = new CreatedProduct();
         createdProduct.setCount(1L);
-        createdProduct.setOrderFromOneSide(createTestOrder(orderDao));
-        createdProduct.setProductFromOneSide(createProduct(productDao));
+        createTestOrder(orderDao, userDao).addProduct(createdProduct);
+        createProduct(productDao).addCreatedProduct(createdProduct);
         createdProduct.setDescription("desc");
         createdProduct.setPrice(BigDecimal.valueOf(20));
         createdProductDao.create(createdProduct);
@@ -148,10 +144,10 @@ public final class EntityCreator {
     }
 
     public static CreatedProduct createSecondCreatedProduct(CreatedProductDao createdProductDao, OrderDao orderDao,
-                                                            ProductDao productDao) {
+                                                            ProductDao productDao, UserDao userDao) {
         CreatedProduct createdProduct = new CreatedProduct();
         createdProduct.setCount(2L);
-        createdProduct.setOrderFromOneSide(createSecondOrder(orderDao));
+        createdProduct.setOrderFromOneSide(createSecondOrder(orderDao, userDao));
         createdProduct.setProductFromOneSide(createProduct(productDao));
         createdProduct.setDescription("desc");
         createdProduct.setPrice(BigDecimal.valueOf(10));
@@ -159,22 +155,26 @@ public final class EntityCreator {
         return createdProduct;
     }
 
-    public static Order createSecondOrder(OrderDao orderDao) {
+    public static Order createSecondOrder(OrderDao orderDao, UserDao userDao) {
+        User user = createTestUser(userDao, "SecondOrder");
         Order order = new Order();
         order.setState(OrderState.PROCESSED);
         order.setSubmitted(LocalDate.now());
         order.setFinished(LocalDate.now());
         order.setPrice(BigDecimal.valueOf(10));
+        user.addSubmittedOrder(order);
         orderDao.create(order);
         return order;
     }
 
-    public static Order createFinishedOrder(OrderDao orderDao) {
+    public static Order createFinishedOrder(OrderDao orderDao, UserDao userDao) {
+        User user = createTestUser(userDao, "FinishedOrder");
         Order order = new Order();
         order.setState(OrderState.FINISHED);
         order.setSubmitted(LocalDate.now());
         order.setFinished(LocalDate.now());
         order.setPrice(BigDecimal.ONE);
+        user.addSubmittedOrder(order);
         orderDao.create(order);
         return order;
     }
