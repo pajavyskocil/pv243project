@@ -47,17 +47,17 @@ public final class EntityCreator {
 	public static Order createTestOrder() {
 		Order order = new Order();
 		order.setId(1L);
-		order.setState(OrderState.PROCESSED);
+		order.setState(OrderState.NEW);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.ONE);
+		order.setPrice(BigDecimal.ZERO);
 		return order;
 	}
 
 	public static Order createSecondOrder() {
 		Order order = new Order();
 		order.setId(2L);
-		order.setState(OrderState.PROCESSED);
+		order.setState(OrderState.NEW);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
 		order.setPrice(BigDecimal.valueOf(10));

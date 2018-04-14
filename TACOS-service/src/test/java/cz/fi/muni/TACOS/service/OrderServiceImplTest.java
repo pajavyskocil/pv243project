@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.mockito.InjectMocks;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
@@ -107,4 +108,16 @@ public class OrderServiceImplTest {
 		assertThat(order.getProducts()).isEmpty();
 	}
 
+	@Test
+	public void testUpdatePrice() {
+		when(orderDao.findById(order.getId())).thenReturn(order);
+		when(createdProductDao.findById(secondProduct.getId())).thenReturn(secondProduct);
+
+		orderService.addProduct(order, secondProduct);
+
+		BigDecimal newValue = (product.getPrice().multiply(BigDecimal.valueOf(product.getCount())))
+				.add(secondProduct.getPrice().multiply(BigDecimal.valueOf(secondProduct.getCount())));
+
+		assertThat(order.getPrice()).isEqualTo(newValue);
+	}
 }
