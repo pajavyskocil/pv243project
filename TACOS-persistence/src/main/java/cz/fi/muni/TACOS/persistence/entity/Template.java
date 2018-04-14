@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -30,6 +32,9 @@ public class Template implements Serializable {
     @Column(nullable = false)
     private String name;
 
+    @DecimalMin("0.00")
+    private BigDecimal minimalPrice;
+
     @ManyToMany
     private Set<AttributeCategory> attributeCategories = new HashSet<>();
 
@@ -38,6 +43,14 @@ public class Template implements Serializable {
 
     public Template() {
 
+    }
+
+    public BigDecimal getMinimalPrice() {
+        return minimalPrice;
+    }
+
+    public void setMinimalPrice(BigDecimal minimalPrice) {
+        this.minimalPrice = minimalPrice;
     }
 
     public Long getId() {
@@ -86,21 +99,21 @@ public class Template implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Template)) return false;
-        Template that = (Template) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getAttributeCategories(), that.getAttributeCategories());
+        Template template = (Template) o;
+        return Objects.equals(getName(), template.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getAttributeCategories());
+
+        return Objects.hash(getName());
     }
 
     @Override
     public String toString() {
         return "Template{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
+                ", minimalPrice=" + minimalPrice +
                 ", attributeCategories=" + attributeCategories +
                 '}';
     }

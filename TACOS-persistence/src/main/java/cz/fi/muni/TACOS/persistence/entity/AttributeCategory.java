@@ -8,8 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
@@ -29,6 +31,9 @@ public class AttributeCategory implements Serializable {
     @Column(nullable = false)
     private String name;
 
+    @DecimalMin("0.00")
+    private BigDecimal minimalPrice;
+
     @ManyToMany
     private Set<Attribute> attributes = new HashSet<>();
 
@@ -37,6 +42,14 @@ public class AttributeCategory implements Serializable {
 
     public AttributeCategory() {
 
+    }
+
+    public BigDecimal getMinimalPrice() {
+        return minimalPrice;
+    }
+
+    public void setMinimalPrice(BigDecimal minimalPrice) {
+        this.minimalPrice = minimalPrice;
     }
 
     public Long getId() {
@@ -86,13 +99,13 @@ public class AttributeCategory implements Serializable {
         if (this == o) return true;
         if (!(o instanceof AttributeCategory)) return false;
         AttributeCategory that = (AttributeCategory) o;
-        return Objects.equals(getName(), that.getName()) &&
-                Objects.equals(getAttributes(), that.getAttributes());
+        return Objects.equals(getName(), that.getName());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getAttributes());
+
+        return Objects.hash(getName());
     }
 
     @Override
@@ -100,6 +113,7 @@ public class AttributeCategory implements Serializable {
         return "AttributeCategory{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", minimalPrice=" + minimalPrice +
                 ", attributes=" + attributes +
                 '}';
     }
