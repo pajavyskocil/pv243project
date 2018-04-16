@@ -1,5 +1,13 @@
-package cz.fi.muni.TACOS.service.utils;
+package cz.fi.muni.TACOS.facade.utils;
 
+import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
+import cz.fi.muni.TACOS.dto.CreatedProductDTO;
+import cz.fi.muni.TACOS.dto.OrderCreateDTO;
+import cz.fi.muni.TACOS.dto.OrderDTO;
+import cz.fi.muni.TACOS.dto.TemplateDTO;
+import cz.fi.muni.TACOS.dto.UserCreateDTO;
+import cz.fi.muni.TACOS.dto.UserDTO;
+import cz.fi.muni.TACOS.dto.UserUpdateDTO;
 import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
@@ -16,10 +24,9 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 /**
- * Class for creating test entities
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public final class EntityCreator {
+public class EntityCreator {
 
 	//Users
 	public static User createTestUser() {
@@ -42,6 +49,47 @@ public final class EntityCreator {
 		return user;
 	}
 
+	//UserDTOs
+	public static UserDTO createTestUserDTO() {
+		UserDTO user = new UserDTO();
+		user.setId(1L);
+		user.setName("Regular");
+		user.setSurname("User");
+		user.setEmail("somerandomregularuser@worldofjava.com");
+		user.setRole(UserRole.SUBMITTER);
+		return user;
+	}
+
+	public static UserDTO createTestSecondUserDTO() {
+		UserDTO user = new UserDTO();
+		user.setId(2L);
+		user.setName("Second");
+		user.setSurname("Regularuser");
+		user.setEmail("secondrandomuserwithemail@worldofjava.com");
+		user.setRole(UserRole.SUPERADMIN);
+		return user;
+	}
+
+	//UserCreateDTO
+	public static UserCreateDTO createTestUserCreateDTO() {
+		UserCreateDTO user = new UserCreateDTO();
+		user.setName("Regular");
+		user.setSurname("User");
+		user.setEmail("somerandomregularuser@worldofjava.com");
+		user.setRole(UserRole.SUBMITTER);
+		return user;
+	}
+
+	//UserUpdateDTO
+	public static UserUpdateDTO createTestUserUpdateDTO() {
+		UserUpdateDTO user = new UserUpdateDTO();
+		user.setId(1L);
+		user.setName("NewName");
+		user.setSurname("User");
+		user.setEmail("somerandomregularuser@worldofjava.com");
+		user.setRole(UserRole.SUBMITTER);
+		return user;
+	}
 
 	//Orders
 	public static Order createTestOrder() {
@@ -50,22 +98,43 @@ public final class EntityCreator {
 		order.setState(OrderState.NEW);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.ZERO);
+		order.setPrice(BigDecimal.ONE);
 		return order;
 	}
 
-	public static Order createSecondOrder() {
+	public static Order createTestSecondOrder() {
 		Order order = new Order();
 		order.setId(2L);
-		order.setState(OrderState.NEW);
+		order.setState(OrderState.PROCESSED);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
 		order.setPrice(BigDecimal.valueOf(10));
 		return order;
 	}
 
+	//OrderDTOs
+	public static OrderDTO createTestOrderDTO() {
+		OrderDTO order = new OrderDTO();
+		order.setId(1L);
+		order.setState(OrderState.NEW);
+		order.setSubmitted(LocalDate.now());
+		order.setFinished(LocalDate.now());
+		order.setPrice(BigDecimal.ONE);
+		return order;
+	}
+
+	//OrderCreateDTOs
+	public static OrderCreateDTO createTestOrderCreateDTO() {
+		OrderCreateDTO order = new OrderCreateDTO();
+		order.setState(OrderState.NEW);
+		order.setSubmitted(LocalDate.now());
+		order.setFinished(LocalDate.now());
+		order.setPrice(BigDecimal.ONE);
+		return order;
+	}
+
 	//CreatedProduct
-	public static CreatedProduct createCreatedProduct() {
+	public static CreatedProduct createTestCreatedProduct() {
 		CreatedProduct createdProduct = new CreatedProduct();
 		createdProduct.setId(1L);
 		createdProduct.setCount(1L);
@@ -74,9 +143,45 @@ public final class EntityCreator {
 		return createdProduct;
 	}
 
-	public static CreatedProduct createSecondCreatedProduct() {
+	public static CreatedProduct createTestSecondCreatedProduct() {
 		CreatedProduct createdProduct = new CreatedProduct();
 		createdProduct.setId(2L);
+		createdProduct.setCount(2L);
+		createdProduct.setDescription("desc");
+		createdProduct.setPrice(BigDecimal.valueOf(10));
+		return createdProduct;
+	}
+
+	//CreatedProductDTO
+	public static CreatedProductDTO createTestCreatedProductDTO() {
+		CreatedProductDTO createdProduct = new CreatedProductDTO();
+		createdProduct.setId(1L);
+		createdProduct.setCount(1L);
+		createdProduct.setDescription("desc");
+		createdProduct.setPrice(BigDecimal.valueOf(20));
+		return createdProduct;
+	}
+
+	public static CreatedProductDTO createTestSecondCreatedProductDTO() {
+		CreatedProductDTO createdProduct = new CreatedProductDTO();
+		createdProduct.setId(2L);
+		createdProduct.setCount(2L);
+		createdProduct.setDescription("desc");
+		createdProduct.setPrice(BigDecimal.valueOf(10));
+		return createdProduct;
+	}
+
+	//CreatedProductCreateDTO
+	public static CreatedProductCreateDTO createTestCreatedProductCreateDTO() {
+		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
+		createdProduct.setCount(1L);
+		createdProduct.setDescription("desc");
+		createdProduct.setPrice(BigDecimal.valueOf(20));
+		return createdProduct;
+	}
+
+	public static CreatedProductCreateDTO createTestSecondCreatedProductCreateDTO() {
+		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
 		createdProduct.setCount(2L);
 		createdProduct.setDescription("desc");
 		createdProduct.setPrice(BigDecimal.valueOf(10));
@@ -90,6 +195,17 @@ public final class EntityCreator {
 		template.setName("template");
 		return template;
 	}
+
+	//TemplateDTO
+	public static TemplateDTO createTestTemplateDTO() {
+		TemplateDTO template = new TemplateDTO();
+		template.setId(1L);
+		template.setName("template");
+		return template;
+	}
+	//TemplateCreateDTO
+
+
 
 	//ProductCategories
 	public static ProductCategory createProductCategory() {

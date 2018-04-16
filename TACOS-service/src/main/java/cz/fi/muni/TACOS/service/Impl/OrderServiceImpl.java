@@ -9,6 +9,7 @@ import cz.fi.muni.TACOS.service.OrderService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -43,6 +44,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 			throw new IllegalArgumentException("Product is already in products for order");
 		}
 		order.addProduct(product);
+		updatePrice(order);
 	}
 
 	@Override
@@ -54,6 +56,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 			throw new IllegalArgumentException("Product is not in products for order");
 		}
 		order.removeProduct(product);
+		updatePrice(order);
 	}
 
 	@Override
@@ -93,5 +96,17 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 		}
 
 		order.setState(OrderState.PROCESSED);
+	}
+
+	/**
+	 * Update order price after add/remove products
+	 */
+	private void updatePrice(Order order) {
+		BigDecimal price = BigDecimal.ZERO;
+		for (CreatedProduct product : order.getProducts()) {
+			price = price.add(product.getPrice().multiply(BigDecimal.valueOf(product.getCount())));
+		}
+
+		order.setPrice(price);
 	}
 }
