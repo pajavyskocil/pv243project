@@ -17,6 +17,8 @@ public class UserCreateDTO {
 
 	private UserRole role;
 
+	private String password;
+
 	private Set<OrderDTO> orders = new HashSet<>();
 
 	public String getName() {
@@ -57,6 +59,14 @@ public class UserCreateDTO {
 
 	public void setOrders(Set<OrderDTO> orders) {
 		this.orders = orders;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

@@ -1,8 +1,10 @@
 package cz.fi.muni.TACOS.facade;
 
+import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
 import cz.fi.muni.TACOS.dto.UserUpdateDTO;
+import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 
 import java.util.List;
@@ -49,4 +51,11 @@ public interface UserFacade extends Facade<UserDTO, UserCreateDTO> {
      */
     void removeOrder(Long userId, Long orderId);
 
+    /**
+     * Try to authenticate a user.
+     *
+     * @param user which will be authenticated
+     * @return true only if the hashed password matches the records, false otherwise
+     */
+    boolean authenticate(UserAuthenticateDTO user);
 }

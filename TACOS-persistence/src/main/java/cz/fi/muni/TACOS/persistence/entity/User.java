@@ -56,19 +56,24 @@ public class User implements Serializable {
 
     @NotNull
     @Column(nullable = false)
+    private String passwordHash;
+
+    @NotNull
+    @Column(nullable = false)
     @OneToMany(mappedBy = "submitter", fetch = FetchType.EAGER)
     private Set<Order> orders = new HashSet<>();
 
     public User() {
     }
 
-    public User(String name, String surname, String email, UserRole role) {
+    public User(String name, String surname, String email, UserRole role, String passwordHash) {
         checkString(name, "Name");
         checkString(surname, "Surname");
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.role = role;
+        this.passwordHash = passwordHash;
     }
 
     public Long getId() {
@@ -125,6 +130,15 @@ public class User implements Serializable {
     public void removeSubmittedOrder(Order order) {
         this.orders.remove(order);
         order.setSubmitterFromOneSide(null);
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        checkString(passwordHash, "passwordHash");
+        this.passwordHash = passwordHash;
     }
 
     @Override

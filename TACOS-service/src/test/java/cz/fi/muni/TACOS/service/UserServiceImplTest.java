@@ -50,8 +50,8 @@ public class UserServiceImplTest {
 	}
 
 	@Test
-	public void testCreate() {
-		userService.create(user);
+	public void testCreateUser() {
+		userService.createUser(user);
 
 		verify(userDao, times(1)).create(user);
 	}

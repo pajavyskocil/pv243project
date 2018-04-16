@@ -27,6 +27,7 @@ public final class EntityCreator {
 		user.setId(1L);
 		user.setName("Regular");
 		user.setSurname("User");
+		user.setPasswordHash("passwordHash");
 		user.setEmail("somerandomregularuser@worldofjava.com");
 		user.setRole(UserRole.SUBMITTER);
 		return user;
@@ -35,6 +36,7 @@ public final class EntityCreator {
 	public static User createTestSecondUser() {
 		User user = new User();
 		user.setId(2L);
+		user.setPasswordHash("passwordHash");
 		user.setName("Second");
 		user.setSurname("Regularuser");
 		user.setEmail("secondrandomuserwithemail@worldofjava.com");

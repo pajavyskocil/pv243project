@@ -37,6 +37,7 @@ public final class EntityCreator {
         user.setName(randomPrefix + "Regular");
         user.setSurname(randomPrefix + "User");
         user.setEmail(randomPrefix + "somerandomregularuser@worldofjava.com");
+        user.setPasswordHash(randomPrefix + "passwordHash");
         user.setRole(userRole);
         userDao.create(user);
         return user;
