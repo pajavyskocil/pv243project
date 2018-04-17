@@ -1,15 +1,14 @@
 package cz.fi.muni.TACOS.facadeImpl;
 
+import cz.fi.muni.TACOS.dto.AttributeCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeCategoryDTO;
-import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
 import cz.fi.muni.TACOS.facade.AttributeCategoryFacade;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
-import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
+import cz.fi.muni.TACOS.persistence.entity.Template;
 import cz.fi.muni.TACOS.service.AttributeCategoryService;
 import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
-import cz.fi.muni.TACOS.service.ProductCategoryService;
-import cz.fi.muni.TACOS.service.ProductService;
+import cz.fi.muni.TACOS.service.TemplateService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -20,6 +19,7 @@ import java.util.List;
  * Implementation of AttributeCategoryFacade Interface
  *
  * @author Peter Balcirak <peter.balcirak@gmail.com>
+ * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 @Transactional
 @ApplicationScoped
@@ -31,11 +31,15 @@ public class AttributeCategoryFacadeImpl implements AttributeCategoryFacade {
 
     private final BeanMappingService beanMappingService;
 
+    private final TemplateService templateService;
+
     @Inject
-    public AttributeCategoryFacadeImpl(AttributeCategoryService attributeCategoryService, AttributeService attributeService, BeanMappingService beanMappingService) {
+    public AttributeCategoryFacadeImpl(AttributeCategoryService attributeCategoryService, AttributeService attributeService,
+                                       BeanMappingService beanMappingService, TemplateService templateService) {
         this.attributeCategoryService = attributeCategoryService;
-        this.attributeService = attributeService;
         this.beanMappingService = beanMappingService;
+        this.templateService = templateService;
+        this.attributeService = attributeService;
     }
 
     @Override
@@ -49,21 +53,34 @@ public class AttributeCategoryFacadeImpl implements AttributeCategoryFacade {
     }
 
     @Override
-    public Long create(AttributeCategoryDTO entity) {
+    public Long create(AttributeCategoryCreateDTO entity) {
         AttributeCategory attributeCategory = beanMappingService.mapTo(entity, AttributeCategory.class);
         attributeCategoryService.create(attributeCategory);
         return attributeCategory.getId();
     }
 
     @Override
+    public Long create(AttributeCategoryCreateDTO entity, Long templateId) {
+        AttributeCategory attributeCategory = beanMappingService.mapTo(entity, AttributeCategory.class);
+        Template template = templateService.findById(templateId);
+
+        attributeCategoryService.create(attributeCategory);
+        templateService.addAttributeCategory(template, attributeCategory);
+
+        return attributeCategory.getId();
+    }
+
+    @Override
     public void delete(Long id) {
         attributeCategoryService.delete(attributeCategoryService.findById(id));
+        AttributeCategory attributeCategory = attributeCategoryService.findById(id);
+
+        attributeCategoryService.delete(attributeCategory);
     }
 
     @Override
     public AttributeCategoryDTO findById(Long id) {
-        AttributeCategory attributeCategory = attributeCategoryService.findById(id);
-        return beanMappingService.mapTo(attributeCategory, AttributeCategoryDTO.class);
+        return beanMappingService.mapTo(attributeCategoryService.findById(id), AttributeCategoryDTO.class);
     }
 
     @Override
