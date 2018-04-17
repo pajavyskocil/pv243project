@@ -6,7 +6,6 @@ import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
 import cz.fi.muni.TACOS.dto.UserUpdateDTO;
 import cz.fi.muni.TACOS.facade.UserFacade;
-import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import cz.fi.muni.TACOS.service.BeanMappingService;
@@ -17,6 +16,12 @@ import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
+
+/**
+ * Implementation of UserFacade Interface
+ *
+ * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
+ */
 @Transactional
 @ApplicationScoped
 public class UserFacadeImpl implements UserFacade {

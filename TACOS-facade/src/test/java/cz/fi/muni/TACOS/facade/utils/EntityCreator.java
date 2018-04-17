@@ -1,5 +1,6 @@
 package cz.fi.muni.TACOS.facade.utils;
 
+import cz.fi.muni.TACOS.dto.AttributeDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
 import cz.fi.muni.TACOS.dto.OrderCreateDTO;
@@ -98,8 +99,6 @@ public class EntityCreator {
 		Order order = new Order();
 		order.setId(1L);
 		order.setState(OrderState.NEW);
-		order.setSubmitted(LocalDate.now());
-		order.setFinished(LocalDate.now());
 		order.setPrice(BigDecimal.ONE);
 		return order;
 	}
@@ -114,14 +113,42 @@ public class EntityCreator {
 		return order;
 	}
 
+	public static Order createTestThirdOrder() {
+		Order order = new Order();
+		order.setId(3L);
+		order.setState(OrderState.PROCESSED);
+		order.setSubmitted(LocalDate.now());
+		order.setFinished(LocalDate.now());
+		order.setPrice(BigDecimal.valueOf(100));
+		return order;
+	}
+
 	//OrderDTOs
 	public static OrderDTO createTestOrderDTO() {
 		OrderDTO order = new OrderDTO();
 		order.setId(1L);
 		order.setState(OrderState.NEW);
+		order.setPrice(BigDecimal.ONE);
+		return order;
+	}
+
+	public static OrderDTO createTestSecondOrderDTO() {
+		OrderDTO order = new OrderDTO();
+		order.setId(2L);
+		order.setState(OrderState.PROCESSED);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.ONE);
+		order.setPrice(BigDecimal.valueOf(10));
+		return order;
+	}
+
+	public static OrderDTO createTestThirdOrderDTO() {
+		OrderDTO order = new OrderDTO();
+		order.setId(3L);
+		order.setState(OrderState.PROCESSED);
+		order.setSubmitted(LocalDate.now());
+		order.setFinished(LocalDate.now());
+		order.setPrice(BigDecimal.valueOf(100));
 		return order;
 	}
 
@@ -129,8 +156,6 @@ public class EntityCreator {
 	public static OrderCreateDTO createTestOrderCreateDTO() {
 		OrderCreateDTO order = new OrderCreateDTO();
 		order.setState(OrderState.NEW);
-		order.setSubmitted(LocalDate.now());
-		order.setFinished(LocalDate.now());
 		order.setPrice(BigDecimal.ONE);
 		return order;
 	}
@@ -182,13 +207,6 @@ public class EntityCreator {
 		return createdProduct;
 	}
 
-	public static CreatedProductCreateDTO createTestSecondCreatedProductCreateDTO() {
-		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
-		createdProduct.setCount(2L);
-		createdProduct.setDescription("desc");
-		createdProduct.setPrice(BigDecimal.valueOf(10));
-		return createdProduct;
-	}
 
 	//Templates
 	public static Template createTestTemplate() {
@@ -252,7 +270,7 @@ public class EntityCreator {
 	}
 
 	//Attributes
-	public static Attribute createAttribute() {
+	public static Attribute createTestAttribute() {
 		Attribute attribute = new Attribute();
 		attribute.setId(1L);
 		attribute.setName("M");
@@ -262,8 +280,31 @@ public class EntityCreator {
 
 		return attribute;
 	}
-	public static Attribute createSecondAttribute() {
+	public static Attribute createTestSecondAttribute() {
 		Attribute attribute = new Attribute();
+		attribute.setId(2L);
+		attribute.setName("attribute");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.ONE);
+		attribute.setStatus(ProductAttributeStatus.NOT_AVAIBLE);
+
+		return attribute;
+	}
+
+	//AttributeDTOs
+	public static AttributeDTO createTestAttributeDTO() {
+		AttributeDTO attribute = new AttributeDTO();
+		attribute.setId(1L);
+		attribute.setName("M");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.TEN);
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+
+		return attribute;
+	}
+
+	public static AttributeDTO createTestSecondAttributeDTO() {
+		AttributeDTO attribute = new AttributeDTO();
 		attribute.setId(2L);
 		attribute.setName("attribute");
 		attribute.setDescription("Random description(to be honest, not so random)");

@@ -73,6 +73,8 @@ public class UserFacadeImplTest {
 	@After
 	public void resetMock() {
 		reset(userService);
+		reset(orderService);
+		reset(beanMappingService);
 	}
 
 	@Test
