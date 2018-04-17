@@ -6,6 +6,8 @@ import cz.fi.muni.TACOS.facade.TemplateFacade;
 import cz.fi.muni.TACOS.persistence.entity.Template;
 import cz.fi.muni.TACOS.service.AttributeCategoryService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
+import cz.fi.muni.TACOS.persistence.entity.Product;
+import cz.fi.muni.TACOS.service.ProductService;
 import cz.fi.muni.TACOS.service.TemplateService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -17,6 +19,7 @@ import java.util.List;
  * Implementation of TemplateFacade Interface
  *
  * @author Peter Balcirak <peter.balcirak@gmail.com>
+ * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 @Transactional
 @ApplicationScoped
@@ -26,13 +29,17 @@ public class TemplateFacadeImpl implements TemplateFacade {
 
     private final AttributeCategoryService attributeCategoryService;
 
+    private final ProductService productService;
+
     private final BeanMappingService beanMappingService;
 
     @Inject
-    public TemplateFacadeImpl(TemplateService templateService, AttributeCategoryService attributeCategoryService, BeanMappingService beanMappingService) {
+    public TemplateFacadeImpl(TemplateService templateService, AttributeCategoryService attributeCategoryService,
+                ProductService productService, BeanMappingService beanMappingService) {
         this.templateService = templateService;
-        this.attributeCategoryService = attributeCategoryService;
+        this.productService = productService;
         this.beanMappingService = beanMappingService;
+        this.attributeCategoryService = attributeCategoryService;
     }
 
     @Override
@@ -46,21 +53,35 @@ public class TemplateFacadeImpl implements TemplateFacade {
     }
 
     @Override
+    public Long create(TemplateCreateDTO entity, Long productId) {
+        Template template = beanMappingService.mapTo(entity, Template.class);
+        Product product = productService.findById(productId);
+
+        templateService.create(template);
+        productService.addTemplate(product, template);
+
+        return template.getId();
+    }
+
+    @Override
     public Long create(TemplateCreateDTO entity) {
         Template template = beanMappingService.mapTo(entity, Template.class);
         templateService.create(template);
+
         return template.getId();
     }
 
     @Override
     public void delete(Long id) {
         templateService.delete(templateService.findById(id));
+        Template template = templateService.findById(id);
+
+        templateService.delete(template);
     }
 
     @Override
     public TemplateDTO findById(Long id) {
-        Template template = templateService.findById(id);
-        return beanMappingService.mapTo(template, TemplateDTO.class);
+        return beanMappingService.mapTo(templateService.findById(id), TemplateDTO.class);
     }
 
     @Override

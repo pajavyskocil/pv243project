@@ -17,6 +17,7 @@ import java.util.List;
  * Implementation of ProductCategoryFacade Interface
  *
  * @author Peter Balcirak <peter.balcirak@gmail.com>
+ * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 @Transactional
 @ApplicationScoped
@@ -29,13 +30,13 @@ public class ProductCategoryFacadeImpl implements ProductCategoryFacade {
 	private final BeanMappingService beanMappingService;
 
     @Inject
-    public ProductCategoryFacadeImpl(ProductCategoryService productCategoryService, ProductService productService, BeanMappingService beanMappingService) {
+    public ProductCategoryFacadeImpl(ProductCategoryService productCategoryService, ProductService productService,
+                                     BeanMappingService beanMappingService) {
         this.productCategoryService = productCategoryService;
         this.productService = productService;
         this.beanMappingService = beanMappingService;
     }
 
-    @Override
     public void addSubCategory(Long categoryId, Long subCategoryId) {
         productCategoryService.addSubCategory(productCategoryService.findById(categoryId), productCategoryService.findById(subCategoryId));
     }
@@ -56,6 +57,17 @@ public class ProductCategoryFacadeImpl implements ProductCategoryFacade {
     }
 
     @Override
+    public Long createSubCategory(ProductCategoryCreateDTO entity, Long parentCategoryId) {
+        ProductCategory productCategory = beanMappingService.mapTo(entity, ProductCategory.class);
+        ProductCategory parentCategory = productCategoryService.findById(parentCategoryId);
+
+        productCategoryService.create(productCategory);
+        productCategoryService.addSubCategory(parentCategory, productCategory);
+
+        return productCategory.getId();
+    }
+
+    @Override
     public Long create(ProductCategoryCreateDTO entity) {
         ProductCategory productCategory = beanMappingService.mapTo(entity, ProductCategory.class);
         productCategoryService.create(productCategory);
@@ -65,12 +77,14 @@ public class ProductCategoryFacadeImpl implements ProductCategoryFacade {
     @Override
     public void delete(Long id) {
         productCategoryService.delete(productCategoryService.findById(id));
+        ProductCategory category = productCategoryService.findById(id);
+
+        productCategoryService.delete(category);
     }
 
     @Override
     public ProductCategoryDTO findById(Long id) {
-        ProductCategory productCategory = productCategoryService.findById(id);
-        return beanMappingService.mapTo(productCategory, ProductCategoryDTO.class);
+        return beanMappingService.mapTo(productCategoryService.findById(id), ProductCategoryDTO.class);
     }
 
     @Override

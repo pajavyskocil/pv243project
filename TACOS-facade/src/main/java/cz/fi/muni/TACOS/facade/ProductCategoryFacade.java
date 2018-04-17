@@ -7,6 +7,7 @@ import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
  * Facade Interface for ProductCategory entity.
  *
  * @author Peter Balcirak <peter.balcirak@gmail.com>
+ * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 public interface ProductCategoryFacade extends Facade<ProductCategoryDTO, ProductCategoryCreateDTO> {
 
@@ -25,6 +26,14 @@ public interface ProductCategoryFacade extends Facade<ProductCategoryDTO, Produc
      * @param subCategoryId
      */
     void removeSubCategory(Long categoryId, Long subCategoryId);
+    /**
+     * Creates subcategory for given category
+     *
+     * @param entity specification
+     * @param parentCategoryId parent category id
+     * @return id of newly created entity
+     */
+    Long createSubCategory(ProductCategoryCreateDTO entity, Long parentCategoryId);
 
     /**
      * Adds product to category
