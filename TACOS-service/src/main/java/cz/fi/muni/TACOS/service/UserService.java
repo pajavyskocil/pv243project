@@ -44,4 +44,19 @@ public interface UserService extends EntityService<User> {
      */
     void removeOrderFromSubmittedOrders(User user, Order order);
 
+    /**
+     * Create user
+     *
+     * @param user which will be created
+     */
+    void createUser(User user);
+
+    /**
+     * Try to authenticate a user.
+     *
+     * @param user which will be authenticated
+     * @param password
+     * @return true only if the hashed password matches the records, false otherwise
+     */
+    boolean authenticate(User user, String password);
 }
