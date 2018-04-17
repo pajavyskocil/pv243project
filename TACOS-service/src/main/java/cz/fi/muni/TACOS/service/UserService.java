@@ -49,7 +49,7 @@ public interface UserService extends EntityService<User> {
      *
      * @param user which will be created
      */
-    void createUser(User user);
+    void createUser(User user, String password);
 
     /**
      * Try to authenticate a user.
@@ -59,4 +59,5 @@ public interface UserService extends EntityService<User> {
      * @return true only if the hashed password matches the records, false otherwise
      */
     boolean authenticate(User user, String password);
+
 }

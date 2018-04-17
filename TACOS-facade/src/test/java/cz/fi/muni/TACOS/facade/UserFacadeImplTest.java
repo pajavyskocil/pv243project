@@ -84,10 +84,10 @@ public class UserFacadeImplTest {
 		doAnswer(invocation -> {
 			user.setId(1L);
 			return null;
-		}).when(userService).createUser(user);
+		}).when(userService).createUser(user, userCreateDTO.getPassword());
 		Long id = userFacade.create(userCreateDTO);
 
-		verify(userService, times(1)).createUser(user);
+		verify(userService, times(1)).createUser(user, userCreateDTO.getPassword());
 
 		assertThat(id).isEqualTo(1L);
 	}
