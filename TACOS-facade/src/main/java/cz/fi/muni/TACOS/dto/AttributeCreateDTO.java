@@ -5,7 +5,6 @@ import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -71,7 +70,7 @@ public class AttributeCreateDTO {
 	}
 
 	public Set<AttributeCategoryDTO> getAttributeCategories() {
-		return Collections.unmodifiableSet(attributeCategories);
+		return attributeCategories;
 	}
 
 	public void setAttributeCategories(Set<AttributeCategoryDTO> attributeCategories) {
@@ -79,7 +78,7 @@ public class AttributeCreateDTO {
 	}
 
 	public Set<CreatedProductDTO> getCreatedProducts() {
-		return Collections.unmodifiableSet(createdProducts);
+		return createdProducts;
 	}
 
 	public void setCreatedProducts(Set<CreatedProductDTO> createdProducts) {

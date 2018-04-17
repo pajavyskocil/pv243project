@@ -2,7 +2,6 @@ package cz.fi.muni.TACOS.dto;
 
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -54,7 +53,7 @@ public class UserCreateDTO {
 	}
 
 	public Set<OrderDTO> getOrders() {
-		return Collections.unmodifiableSet(orders);
+		return orders;
 	}
 
 	public void setOrders(Set<OrderDTO> orders) {

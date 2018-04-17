@@ -3,7 +3,6 @@ package cz.fi.muni.TACOS.dto;
 import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -33,7 +32,7 @@ public class ProductCategoryCreateDTO {
 	}
 
 	public Set<ProductDTO> getProducts() {
-		return Collections.unmodifiableSet(products);
+		return products;
 	}
 
 	public void setProducts(Set<ProductDTO> products) {
@@ -58,7 +57,7 @@ public class ProductCategoryCreateDTO {
 	}
 
 	public Set<ProductCategoryDTO> getSubCategories() {
-		return Collections.unmodifiableSet(subCategories);
+		return subCategories;
 	}
 
 	public void setSubCategories(Set<ProductCategoryDTO> subCategories) {

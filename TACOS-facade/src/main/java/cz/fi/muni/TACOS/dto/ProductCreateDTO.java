@@ -3,7 +3,6 @@ package cz.fi.muni.TACOS.dto;
 import cz.fi.muni.TACOS.persistence.entity.Product;
 
 import java.math.BigDecimal;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -51,7 +50,7 @@ public class ProductCreateDTO {
 	}
 
 	public Set<TemplateDTO> getTemplates() {
-		return Collections.unmodifiableSet(templates);
+		return templates;
 	}
 
 	public void setTemplates(Set<TemplateDTO> templates) {
@@ -59,7 +58,7 @@ public class ProductCreateDTO {
 	}
 
 	public Set<ProductCategoryDTO> getProductCategories() {
-		return Collections.unmodifiableSet(productCategories);
+		return productCategories;
 	}
 
 	public void setProductCategories(Set<ProductCategoryDTO> productCategories) {
@@ -67,7 +66,7 @@ public class ProductCreateDTO {
 	}
 
 	public Set<CreatedProductDTO> getCreatedProducts() {
-		return Collections.unmodifiableSet(createdProducts);
+		return createdProducts;
 	}
 
 	public void setCreatedProducts(Set<CreatedProductDTO> createdProducts) {

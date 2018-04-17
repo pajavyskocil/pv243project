@@ -5,7 +5,6 @@ import cz.fi.muni.TACOS.persistence.enums.OrderState;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -79,7 +78,7 @@ public class OrderDTO {
 	}
 
 	public Set<CreatedProductDTO> getProducts() {
-		return Collections.unmodifiableSet(products);
+		return products;
 	}
 
 	public void setProducts(Set<CreatedProductDTO> products) {
