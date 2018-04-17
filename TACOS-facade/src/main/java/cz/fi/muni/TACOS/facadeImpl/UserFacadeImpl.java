@@ -105,4 +105,19 @@ public class UserFacadeImpl implements UserFacade {
         return userService.authenticate(
                 userService.findByEmail(user.getEmail()), user.getPassword());
     }
+
+    @Override
+    public void setSuperadmin(Long id) {
+        userService.setSuperadmin(userService.findById(id));
+    }
+
+    @Override
+    public void setSubmitter(Long id) {
+        userService.setSubmitter(userService.findById(id));
+    }
+
+    @Override
+    public void setPractitioner(Long id) {
+        userService.setPractitioner(userService.findById(id));
+    }
 }

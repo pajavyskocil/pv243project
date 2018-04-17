@@ -74,6 +74,26 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
         return validatePassword(password, user.getPasswordHash());
     }
 
+    @Override
+    public void setSuperadmin(User user) {
+        if (user.getRole() == UserRole.SUPERADMIN) {
+            user.setRole(UserRole.SUPERADMIN);
+        }
+    }
+
+    @Override
+    public void setSubmitter(User user) {
+        if (user.getRole() == UserRole.SUBMITTER) {
+            user.setRole(UserRole.SUBMITTER);
+        }
+    }
+
+    @Override
+    public void setPractitioner(User user) {
+        if (user.getRole() == UserRole.PRACTITIONER) {
+            user.setRole(UserRole.PRACTITIONER);
+        }
+    }
 
     public static String createHash(String password) {
         final int SALT_BYTE_SIZE = 24;

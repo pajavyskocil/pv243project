@@ -4,6 +4,7 @@ import cz.fi.muni.TACOS.persistence.dao.OrderDao;
 import cz.fi.muni.TACOS.persistence.dao.UserDao;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
+import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import cz.fi.muni.TACOS.service.Impl.UserServiceImpl;
 import cz.fi.muni.TACOS.service.utils.EntityCreator;
 import org.junit.Before;
@@ -112,7 +113,33 @@ public class UserServiceImplTest {
 		userService.removeOrderFromSubmittedOrders(user, secondOrder);
 
 		assertThat(user.getOrders()).isEmpty();
+	}
 
+	@Test
+	public void testSetSuperadmin() {
+		when(userDao.findById(user.getId())).thenReturn(user);
+
+		userService.setSuperadmin(user);
+
+		assertThat(user.getRole()).isEqualTo(UserRole.SUPERADMIN);
+	}
+
+	@Test
+	public void testSetSubmitter() {
+		when(userService.findById(user.getId())).thenReturn(user);
+
+		userService.setSubmitter(user);
+
+		assertThat(user.getRole()).isEqualTo(UserRole.SUBMITTER);
+	}
+
+	@Test
+	public void testSetPractitioner() {
+		when(userService.findById(user.getId())).thenReturn(user);
+
+		userService.setPractitioner(user);
+
+		assertThat(user.getRole()).isEqualTo(UserRole.PRACTITIONER);
 	}
 
 }

@@ -4,7 +4,6 @@ import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
 import cz.fi.muni.TACOS.dto.UserUpdateDTO;
-import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 
 import java.util.List;
@@ -58,4 +57,22 @@ public interface UserFacade extends Facade<UserDTO, UserCreateDTO> {
      * @return true only if the hashed password matches the records, false otherwise
      */
     boolean authenticate(UserAuthenticateDTO user);
+
+    /**
+     *
+     * @param id
+     */
+    void setSuperadmin(Long id);
+
+    /**
+     *
+     * @param id
+     */
+    void setSubmitter(Long id);
+
+    /**
+     *
+     * @param id
+     */
+    void setPractitioner(Long id);
 }
