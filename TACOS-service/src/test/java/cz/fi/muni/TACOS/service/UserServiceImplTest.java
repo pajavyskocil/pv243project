@@ -51,7 +51,7 @@ public class UserServiceImplTest {
 
 	@Test
 	public void testCreateUser() {
-		userService.createUser(user);
+		userService.createUser(user, "123");
 
 		verify(userDao, times(1)).create(user);
 	}

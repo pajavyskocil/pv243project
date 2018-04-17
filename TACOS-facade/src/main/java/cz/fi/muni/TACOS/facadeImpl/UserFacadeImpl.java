@@ -1,6 +1,5 @@
 package cz.fi.muni.TACOS.facadeImpl;
 
-import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
@@ -9,6 +8,7 @@ import cz.fi.muni.TACOS.facade.UserFacade;
 import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import cz.fi.muni.TACOS.service.BeanMappingService;
+import cz.fi.muni.TACOS.service.Impl.UserServiceImpl;
 import cz.fi.muni.TACOS.service.OrderService;
 import cz.fi.muni.TACOS.service.UserService;
 
@@ -43,7 +43,7 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public Long create(UserCreateDTO entity) {
         User user = beanMappingService.mapTo(entity, User.class);
-        userService.createUser(user);
+        userService.createUser(user, entity.getPassword());
         return user.getId();
     }
 

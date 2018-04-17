@@ -61,8 +61,8 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
     }
 
     @Override
-    public void createUser(User user) {
-        user.setPasswordHash(createHash(user.getPasswordHash()));
+    public void createUser(User user, String password) {
+        user.setPasswordHash(createHash(password));
         if(user.getRole() == null) {
             user.setRole(UserRole.SUBMITTER);
         }
@@ -74,7 +74,8 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
         return validatePassword(password, user.getPasswordHash());
     }
 
-    private static String createHash(String password) {
+
+    public static String createHash(String password) {
         final int SALT_BYTE_SIZE = 24;
         final int HASH_BYTE_SIZE = 24;
         final int PBKDF2_ITERATIONS = 1000;
@@ -88,15 +89,6 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
         return PBKDF2_ITERATIONS + ":" + toHex(salt) + ":" + toHex(hash);
     }
 
-    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes) {
-        try {
-            PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
-            return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).getEncoded();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     private static boolean validatePassword(String password, String correctHash) {
         if(password==null) return false;
         if(correctHash==null) throw new IllegalArgumentException("password hash is null");
@@ -106,6 +98,17 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
         byte[] hash = fromHex(params[2]);
         byte[] testHash = pbkdf2(password.toCharArray(), salt, iterations, hash.length);
         return slowEquals(hash, testHash);
+    }
+
+
+
+    private static byte[] pbkdf2(char[] password, byte[] salt, int iterations, int bytes) {
+        try {
+            PBEKeySpec spec = new PBEKeySpec(password, salt, iterations, bytes * 8);
+            return SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256").generateSecret(spec).getEncoded();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -138,4 +141,5 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
         int paddingLength = (array.length * 2) - hex.length();
         return paddingLength > 0 ? String.format("%0" + paddingLength + "d", 0) + hex : hex;
     }
+
 }
