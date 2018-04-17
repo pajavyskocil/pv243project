@@ -165,4 +165,31 @@ public class UserFacadeImplTest {
 
 		verify(userService, times(1)).removeOrderFromSubmittedOrders(user, order);
 	}
+
+	@Test
+	public void testSetSuperadmin() {
+		when(userService.findById(user.getId())).thenReturn(user);
+
+		userFacade.setSuperadmin(user.getId());
+
+		verify(userService, times(1)).setSuperadmin(user);
+	}
+
+	@Test
+	public void testSetSubmitter() {
+		when(userService.findById(user.getId())).thenReturn(user);
+
+		userFacade.setSubmitter(user.getId());
+
+		verify(userService, times(1)).setSubmitter(user);
+	}
+
+	@Test
+	public void testSetPractitioner() {
+		when(userService.findById(user.getId())).thenReturn(user);
+
+		userFacade.setPractitioner(user.getId());
+
+		verify(userService, times(1)).setPractitioner(user);
+	}
 }

@@ -60,4 +60,21 @@ public interface UserService extends EntityService<User> {
      */
     boolean authenticate(User user, String password);
 
+    /**
+     *
+     * @param user
+     */
+    void setSuperadmin(User user);
+
+    /**
+     *
+     * @param user
+     */
+    void setSubmitter(User user);
+
+    /**
+     *
+     * @param user
+     */
+    void setPractitioner(User user);
 }

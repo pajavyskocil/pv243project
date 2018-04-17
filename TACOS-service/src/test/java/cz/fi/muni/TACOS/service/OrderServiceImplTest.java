@@ -4,6 +4,7 @@ import cz.fi.muni.TACOS.persistence.dao.CreatedProductDao;
 import cz.fi.muni.TACOS.persistence.dao.OrderDao;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
+import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import cz.fi.muni.TACOS.service.Impl.OrderServiceImpl;
 import cz.fi.muni.TACOS.service.utils.EntityCreator;
 import org.junit.Before;
@@ -30,6 +31,7 @@ public class OrderServiceImplTest {
 
 	private Order order;
 	private Order secondOrder;
+	private Order thirdOrder;
 	private CreatedProduct product;
 	private CreatedProduct secondProduct;
 
@@ -46,6 +48,7 @@ public class OrderServiceImplTest {
 	public void setEntities(){
 		order = EntityCreator.createTestOrder();
 		secondOrder = EntityCreator.createSecondOrder();
+		thirdOrder = EntityCreator.createThirdOrder();
 		product = EntityCreator.createCreatedProduct();
 		secondProduct = EntityCreator.createSecondCreatedProduct();
 		order.addProduct(product);
@@ -119,5 +122,41 @@ public class OrderServiceImplTest {
 				.add(secondProduct.getPrice().multiply(BigDecimal.valueOf(secondProduct.getCount())));
 
 		assertThat(order.getPrice()).isEqualTo(newValue);
+	}
+
+	@Test
+	public void testSubmitOrder() {
+		when(orderDao.findById(order.getId())).thenReturn(order);
+
+		orderService.submitOrder(order);
+
+		assertThat(order.getState()).isEqualTo(OrderState.SUBMITTED);
+	}
+
+	@Test
+	public void testCancelOrder() {
+		when(orderDao.findById(thirdOrder.getId())).thenReturn(thirdOrder);
+
+		orderService.cancelOrder(order);
+
+		assertThat(order.getState()).isEqualTo(OrderState.CANCELED);
+	}
+
+	@Test
+	public void testFinishOrder() {
+		when(orderDao.findById(thirdOrder.getId())).thenReturn(thirdOrder);
+
+		orderService.finishOrder(thirdOrder);
+
+		assertThat(thirdOrder.getState()).isEqualTo(OrderState.FINISHED);
+	}
+
+	@Test
+	public void testProcessOrder() {
+		when(orderDao.findById(thirdOrder.getId())).thenReturn(thirdOrder);
+
+		orderService.processOrder(thirdOrder);
+
+		assertThat(thirdOrder.getState()).isEqualTo(OrderState.PROCESSED);
 	}
 }
