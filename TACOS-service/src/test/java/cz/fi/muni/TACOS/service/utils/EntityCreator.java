@@ -66,6 +66,16 @@ public final class EntityCreator {
 		return order;
 	}
 
+	public static Order createThirdOrder() {
+		Order order = new Order();
+		order.setId(2L);
+		order.setState(OrderState.SUBMITTED);
+		order.setSubmitted(LocalDate.now());
+		order.setFinished(LocalDate.now());
+		order.setPrice(BigDecimal.valueOf(10));
+		return order;
+	}
+
 	//CreatedProduct
 	public static CreatedProduct createCreatedProduct() {
 		CreatedProduct createdProduct = new CreatedProduct();
