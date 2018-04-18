@@ -3,11 +3,11 @@ package cz.fi.muni.TACOS.rest;
 import cz.fi.muni.TACOS.dto.AttributeCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
-import cz.fi.muni.TACOS.dto.OrderCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductCreateDTO;
 import cz.fi.muni.TACOS.dto.TemplateCreateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
+import cz.fi.muni.TACOS.dto.UserDTO;
 import cz.fi.muni.TACOS.facade.AttributeCategoryFacade;
 import cz.fi.muni.TACOS.facade.AttributeFacade;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
@@ -16,14 +16,12 @@ import cz.fi.muni.TACOS.facade.ProductCategoryFacade;
 import cz.fi.muni.TACOS.facade.ProductFacade;
 import cz.fi.muni.TACOS.facade.TemplateFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 /**
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
@@ -57,27 +55,6 @@ public class SampleData {
 
 
 	public void loadOrderSampleData() {
-		OrderCreateDTO order = new OrderCreateDTO();
-
-		order.setState(OrderState.NEW);
-		order.setPrice(BigDecimal.ZERO);
-		orderFacade.create(order);
-
-		order.setState(OrderState.SUBMITTED);
-		order.setSubmitted(LocalDate.now());
-		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.ONE);
-		orderFacade.create(order);
-
-		order.setState(OrderState.SUBMITTED);
-		order.setPrice(BigDecimal.valueOf(10));
-		orderFacade.create(order);
-
-		order.setState(OrderState.FINISHED);
-		order.setSubmitted(LocalDate.now());
-		order.setFinished(LocalDate.now());
-		order.setPrice(BigDecimal.valueOf(10));
-		orderFacade.create(order);
 	}
 
 	public void loadUserSampleData() {
@@ -120,27 +97,33 @@ public class SampleData {
 	}
 
 	public void loadCreatedProductSampleData() {
+		UserCreateDTO user = new UserCreateDTO();
+
+		user.setName("RegularDDDD");
+		user.setSurname("UserDDD");
+		user.setPassword("passwordDDD");
+		user.setEmail("somedfddaruser@worldofjava.com");
+		user.setRole(UserRole.SUBMITTER);
+		userFacade.create(user);
+
 		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
 
+		UserDTO userDto = userFacade.findByEmail(user.getEmail());
 		createdProduct.setCount(10L);
 		createdProduct.setDescription("createdProduct1desc");
-		createdProduct.setPrice(BigDecimal.valueOf(10));
-		createdProductFacade.create(createdProduct);
+		createdProductFacade.create(createdProduct, userDto.getId());
 
 		createdProduct.setCount(5L);
 		createdProduct.setDescription("createdProduct 2 Description");
-		createdProduct.setPrice(BigDecimal.valueOf(18));
-		createdProductFacade.create(createdProduct);
+		createdProductFacade.create(createdProduct, userDto.getId());
 
 		createdProduct.setCount(3L);
 		createdProduct.setDescription("createdProduct3desc");
-		createdProduct.setPrice(BigDecimal.valueOf(125));
-		createdProductFacade.create(createdProduct);
+		createdProductFacade.create(createdProduct, userDto.getId());
 
 		createdProduct.setCount(8L);
 		createdProduct.setDescription("createdProduct4desc");
-		createdProduct.setPrice(BigDecimal.valueOf(310));
-		createdProductFacade.create(createdProduct);
+		createdProductFacade.create(createdProduct, userDto.getId());
 	}
 
 	public void loadTemplateSampleData() {
@@ -167,22 +150,18 @@ public class SampleData {
 
 		product.setDescription("desc");
 		product.setName("product1");
-		product.setMinimalPrice(BigDecimal.valueOf(10));
 		productFacade.create(product);
 
 		product.setDescription("description");
 		product.setName("product1");
-		product.setMinimalPrice(BigDecimal.valueOf(50));
 		productFacade.create(product);
 
 		product.setDescription("desc");
 		product.setName("PRODUCT");
-		product.setMinimalPrice(BigDecimal.valueOf(35));
 		productFacade.create(product);
 
 		product.setDescription("desc");
 		product.setName("Product3");
-		product.setMinimalPrice(BigDecimal.valueOf(5));
 		productFacade.create(product);
 	}
 

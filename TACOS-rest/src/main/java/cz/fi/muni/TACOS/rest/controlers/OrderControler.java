@@ -1,6 +1,5 @@
 package cz.fi.muni.TACOS.rest.controlers;
 
-import cz.fi.muni.TACOS.dto.OrderCreateDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
 import cz.fi.muni.TACOS.facade.OrderFacade;
@@ -37,23 +36,6 @@ public class OrderControler {
 	@Inject
 	private CreatedProductFacade createdProductFacade;
 
-	/**
-	 * curl -X POST -i -H "Content-Type: application/json" --data '{"name":"Name", "surname":"Surname", "email":"email@mail.com", "role":"SUBMITTER"}' http://localhost:8080/TACOS-rest/api/users/create
-	 *
-	 * @param orderCreateDTO
-	 * @return
-	 */
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/create")
-	public OrderDTO createOrder(OrderCreateDTO orderCreateDTO) {
-		log.debug("Rest create Order ({})", orderCreateDTO);
-
-		Long id = orderFacade.create(orderCreateDTO);
-		return orderFacade.findById(id);
-	}
-
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/delete/{id}")
@@ -87,22 +69,6 @@ public class OrderControler {
 		}
 
 		return orderFacade.getAllForState(state);
-	}
-
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{orderId}/addCreatedProduct/{createdProductId}")
-	public void addCreatedProduct(@PathParam("orderId") Long id, @QueryParam("createdProductId") Long createdProductId) {
-		log.debug("Rest add createdProduct with id ({}) to Order with id ({})", id, createdProductId);
-
-		if (orderFacade.findById(id) == null) {
-			throw new ResourceNotFoundException("Order with id "+ id +" not found!");
-		}
-		if (createdProductFacade.findById(createdProductId) == null) {
-			throw new ResourceNotFoundException("CreatedProduct with id "+ createdProductId +" not found!");
-		}
-
-		orderFacade.addProduct(id, createdProductId);
 	}
 
 	@PUT

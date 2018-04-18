@@ -8,17 +8,8 @@ import java.util.List;
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  *
  * @param <T1> Class of the DTO entity
- * @param <T2> Class of the CreateDTO entity
  */
-public interface Facade<T1, T2> {
-
-    /**
-     * Create given T Entity
-     *
-     * @param entity Entity
-     * @return Long Id of created entity
-     */
-    Long create(T2 entity);
+public interface Facade<T1> {
 
     /**
      * Delete given T entity

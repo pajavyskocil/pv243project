@@ -1,9 +1,8 @@
 package cz.fi.muni.TACOS.facade;
 
-import cz.fi.muni.TACOS.dto.OrderCreateDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.facade.utils.EntityCreator;
-import cz.fi.muni.TACOS.facadeImpl.OrderFacadeImpl;
+import cz.fi.muni.TACOS.facade.impl.OrderFacadeImpl;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.service.BeanMappingService;
@@ -20,7 +19,6 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -49,11 +47,10 @@ public class OrderFacadeImplTest {
 	private OrderDTO orderDTO;
 	private OrderDTO secondOrderDTO;
 	private OrderDTO thirdOrderDTO;
-	private OrderCreateDTO orderCreateDTO;
 	private CreatedProduct createdProduct;
 
 	@Before
-	public void setFacade(){
+	public void setFacade() {
 		orderFacade = new OrderFacadeImpl(orderService, createdProductService, beanMappingService);
 	}
 
@@ -65,7 +62,6 @@ public class OrderFacadeImplTest {
 		orderDTO = EntityCreator.createTestOrderDTO();
 		secondOrderDTO = EntityCreator.createTestSecondOrderDTO();
 		thirdOrderDTO = EntityCreator.createTestThirdOrderDTO();
-		orderCreateDTO = EntityCreator.createTestOrderCreateDTO();
 
 		createdProduct = EntityCreator.createTestCreatedProduct();
 	}
@@ -77,20 +73,6 @@ public class OrderFacadeImplTest {
 		reset(beanMappingService);
 	}
 
-	@Test
-	public void testCreateOrder() {
-		when(beanMappingService.mapTo(orderCreateDTO, Order.class)).thenReturn(order);
-
-		doAnswer(invocation -> {
-			order.setId(1L);
-			return null;
-		}).when(orderService).create(order);
-		Long id = orderFacade.create(orderCreateDTO);
-
-		verify(orderService, times(1)).create(order);
-
-		assertThat(id).isEqualTo(1L);
-	}
 
 	@Test
 	public void testDeleteOrder() {
@@ -126,16 +108,6 @@ public class OrderFacadeImplTest {
 		when(beanMappingService.mapTo(any(), eq(OrderDTO.class))).thenReturn(Arrays.asList(secondOrderDTO, thirdOrderDTO));
 
 		assertThat(orderFacade.getAll()).containsOnly(secondOrderDTO, thirdOrderDTO);
-	}
-
-	@Test
-	public void testAddProduct() {
-		when(orderService.findById(order.getId())).thenReturn(order);
-		when(createdProductService.findById(createdProduct.getId())).thenReturn(createdProduct);
-
-		orderFacade.addProduct(order.getId(), createdProduct.getId());
-
-		verify(orderService, times(1)).addProduct(order, createdProduct);
 	}
 
 	@Test
@@ -183,6 +155,4 @@ public class OrderFacadeImplTest {
 
 		verify(orderService, times(1)).processOrder(order);
 	}
-
-
 }

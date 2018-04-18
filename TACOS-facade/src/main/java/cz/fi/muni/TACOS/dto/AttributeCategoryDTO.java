@@ -1,7 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,17 +18,6 @@ public class AttributeCategoryDTO {
 
 	private Set<AttributeDTO> attributes = new HashSet<>();
 
-	private Set<TemplateDTO> templates = new HashSet<>();
-
-
-	public BigDecimal getMinimalPrice() {
-		return minimalPrice;
-	}
-
-	public void setMinimalPrice(BigDecimal minimalPrice) {
-		this.minimalPrice = minimalPrice;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +34,14 @@ public class AttributeCategoryDTO {
 		this.name = name;
 	}
 
+	public BigDecimal getMinimalPrice() {
+		return minimalPrice;
+	}
+
+	public void setMinimalPrice(BigDecimal minimalPrice) {
+		this.minimalPrice = minimalPrice;
+	}
+
 	public Set<AttributeDTO> getAttributes() {
 		return attributes;
 	}
@@ -55,31 +50,26 @@ public class AttributeCategoryDTO {
 		this.attributes = attributes;
 	}
 
-	public Set<TemplateDTO> getTemplates() {
-		return templates;
-	}
-
-	public void setTemplates(Set<TemplateDTO> templates) {
-		this.templates = templates;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof AttributeCategory)) return false;
-		AttributeCategory that = (AttributeCategory) o;
-		return Objects.equals(getName(), that.getName());
+		if (o == null || getClass() != o.getClass()) return false;
+		AttributeCategoryDTO that = (AttributeCategoryDTO) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(name, that.name) &&
+				Objects.equals(minimalPrice, that.minimalPrice) &&
+				Objects.equals(attributes, that.attributes);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getName());
+		return Objects.hash(id, name, minimalPrice, attributes);
 	}
 
 	@Override
 	public String toString() {
-		return "AttributeCategory{" +
+		return "AttributeCategoryDTO{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", minimalPrice=" + minimalPrice +

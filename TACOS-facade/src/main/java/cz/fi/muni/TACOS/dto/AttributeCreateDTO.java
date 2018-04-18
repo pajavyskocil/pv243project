@@ -1,6 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
 
 import java.math.BigDecimal;
@@ -22,12 +21,9 @@ public class AttributeCreateDTO {
 
 	private ProductAttributeStatus status;
 
-	private Set<AttributeCategoryDTO> attributeCategories = new HashSet<>();
+	private Set<Long> attributeCategories = new HashSet<>();
 
 	private Byte[] image;
-
-	private Set<CreatedProductDTO> createdProducts = new HashSet<>();
-
 
 	public String getName() {
 		return name;
@@ -61,6 +57,14 @@ public class AttributeCreateDTO {
 		this.status = status;
 	}
 
+	public Set<Long> getAttributeCategories() {
+		return attributeCategories;
+	}
+
+	public void setAttributeCategories(Set<Long> attributeCategories) {
+		this.attributeCategories = attributeCategories;
+	}
+
 	public Byte[] getImage() {
 		return image;
 	}
@@ -69,48 +73,36 @@ public class AttributeCreateDTO {
 		this.image = image;
 	}
 
-	public Set<AttributeCategoryDTO> getAttributeCategories() {
-		return attributeCategories;
-	}
-
-	public void setAttributeCategories(Set<AttributeCategoryDTO> attributeCategories) {
-		this.attributeCategories = attributeCategories;
-	}
-
-	public Set<CreatedProductDTO> getCreatedProducts() {
-		return createdProducts;
-	}
-
-	public void setCreatedProducts(Set<CreatedProductDTO> createdProducts) {
-		this.createdProducts = createdProducts;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Attribute)) return false;
-		Attribute that = (Attribute) o;
-		return Objects.equals(getName(), that.getName()) &&
-				Objects.equals(getPrice(), that.getPrice()) &&
-				Objects.equals(getDescription(), that.getDescription()) &&
-				getStatus() == that.getStatus() &&
-				Arrays.equals(getImage(), that.getImage());
+		if (o == null || getClass() != o.getClass()) return false;
+		AttributeCreateDTO that = (AttributeCreateDTO) o;
+		return Objects.equals(name, that.name) &&
+				Objects.equals(price, that.price) &&
+				Objects.equals(description, that.description) &&
+				status == that.status &&
+				Objects.equals(attributeCategories, that.attributeCategories) &&
+				Arrays.equals(image, that.image);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(getName(), getPrice(), getDescription(), getStatus());
-		result = 31 * result + Arrays.hashCode(getImage());
+
+		int result = Objects.hash(name, price, description, status, attributeCategories);
+		result = 31 * result + Arrays.hashCode(image);
 		return result;
 	}
 
 	@Override
 	public String toString() {
-		return "Attribute{" +
+		return "AttributeCreateDTO{" +
 				"name='" + name + '\'' +
 				", price=" + price +
 				", description='" + description + '\'' +
 				", status=" + status +
+				", attributeCategories=" + attributeCategories +
+				", image=" + Arrays.toString(image) +
 				'}';
 	}
 }

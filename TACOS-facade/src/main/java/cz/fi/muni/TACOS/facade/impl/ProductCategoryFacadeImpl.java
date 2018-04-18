@@ -1,4 +1,4 @@
-package cz.fi.muni.TACOS.facadeImpl;
+package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.ProductCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
@@ -71,6 +71,12 @@ public class ProductCategoryFacadeImpl implements ProductCategoryFacade {
     public Long create(ProductCategoryCreateDTO entity) {
         ProductCategory productCategory = beanMappingService.mapTo(entity, ProductCategory.class);
         productCategoryService.create(productCategory);
+
+        if (entity.getParentCategory() != null) {
+            ProductCategory parentCategory = productCategoryService.findById(entity.getParentCategory());
+            productCategoryService.addSubCategory(parentCategory, productCategory);
+        }
+
         return productCategory.getId();
     }
 

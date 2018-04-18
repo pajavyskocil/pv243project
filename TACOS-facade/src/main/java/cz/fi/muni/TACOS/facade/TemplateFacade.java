@@ -9,7 +9,9 @@ import cz.fi.muni.TACOS.dto.TemplateDTO;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
-public interface TemplateFacade extends Facade<TemplateDTO, TemplateCreateDTO> {
+public interface TemplateFacade extends Facade<TemplateDTO> {
+
+    Long create(TemplateCreateDTO entity);
 
     /**
      * Adds attribute category to template
@@ -26,12 +28,4 @@ public interface TemplateFacade extends Facade<TemplateDTO, TemplateCreateDTO> {
      * @param categoryId category
      */
     void removeAttributeCategory(Long templateId, Long categoryId);
-    /**
-     * Creates template for specified product
-     *
-     * @param entity specification
-     * @param productId id of product
-     * @return id of newly created entity
-     */
-    Long create(TemplateCreateDTO entity, Long productId);
 }

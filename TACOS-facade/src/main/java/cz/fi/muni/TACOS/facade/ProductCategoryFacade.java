@@ -9,7 +9,9 @@ import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
-public interface ProductCategoryFacade extends Facade<ProductCategoryDTO, ProductCategoryCreateDTO> {
+public interface ProductCategoryFacade extends Facade<ProductCategoryDTO> {
+
+    Long create(ProductCategoryCreateDTO entity);
 
     /**
      * Adds subcategory to category

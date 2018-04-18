@@ -1,17 +1,24 @@
-package cz.fi.muni.TACOS.facadeImpl;
+package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
+import cz.fi.muni.TACOS.persistence.entity.Order;
+import cz.fi.muni.TACOS.persistence.entity.User;
+import cz.fi.muni.TACOS.persistence.enums.OrderState;
 import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
+import cz.fi.muni.TACOS.service.OrderService;
+import cz.fi.muni.TACOS.service.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of CreatedProductFacade interface
@@ -28,17 +35,44 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 
 	private final BeanMappingService beanMappingService;
 
+	private final UserService userService;
+
+	private final OrderService orderService;
+
 	@Inject
-	public CreatedProductFacadeImpl(CreatedProductService createdProductService, AttributeService attributeService, BeanMappingService beanMappingService) {
+	public CreatedProductFacadeImpl(CreatedProductService createdProductService, AttributeService attributeService,
+									BeanMappingService beanMappingService, UserService userService, OrderService orderService) {
 		this.createdProductService = createdProductService;
 		this.attributeService = attributeService;
 		this.beanMappingService = beanMappingService;
+		this.userService = userService;
+		this.orderService = orderService;
 	}
 
 	@Override
-	public Long create(CreatedProductCreateDTO entity) {
+	public Long create(CreatedProductCreateDTO entity, Long userId) {
 		CreatedProduct product = beanMappingService.mapTo(entity, CreatedProduct.class);
 		createdProductService.create(product);
+
+		User user = userService.findById(userId);
+		Set<Order> userOrders = user.getOrders();
+
+		Order openedOrder = null;
+
+		for (Order order : userOrders) {
+			if (order.getState().equals(OrderState.NEW)) {
+				openedOrder = order;
+				break;
+			}
+		}
+		if (openedOrder == null) {
+			openedOrder = new Order();
+			openedOrder.setState(OrderState.NEW);
+			openedOrder.setPrice(BigDecimal.ZERO);
+			orderService.create(openedOrder);
+		}
+
+		orderService.addProduct(openedOrder, product);
 		return product.getId();
 	}
 
@@ -66,6 +100,4 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 	public void removeAttribute(Long createdProductId, Long attributeId) {
 		createdProductService.removeAttribute(createdProductService.findById(createdProductId), attributeService.findById(attributeId));
 	}
-
-
 }

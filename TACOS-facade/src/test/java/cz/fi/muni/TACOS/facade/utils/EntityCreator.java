@@ -3,12 +3,10 @@ package cz.fi.muni.TACOS.facade.utils;
 import cz.fi.muni.TACOS.dto.AttributeDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
-import cz.fi.muni.TACOS.dto.OrderCreateDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.dto.TemplateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
-import cz.fi.muni.TACOS.dto.UserUpdateDTO;
 import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
@@ -84,17 +82,6 @@ public class EntityCreator {
 		return user;
 	}
 
-	//UserUpdateDTO
-	public static UserUpdateDTO createTestUserUpdateDTO() {
-		UserUpdateDTO user = new UserUpdateDTO();
-		user.setId(1L);
-		user.setName("NewName");
-		user.setSurname("User");
-		user.setEmail("somerandomregularuser@worldofjava.com");
-		user.setRole(UserRole.SUBMITTER);
-		return user;
-	}
-
 	//Orders
 	public static Order createTestOrder() {
 		Order order = new Order();
@@ -153,14 +140,6 @@ public class EntityCreator {
 		return order;
 	}
 
-	//OrderCreateDTOs
-	public static OrderCreateDTO createTestOrderCreateDTO() {
-		OrderCreateDTO order = new OrderCreateDTO();
-		order.setState(OrderState.NEW);
-		order.setPrice(BigDecimal.ONE);
-		return order;
-	}
-
 	//CreatedProduct
 	public static CreatedProduct createTestCreatedProduct() {
 		CreatedProduct createdProduct = new CreatedProduct();
@@ -204,10 +183,8 @@ public class EntityCreator {
 		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
 		createdProduct.setCount(1L);
 		createdProduct.setDescription("desc");
-		createdProduct.setPrice(BigDecimal.valueOf(20));
 		return createdProduct;
 	}
-
 
 	//Templates
 	public static Template createTestTemplate() {

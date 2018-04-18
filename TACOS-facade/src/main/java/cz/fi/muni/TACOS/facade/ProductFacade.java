@@ -9,16 +9,15 @@ import cz.fi.muni.TACOS.dto.ProductDTO;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
-public interface ProductFacade extends Facade<ProductDTO, ProductCreateDTO> {
+public interface ProductFacade extends Facade<ProductDTO> {
 
     /**
      * Creates product in category
      *
      * @param entity specification
-     * @param categoryId category id
      * @return id of newly created entity
      */
-    Long create(ProductCreateDTO entity, Long categoryId);
+    Long create(ProductCreateDTO entity);
 
     /**
      * Adds template to specified product

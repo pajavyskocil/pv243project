@@ -6,14 +6,13 @@ import cz.fi.muni.TACOS.dto.AttributeDTO;
 /**
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
-public interface AttributeFacade extends Facade<AttributeDTO, AttributeCreateDTO> {
+public interface AttributeFacade extends Facade<AttributeDTO> {
 
     /**
      * Creates attribute in specified attribute category
      *
      * @param attributeCreateDTO attribute specification
-     * @param attributeCategoryId attribute category id
      * @return id of newly created enity
      */
-    Long create(AttributeCreateDTO attributeCreateDTO, Long attributeCategoryId);
+    Long create(AttributeCreateDTO attributeCreateDTO);
 }

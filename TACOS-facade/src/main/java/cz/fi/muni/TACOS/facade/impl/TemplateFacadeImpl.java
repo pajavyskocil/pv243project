@@ -1,8 +1,9 @@
-package cz.fi.muni.TACOS.facadeImpl;
+package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.TemplateCreateDTO;
 import cz.fi.muni.TACOS.dto.TemplateDTO;
 import cz.fi.muni.TACOS.facade.TemplateFacade;
+import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
 import cz.fi.muni.TACOS.persistence.entity.Template;
 import cz.fi.muni.TACOS.service.AttributeCategoryService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
@@ -53,20 +54,19 @@ public class TemplateFacadeImpl implements TemplateFacade {
     }
 
     @Override
-    public Long create(TemplateCreateDTO entity, Long productId) {
-        Template template = beanMappingService.mapTo(entity, Template.class);
-        Product product = productService.findById(productId);
-
-        templateService.create(template);
-        productService.addTemplate(product, template);
-
-        return template.getId();
-    }
-
-    @Override
     public Long create(TemplateCreateDTO entity) {
         Template template = beanMappingService.mapTo(entity, Template.class);
         templateService.create(template);
+
+        for (Long id : entity.getProducts()) {
+            Product product = productService.findById(id);
+            productService.addTemplate(product, template);
+        }
+
+        for (Long id : entity.getAttributeCategories()) {
+            AttributeCategory attributeCategory = attributeCategoryService.findById(id);
+            templateService.addAttributeCategory(template, attributeCategory);
+        }
 
         return template.getId();
     }

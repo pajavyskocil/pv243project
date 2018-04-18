@@ -1,4 +1,4 @@
-package cz.fi.muni.TACOS.facadeImpl;
+package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.AttributeCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeCategoryDTO;
@@ -56,17 +56,11 @@ public class AttributeCategoryFacadeImpl implements AttributeCategoryFacade {
     public Long create(AttributeCategoryCreateDTO entity) {
         AttributeCategory attributeCategory = beanMappingService.mapTo(entity, AttributeCategory.class);
         attributeCategoryService.create(attributeCategory);
-        return attributeCategory.getId();
-    }
 
-    @Override
-    public Long create(AttributeCategoryCreateDTO entity, Long templateId) {
-        AttributeCategory attributeCategory = beanMappingService.mapTo(entity, AttributeCategory.class);
-        Template template = templateService.findById(templateId);
-
-        attributeCategoryService.create(attributeCategory);
-        templateService.addAttributeCategory(template, attributeCategory);
-
+        for (Long templateId : entity.getTemplates()) {
+            Template template = templateService.findById(templateId);
+            templateService.addAttributeCategory(template, attributeCategory);
+        }
         return attributeCategory.getId();
     }
 

@@ -3,12 +3,14 @@ package cz.fi.muni.TACOS.facade;
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
 import cz.fi.muni.TACOS.facade.utils.EntityCreator;
-import cz.fi.muni.TACOS.facadeImpl.CreatedProductFacadeImpl;
+import cz.fi.muni.TACOS.facade.impl.CreatedProductFacadeImpl;
 import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
+import cz.fi.muni.TACOS.service.OrderService;
+import cz.fi.muni.TACOS.service.UserService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +22,6 @@ import java.util.Collections;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.reset;
 import static org.mockito.Mockito.times;
@@ -40,6 +41,10 @@ public class CreatedProductFacadeImplTest {
 
 	private BeanMappingService beanMappingService = mock(BeanMappingService.class);
 
+	private final UserService userService = mock(UserService.class);
+
+	private final OrderService orderService = mock(OrderService.class);
+
 	@InjectMocks
 	private CreatedProductFacade createdProductFacade;
 
@@ -52,7 +57,8 @@ public class CreatedProductFacadeImplTest {
 
 	@Before
 	public void setFacade(){
-		createdProductFacade = new CreatedProductFacadeImpl(createdProductService, attributeService, beanMappingService);
+		createdProductFacade = new CreatedProductFacadeImpl(createdProductService, attributeService, beanMappingService,
+				userService, orderService);
 	}
 
 	@Before
@@ -71,20 +77,6 @@ public class CreatedProductFacadeImplTest {
 		reset(createdProductService);
 		reset(attributeService);
 		reset(beanMappingService);
-	}
-
-	public void testCreateOrder() {
-		when(beanMappingService.mapTo(createdProductCreateDTO, CreatedProduct.class)).thenReturn(createdProduct);
-
-		doAnswer(invocation -> {
-			createdProduct.setId(1L);
-			return null;
-		}).when(createdProductService).create(createdProduct);
-		Long id = createdProductFacade.create(createdProductCreateDTO);
-
-		verify(createdProductService, times(1)).create(createdProduct);
-
-		assertThat(id).isEqualTo(1L);
 	}
 
 	@Test

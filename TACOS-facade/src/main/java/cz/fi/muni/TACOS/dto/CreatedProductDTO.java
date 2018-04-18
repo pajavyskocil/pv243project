@@ -1,7 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -19,8 +17,6 @@ public class CreatedProductDTO {
 	private Long count;
 
 	private String description;
-
-	private OrderDTO order;
 
 	private ProductDTO product;
 
@@ -58,14 +54,6 @@ public class CreatedProductDTO {
 		this.description = description;
 	}
 
-	public OrderDTO getOrder() {
-		return order;
-	}
-
-	public void setOrder(OrderDTO order) {
-		this.order = order;
-	}
-
 	public ProductDTO getProduct() {
 		return product;
 	}
@@ -85,28 +73,31 @@ public class CreatedProductDTO {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof CreatedProduct)) return false;
-		CreatedProduct that = (CreatedProduct) o;
-		return Objects.equals(getPrice(), that.getPrice()) &&
-				Objects.equals(getCount(), that.getCount()) &&
-				Objects.equals(getDescription(), that.getDescription()) &&
-				Objects.equals(getProduct(), that.getProduct());
+		if (o == null || getClass() != o.getClass()) return false;
+		CreatedProductDTO that = (CreatedProductDTO) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(price, that.price) &&
+				Objects.equals(count, that.count) &&
+				Objects.equals(description, that.description) &&
+				Objects.equals(product, that.product) &&
+				Objects.equals(attributes, that.attributes);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getPrice(), getCount(), getDescription(), getProduct());
+		return Objects.hash(id, price, count, description, product, attributes);
 	}
 
 	@Override
 	public String toString() {
-		return "CreatedProduct{" +
+		return "CreatedProductDTO{" +
 				"id=" + id +
 				", price=" + price +
 				", count=" + count +
 				", description='" + description + '\'' +
 				", product=" + product +
+				", attributes=" + attributes +
 				'}';
 	}
 }

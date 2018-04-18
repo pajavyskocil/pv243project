@@ -1,7 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.Product;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -21,11 +19,6 @@ public class ProductDTO {
 	private BigDecimal minimalPrice;
 
 	private Set<TemplateDTO> templates = new HashSet<>();
-
-	private Set<ProductCategoryDTO> productCategories = new HashSet<>();
-
-	private Set<CreatedProductDTO> createdProducts = new HashSet<>();
-
 
 	public Long getId() {
 		return id;
@@ -67,44 +60,32 @@ public class ProductDTO {
 		this.templates = templates;
 	}
 
-	public Set<ProductCategoryDTO> getProductCategories() {
-		return productCategories;
-	}
-
-	public void setProductCategories(Set<ProductCategoryDTO> productCategories) {
-		this.productCategories = productCategories;
-	}
-
-	public Set<CreatedProductDTO> getCreatedProducts() {
-		return createdProducts;
-	}
-
-	public void setCreatedProducts(Set<CreatedProductDTO> createdProducts) {
-		this.createdProducts = createdProducts;
-	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Product)) return false;
-		Product product = (Product) o;
-		return Objects.equals(getName(), product.getName());
+		if (o == null || getClass() != o.getClass()) return false;
+		ProductDTO that = (ProductDTO) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(name, that.name) &&
+				Objects.equals(description, that.description) &&
+				Objects.equals(minimalPrice, that.minimalPrice) &&
+				Objects.equals(templates, that.templates);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getName());
+		return Objects.hash(id, name, description, minimalPrice, templates);
 	}
 
 	@Override
 	public String toString() {
-		return "Product{" +
+		return "ProductDTO{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", description='" + description + '\'' +
 				", minimalPrice=" + minimalPrice +
+				", templates=" + templates +
 				'}';
 	}
-
 }

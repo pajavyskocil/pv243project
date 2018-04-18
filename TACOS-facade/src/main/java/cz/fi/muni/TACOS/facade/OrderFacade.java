@@ -1,6 +1,5 @@
 package cz.fi.muni.TACOS.facade;
 
-import cz.fi.muni.TACOS.dto.OrderCreateDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.persistence.enums.OrderState;
 
@@ -11,7 +10,7 @@ import java.util.List;
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface OrderFacade extends Facade<OrderDTO, OrderCreateDTO> {
+public interface OrderFacade extends Facade<OrderDTO> {
 
 	/**
 	 * Find all orders in given state
@@ -20,14 +19,6 @@ public interface OrderFacade extends Facade<OrderDTO, OrderCreateDTO> {
 	 * @return List of orders with given state
 	 */
 	List<OrderDTO> getAllForState(OrderState state);
-
-	/**
-	 * Add Product to Order's list of products
-	 *
-	 * @param orderId order's Id
-	 * @param productId createdProduct's Id
-	 */
-	void addProduct(Long orderId, Long productId);
 
 	/**
 	 * Remove Product from Order's list of products

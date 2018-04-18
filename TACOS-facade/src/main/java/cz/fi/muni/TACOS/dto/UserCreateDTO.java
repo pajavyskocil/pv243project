@@ -18,8 +18,6 @@ public class UserCreateDTO {
 
 	private String password;
 
-	private Set<OrderDTO> orders = new HashSet<>();
-
 	public String getName() {
 		return name;
 	}
@@ -52,14 +50,6 @@ public class UserCreateDTO {
 		this.role = role;
 	}
 
-	public Set<OrderDTO> getOrders() {
-		return orders;
-	}
-
-	public void setOrders(Set<OrderDTO> orders) {
-		this.orders = orders;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -72,27 +62,28 @@ public class UserCreateDTO {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		UserDTO userDTO = (UserDTO) o;
-		return Objects.equals(getName(), userDTO.getName()) &&
-				Objects.equals(getSurname(), userDTO.getSurname()) &&
-				Objects.equals(getEmail(), userDTO.getEmail()) &&
-				Objects.equals(getRole(), userDTO.getRole()) &&
-				Objects.equals(getOrders(), userDTO.getOrders());
+		UserCreateDTO that = (UserCreateDTO) o;
+		return Objects.equals(name, that.name) &&
+				Objects.equals(surname, that.surname) &&
+				Objects.equals(email, that.email) &&
+				role == that.role &&
+				Objects.equals(password, that.password);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getName(), getSurname(), getEmail(), getRole(), getOrders());
+		return Objects.hash(name, surname, email, role, password);
 	}
 
 	@Override
 	public String toString() {
-		return "UserDTO{" +
-				", name='" + name + '\'' +
+		return "UserCreateDTO{" +
+				"name='" + name + '\'' +
 				", surname='" + surname + '\'' +
 				", email='" + email + '\'' +
 				", role=" + role +
+				", password='" + password + '\'' +
 				'}';
 	}
 }

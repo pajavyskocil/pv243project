@@ -2,10 +2,8 @@ package cz.fi.muni.TACOS.rest.controlers;
 
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
-import cz.fi.muni.TACOS.dto.UserUpdateDTO;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
-import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.persistence.enums.UserRole;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
@@ -80,28 +78,6 @@ public class UserControler {
 		} catch (Exception e) {
 			throw new ResourceNotFoundException("User not found.");
 		}
-	}
-
-	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Path("/update/{id}")
-	public UserDTO updateUser(@PathParam("id") Long id , UserUpdateDTO userUpdateDTO) {
-		log.debug("Rest update User ({})", userUpdateDTO);
-
-		if (userUpdateDTO == null) {
-			throw new InvalidParameterException("Argument is null");
-		}
-		if (userUpdateDTO.getId() == null) {
-			throw new InvalidParameterException("Value 'id' is null");
-		}
-		UserDTO userDTO = userFacade.update(userUpdateDTO);
-
-		if (userDTO == null) {
-			throw new ResourceNotFoundException("User not found");
-		}
-
-		return userDTO;
 	}
 
 	@GET
