@@ -8,7 +8,9 @@ import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -16,6 +18,8 @@ import java.util.List;
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
+@Transactional
+@ApplicationScoped
 public class CreatedProductFacadeImpl implements CreatedProductFacade {
 
 	private final CreatedProductService createdProductService;

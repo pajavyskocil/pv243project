@@ -28,5 +28,6 @@
         <module>TACOS-persistence</module>
         <module>TACOS-service</module>
         <module>TACOS-facade</module>
+        <module>TACOS-rest</module>
     </modules>
 </project>

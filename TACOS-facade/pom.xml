@@ -12,11 +12,6 @@
     <artifactId>TACOS-facade</artifactId>
     <dependencies>
         <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>LATEST</version>
-        </dependency>
-        <dependency>
             <groupId>cz.fi.muni</groupId>
             <artifactId>TACOS-persistence</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -69,13 +64,6 @@
                 <configuration>
                     <source>1.8</source>
                     <target>1.8</target>
-                    <annotationProcessorPaths>
-                        <path>
-                            <groupId>org.mapstruct</groupId>
-                            <artifactId>mapstruct-processor</artifactId>
-                            <version>1.2.0.Final</version>
-                        </path>
-                    </annotationProcessorPaths>
                 </configuration>
             </plugin>
         </plugins>

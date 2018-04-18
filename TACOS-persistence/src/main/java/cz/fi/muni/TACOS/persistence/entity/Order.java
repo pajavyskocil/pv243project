@@ -39,7 +39,6 @@ public class Order implements Serializable {
 
     private LocalDate submitted;
 
-    @NotNull
     @ManyToOne
     private User submitter;
 

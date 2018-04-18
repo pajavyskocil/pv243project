@@ -76,6 +76,7 @@ public class EntityCreator {
 	//UserCreateDTO
 	public static UserCreateDTO createTestUserCreateDTO() {
 		UserCreateDTO user = new UserCreateDTO();
+		user.setPassword("123");
 		user.setName("Regular");
 		user.setSurname("User");
 		user.setEmail("somerandomregularuser@worldofjava.com");
