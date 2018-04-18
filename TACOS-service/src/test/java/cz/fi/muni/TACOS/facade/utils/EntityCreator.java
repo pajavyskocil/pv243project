@@ -1,9 +1,17 @@
 package cz.fi.muni.TACOS.facade.utils;
 
+import cz.fi.muni.TACOS.dto.AttributeCategoryCreateDTO;
+import cz.fi.muni.TACOS.dto.AttributeCategoryDTO;
+import cz.fi.muni.TACOS.dto.AttributeCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
+import cz.fi.muni.TACOS.dto.ProductCategoryCreateDTO;
+import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
+import cz.fi.muni.TACOS.dto.ProductCreateDTO;
+import cz.fi.muni.TACOS.dto.ProductDTO;
+import cz.fi.muni.TACOS.dto.TemplateCreateDTO;
 import cz.fi.muni.TACOS.dto.TemplateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
@@ -201,9 +209,29 @@ public class EntityCreator {
 		template.setName("template");
 		return template;
 	}
+
 	//TemplateCreateDTO
+	public static TemplateCreateDTO createTestTemplateCreateDTO() {
+		TemplateCreateDTO template = new TemplateCreateDTO();
+		template.setName("template");
+		return template;
+	}
 
+	//Templates
+	public static Template createTestSecondTemplate() {
+		Template template = new Template();
+		template.setId(2L);
+		template.setName("templ");
+		return template;
+	}
 
+	//TemplateDTO
+	public static TemplateDTO createTestSecondTemplateDTO() {
+		TemplateDTO template = new TemplateDTO();
+		template.setId(2L);
+		template.setName("templ");
+		return template;
+	}
 
 	//ProductCategories
 	public static ProductCategory createProductCategory() {
@@ -290,5 +318,140 @@ public class EntityCreator {
 		attribute.setStatus(ProductAttributeStatus.NOT_AVAIBLE);
 
 		return attribute;
+	}
+
+	public static AttributeCategoryDTO createTestAttributeCategoryDTO() {
+		AttributeCategoryDTO attribute = new AttributeCategoryDTO();
+		attribute.setId(3L);
+		attribute.setName("attributeCat");
+
+		return attribute;
+	}
+
+	public static AttributeCategoryDTO createTestSecondAttributeCategoryDTO() {
+		AttributeCategoryDTO attribute = new AttributeCategoryDTO();
+		attribute.setId(4L);
+		attribute.setName("attributeCat");
+		attribute.setMinimalPrice(BigDecimal.valueOf(10));
+
+		return attribute;
+	}
+
+	public static AttributeCategoryCreateDTO createTestAttributeCategoryCreateDTO() {
+		AttributeCategoryCreateDTO attribute = new AttributeCategoryCreateDTO();
+		attribute.setName("attributeCatCreate");
+
+		return attribute;
+	}
+
+	public static AttributeCategory createTestAttributeCategory() {
+		AttributeCategory attribute = new AttributeCategory();
+		attribute.setName("attributeCategory");
+		attribute.setId(3L);
+		attribute.setMinimalPrice(BigDecimal.valueOf(10));
+
+		return attribute;
+	}
+
+	public static AttributeCategory createTestSecondAttributeCategory() {
+		AttributeCategory attribute = new AttributeCategory();
+		attribute.setName("attributeCategorySecond");
+		attribute.setId(4L);
+		attribute.setMinimalPrice(BigDecimal.valueOf(10));
+
+		return attribute;
+	}
+
+	public static AttributeCreateDTO createTestAttributeCreateDTO() {
+		AttributeCreateDTO attribute = new AttributeCreateDTO();
+		attribute.setName("attributeCreate");
+
+		return attribute;
+	}
+
+	public static ProductDTO createTestProductDTO() {
+		ProductDTO product = new ProductDTO();
+		product.setName("prod");
+		product.setDescription("desc");
+		product.setMinimalPrice(BigDecimal.valueOf(10));
+		product.setId(1L);
+
+		return product;
+	}
+
+	public static Product createTestProduct() {
+		Product product = new Product();
+		product.setName("prod");
+		product.setDescription("desc");
+		product.setMinimalPrice(BigDecimal.valueOf(10));
+
+		product.setId(2L);
+		return product;
+	}
+
+	public static ProductDTO createTestSecondProductDTO() {
+		ProductDTO product = new ProductDTO();
+		product.setName("prodSec");
+		product.setDescription("desc");
+		product.setMinimalPrice(BigDecimal.valueOf(10));
+		product.setId(1L);
+
+		return product;
+	}
+
+	public static Product createTestSecondProduct() {
+		Product product = new Product();
+		product.setName("prodSec");
+		product.setDescription("desc");
+		product.setMinimalPrice(BigDecimal.valueOf(10));
+
+		product.setId(1L);
+		return product;
+	}
+
+	public static ProductCreateDTO createTestProductCreateDTO() {
+		ProductCreateDTO product = new ProductCreateDTO();
+		product.setName("prod");
+
+		return product;
+	}
+
+	public static ProductCategoryDTO createTestProductCategoryDTO() {
+		ProductCategoryDTO productCategory = new ProductCategoryDTO();
+		productCategory.setName("prodCat");
+		productCategory.setId(1L);
+
+		return productCategory;
+	}
+
+	public static ProductCategory createTestProductCategory() {
+		ProductCategory productCategory = new ProductCategory();
+		productCategory.setName("prodCat");
+
+		productCategory.setId(1L);
+		return productCategory;
+	}
+
+	public static ProductCategoryCreateDTO createTestProductCategoryCreateDTO() {
+		ProductCategoryCreateDTO productCategory = new ProductCategoryCreateDTO();
+		productCategory.setName("prodCat");
+
+		return productCategory;
+	}
+
+	public static ProductCategoryDTO createTestSecondProductCategoryDTO() {
+		ProductCategoryDTO productCategory = new ProductCategoryDTO();
+		productCategory.setName("prodCatSec");
+		productCategory.setId(3L);
+
+		return productCategory;
+	}
+
+	public static ProductCategory createTestSecondProductCategory() {
+		ProductCategory productCategory = new ProductCategory();
+		productCategory.setName("prodCatSec");
+		productCategory.setId(3L);
+
+		return productCategory;
 	}
 }
