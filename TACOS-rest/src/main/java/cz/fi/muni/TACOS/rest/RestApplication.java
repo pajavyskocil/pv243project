@@ -1,10 +1,16 @@
 package cz.fi.muni.TACOS.rest;
 
+import cz.fi.muni.TACOS.rest.controlers.OrderControler;
+import cz.fi.muni.TACOS.rest.controlers.UserControler;
+import org.jboss.resteasy.plugins.interceptors.CorsFilter;
+
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
@@ -15,6 +21,30 @@ public class RestApplication extends Application {
 
 	@Inject
 	private SampleData sampleData;
+
+	private Set<Object> singletons = new HashSet<>();
+	private HashSet<Class<?>> classes = new HashSet<>();
+
+	public RestApplication()
+	{
+		CorsFilter corsFilter = new CorsFilter();
+		corsFilter.getAllowedOrigins().add("*");
+		corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
+		singletons.add(corsFilter);
+
+		classes.add(OrderControler.class);
+		classes.add(UserControler.class);
+	}
+
+	@Override
+	public Set<Object> getSingletons() {
+		return singletons;
+	}
+
+	@Override
+	public HashSet<Class<?>> getClasses(){
+		return classes;
+	}
 
 	@PostConstruct
 	public void init() {

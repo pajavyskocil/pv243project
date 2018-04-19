@@ -49,7 +49,7 @@ public class UserControler {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/create")
-	public UserDTO createOrder(UserCreateDTO userCreateDTO) {
+	public UserDTO createUser(UserCreateDTO userCreateDTO) {
 		log.debug("Rest create user ({})", userCreateDTO);
 
 		UserDTO userDTO = userFacade.findByEmail(userCreateDTO.getEmail());
