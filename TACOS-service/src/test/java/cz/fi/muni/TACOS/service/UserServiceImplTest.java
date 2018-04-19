@@ -4,7 +4,7 @@ import cz.fi.muni.TACOS.persistence.dao.OrderDao;
 import cz.fi.muni.TACOS.persistence.dao.UserDao;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.service.Impl.UserServiceImpl;
 import cz.fi.muni.TACOS.service.utils.EntityCreator;
 import org.junit.Before;

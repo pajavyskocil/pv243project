@@ -1,6 +1,6 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
+import cz.fi.muni.TACOS.enums.ProductAttributeStatus;
 
 import java.math.BigDecimal;
 import java.util.Arrays;

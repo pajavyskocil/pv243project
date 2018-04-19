@@ -3,17 +3,15 @@ package cz.fi.muni.TACOS.rest.controlers;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
 import cz.fi.muni.TACOS.facade.OrderFacade;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;

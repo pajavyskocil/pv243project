@@ -16,8 +16,8 @@ import cz.fi.muni.TACOS.facade.ProductCategoryFacade;
 import cz.fi.muni.TACOS.facade.ProductFacade;
 import cz.fi.muni.TACOS.facade.TemplateFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
-import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.ProductAttributeStatus;
+import cz.fi.muni.TACOS.enums.UserRole;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;

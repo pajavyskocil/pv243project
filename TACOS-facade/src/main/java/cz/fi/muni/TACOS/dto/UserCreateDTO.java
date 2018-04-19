@@ -1,10 +1,9 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
 
-import java.util.HashSet;
+import cz.fi.muni.TACOS.enums.UserRole;
+
 import java.util.Objects;
-import java.util.Set;
 
 public class UserCreateDTO {
 
@@ -76,14 +75,14 @@ public class UserCreateDTO {
 		return Objects.hash(name, surname, email, role, password);
 	}
 
-	@Override
-	public String toString() {
-		return "UserCreateDTO{" +
-				"name='" + name + '\'' +
-				", surname='" + surname + '\'' +
-				", email='" + email + '\'' +
-				", role=" + role +
-				", password='" + password + '\'' +
-				'}';
-	}
+    @Override
+    public String toString() {
+        return "UserCreateDTO{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

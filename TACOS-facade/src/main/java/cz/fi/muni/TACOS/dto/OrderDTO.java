@@ -1,6 +1,6 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -19,7 +19,7 @@ public class OrderDTO {
 
 	private LocalDate submitted;
 
-	private Long submitter;
+	private Long submitterId;
 
 	private LocalDate finished;
 
@@ -51,12 +51,12 @@ public class OrderDTO {
 		this.submitted = submitted;
 	}
 
-	public Long getSubmitter() {
-		return submitter;
+	public Long getSubmitterId() {
+		return submitterId;
 	}
 
-	public void setSubmitter(Long submitter) {
-		this.submitter = submitter;
+	public void setSubmitterId(Long submitterId) {
+		this.submitterId = submitterId;
 	}
 
 	public LocalDate getFinished() {
@@ -91,7 +91,7 @@ public class OrderDTO {
 		return Objects.equals(id, orderDTO.id) &&
 				state == orderDTO.state &&
 				Objects.equals(submitted, orderDTO.submitted) &&
-				Objects.equals(submitter, orderDTO.submitter) &&
+				Objects.equals(submitterId, orderDTO.submitterId) &&
 				Objects.equals(finished, orderDTO.finished) &&
 				Objects.equals(price, orderDTO.price) &&
 				Objects.equals(products, orderDTO.products);
@@ -100,7 +100,7 @@ public class OrderDTO {
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, state, submitted, submitter, finished, price, products);
+		return Objects.hash(id, state, submitted, submitterId, finished, price, products);
 	}
 
 	@Override
@@ -109,7 +109,7 @@ public class OrderDTO {
 				"id=" + id +
 				", state=" + state +
 				", submitted=" + submitted +
-				", submitter=" + submitter +
+				", submitterId=" + submitterId +
 				", finished=" + finished +
 				", price=" + price +
 				", products=" + products +

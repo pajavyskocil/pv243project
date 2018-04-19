@@ -3,7 +3,7 @@ package cz.fi.muni.TACOS.facade;
 import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 
 import java.util.List;
 

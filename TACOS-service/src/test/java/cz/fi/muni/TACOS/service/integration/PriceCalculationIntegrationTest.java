@@ -4,7 +4,7 @@ import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
 import cz.fi.muni.TACOS.persistence.entity.Product;
 import cz.fi.muni.TACOS.persistence.entity.Template;
-import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
+import cz.fi.muni.TACOS.enums.ProductAttributeStatus;
 import cz.fi.muni.TACOS.service.AttributeCategoryService;
 import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.ProductCategoryService;

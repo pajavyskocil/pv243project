@@ -3,7 +3,7 @@ package cz.fi.muni.TACOS.facade.impl;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
 import cz.fi.muni.TACOS.service.OrderService;

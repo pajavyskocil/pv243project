@@ -66,4 +66,14 @@ public class AttributeCategoryCreateDTO {
 
 		return Objects.hash(name, minimalPrice, attributes, templates);
 	}
+
+	@Override
+	public String toString() {
+		return "AttributeCategoryCreateDTO{" +
+				"name='" + name + '\'' +
+				", minimalPrice=" + minimalPrice +
+				", attributes=" + attributes +
+				", templates=" + templates +
+				'}';
+	}
 }

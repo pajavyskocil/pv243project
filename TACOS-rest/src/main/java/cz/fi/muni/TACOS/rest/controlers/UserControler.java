@@ -4,9 +4,8 @@ import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.rest.ApiUris;
-import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceAlreadyExistException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
@@ -176,7 +175,7 @@ public class UserControler {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/setSubmitter/{id}")
+	@Path("/setSubmitterId/{id}")
 	public void setSubmitter(@QueryParam("id") Long id) {
 		log.debug("Rest set UserRole.SUBMITTER for user with id ({})", id);
 

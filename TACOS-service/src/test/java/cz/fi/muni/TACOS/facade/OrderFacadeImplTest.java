@@ -5,6 +5,7 @@ import cz.fi.muni.TACOS.facade.utils.EntityCreator;
 import cz.fi.muni.TACOS.facade.impl.OrderFacadeImpl;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
+import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
 import cz.fi.muni.TACOS.service.OrderService;
@@ -57,11 +58,18 @@ public class OrderFacadeImplTest {
 	@Before
 	public void createEntities() {
 		order = EntityCreator.createTestOrder();
+		User user = EntityCreator.createTestUser();
 		secondOrder = EntityCreator.createTestSecondOrder();
 		thirdOrder = EntityCreator.createTestThirdOrder();
+		user.addSubmittedOrder(order);
+		user.addSubmittedOrder(secondOrder);
+		user.addSubmittedOrder(thirdOrder);
 		orderDTO = EntityCreator.createTestOrderDTO();
 		secondOrderDTO = EntityCreator.createTestSecondOrderDTO();
 		thirdOrderDTO = EntityCreator.createTestThirdOrderDTO();
+		orderDTO.setSubmitterId(order.getSubmitter().getId());
+		secondOrderDTO.setSubmitterId(secondOrder.getSubmitter().getId());
+		thirdOrderDTO.setSubmitterId(thirdOrder.getSubmitter().getId());
 
 		createdProduct = EntityCreator.createTestCreatedProduct();
 	}
@@ -91,6 +99,7 @@ public class OrderFacadeImplTest {
 		when(beanMappingService.mapTo(order, OrderDTO.class)).thenReturn(orderDTO);
 
 		OrderDTO foundOrderDTO = orderFacade.findById(order.getId());
+		orderDTO.setSubmitterId(order.getSubmitter().getId());
 		assertThat(foundOrderDTO).isEqualToComparingFieldByField(orderDTO);
 	}
 

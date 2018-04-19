@@ -1,6 +1,6 @@
 package cz.fi.muni.TACOS.persistence.entity;
 
-import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
+import cz.fi.muni.TACOS.enums.ProductAttributeStatus;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;

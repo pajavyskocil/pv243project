@@ -56,4 +56,13 @@ public class ProductCategoryCreateDTO {
 		result = 31 * result + Arrays.hashCode(image);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "ProductCategoryCreateDTO{" +
+				"name='" + name + '\'' +
+				", image=" + Arrays.toString(image) +
+				", parentCategory=" + parentCategory +
+				'}';
+	}
 }

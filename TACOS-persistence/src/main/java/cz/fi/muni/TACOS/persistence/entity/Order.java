@@ -1,6 +1,6 @@
 package cz.fi.muni.TACOS.persistence.entity;
 
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

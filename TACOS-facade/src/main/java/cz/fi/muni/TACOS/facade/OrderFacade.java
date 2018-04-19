@@ -1,7 +1,7 @@
 package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.OrderDTO;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 
 import java.util.List;
 

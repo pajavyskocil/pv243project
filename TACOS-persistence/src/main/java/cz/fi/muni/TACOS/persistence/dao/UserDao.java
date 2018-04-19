@@ -1,7 +1,7 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
 import cz.fi.muni.TACOS.persistence.entity.User;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 
 import java.util.List;
 

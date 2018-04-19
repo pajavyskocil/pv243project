@@ -1,7 +1,7 @@
 package cz.fi.muni.TACOS.persistence.entity;
 
 
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 

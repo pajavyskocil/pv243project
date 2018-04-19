@@ -3,7 +3,7 @@ package cz.fi.muni.TACOS.persistence.dao;
 import cz.fi.muni.TACOS.persistence.dao.utils.EntityCreator;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.transaction.api.annotation.TransactionMode;
@@ -35,7 +35,7 @@ public class OrderDaoImplTest {
 	public static Archive<?> createDeployment() {
 		return ShrinkWrap
 				.create(WebArchive.class)
-				.addPackages(true, "cz.fi.muni.TACOS.persistence", "org.assertj.core",
+				.addPackages(true, "cz.fi.muni.TACOS.persistence", "org.assertj.core", "cz.fi.muni.TACOS.enums",
 						"java.lang")
 				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
 				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

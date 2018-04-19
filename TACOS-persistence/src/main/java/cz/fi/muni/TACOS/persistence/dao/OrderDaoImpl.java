@@ -1,7 +1,7 @@
 package cz.fi.muni.TACOS.persistence.dao;
 
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;

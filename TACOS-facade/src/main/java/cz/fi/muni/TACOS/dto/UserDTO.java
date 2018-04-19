@@ -1,6 +1,6 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 
 import java.util.HashSet;
 import java.util.Objects;
@@ -94,6 +94,7 @@ public class UserDTO {
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
+                ", orders=" + orders +
                 '}';
     }
 }

@@ -33,7 +33,7 @@ public class ProductCategoryTest {
     public static Archive<?> createDeployment() {
         return ShrinkWrap
                 .create(WebArchive.class)
-                .addPackages(true, "cz.fi.muni.TACOS.persistence", "org.assertj.core",
+                .addPackages(true, "cz.fi.muni.TACOS.persistence", "org.assertj.core", "cz.fi.muni.TACOS.enums",
                         "java.lang")
                 .addAsResource("test-persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");

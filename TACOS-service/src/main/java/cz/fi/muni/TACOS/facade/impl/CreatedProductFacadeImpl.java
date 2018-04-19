@@ -6,7 +6,7 @@ import cz.fi.muni.TACOS.facade.CreatedProductFacade;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
