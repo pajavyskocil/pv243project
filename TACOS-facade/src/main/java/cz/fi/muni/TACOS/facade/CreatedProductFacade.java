@@ -8,8 +8,9 @@ import cz.fi.muni.TACOS.dto.CreatedProductDTO;
  *
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface CreatedProductFacade extends Facade<CreatedProductDTO, CreatedProductCreateDTO> {
+public interface CreatedProductFacade extends Facade<CreatedProductDTO> {
 
+	Long create(CreatedProductCreateDTO entity, Long userId);
 	/**
 	 * Add attribute to CreatedProduct's list of attributes
 	 *

@@ -12,18 +12,6 @@
     <artifactId>TACOS-facade</artifactId>
     <dependencies>
         <dependency>
-            <groupId>cz.fi.muni</groupId>
-            <artifactId>TACOS-persistence</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni</groupId>
-            <artifactId>TACOS-service</artifactId>
-            <version>1.0-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>org.jboss.spec.javax.ejb</groupId>
             <artifactId>jboss-ejb-api_3.2_spec</artifactId>
             <version>1.0.1.Final</version>

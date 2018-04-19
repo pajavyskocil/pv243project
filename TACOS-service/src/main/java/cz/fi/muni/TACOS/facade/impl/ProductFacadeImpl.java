@@ -1,4 +1,4 @@
-package cz.fi.muni.TACOS.facadeImpl;
+package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.ProductCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductDTO;
@@ -44,12 +44,14 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public Long create(ProductCreateDTO entity, Long categoryId) {
+    public Long create(ProductCreateDTO entity) {
         Product product = beanMappingService.mapTo(entity, Product.class);
-        ProductCategory category = productCategoryService.findById(categoryId);
-
         productService.create(product);
-        productCategoryService.addProductToCategory(category, product);
+
+        for (Long id : entity.getProductCategories()) {
+            ProductCategory category = productCategoryService.findById(id);
+            productCategoryService.addProductToCategory(category, product);
+        }
 
         return product.getId();
     }
@@ -70,14 +72,6 @@ public class ProductFacadeImpl implements ProductFacade {
         Template template = templateService.findById(templateId);
 
         productService.removeTemplate(product, template);
-    }
-
-    @Override
-    public Long create(ProductCreateDTO entity) {
-        Product product = beanMappingService.mapTo(entity, Product.class);
-        productService.create(product);
-
-        return product.getId();
     }
 
     @Override

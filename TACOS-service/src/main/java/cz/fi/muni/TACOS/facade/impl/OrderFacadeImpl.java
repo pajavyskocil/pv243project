@@ -1,10 +1,9 @@
-package cz.fi.muni.TACOS.facadeImpl;
+package cz.fi.muni.TACOS.facade.impl;
 
-import cz.fi.muni.TACOS.dto.OrderCreateDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
 import cz.fi.muni.TACOS.service.OrderService;
@@ -30,17 +29,11 @@ public class OrderFacadeImpl implements OrderFacade {
 	private final BeanMappingService beanMappingService;
 
 	@Inject
-	public OrderFacadeImpl(OrderService orderService, CreatedProductService createdProductService, BeanMappingService beanMappingService) {
+	public OrderFacadeImpl(OrderService orderService, CreatedProductService createdProductService,
+						   BeanMappingService beanMappingService) {
 		this.orderService = orderService;
 		this.createdProductService = createdProductService;
 		this.beanMappingService = beanMappingService;
-	}
-
-	@Override
-	public Long create(OrderCreateDTO entity) {
-		Order order = beanMappingService.mapTo(entity, Order.class);
-		orderService.create(order);
-		return order.getId();
 	}
 
 	@Override
@@ -62,11 +55,6 @@ public class OrderFacadeImpl implements OrderFacade {
 	@Override
 	public List<OrderDTO> getAllForState(OrderState state) {
 		return beanMappingService.mapTo(orderService.getAllForState(state), OrderDTO.class);
-	}
-
-	@Override
-	public void addProduct(Long orderId, Long productId) {
-		orderService.addProduct(orderService.findById(orderId), createdProductService.findById(productId));
 	}
 
 	@Override

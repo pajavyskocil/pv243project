@@ -1,7 +1,6 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -20,14 +19,13 @@ public class OrderDTO {
 
 	private LocalDate submitted;
 
-	private UserDTO submitter;
+	private Long submitterId;
 
 	private LocalDate finished;
 
 	private BigDecimal price;
 
 	private Set<CreatedProductDTO> products = new HashSet<>();
-
 
 	public Long getId() {
 		return id;
@@ -53,12 +51,12 @@ public class OrderDTO {
 		this.submitted = submitted;
 	}
 
-	public UserDTO getSubmitter() {
-		return submitter;
+	public Long getSubmitterId() {
+		return submitterId;
 	}
 
-	public void setSubmitter(UserDTO submitter) {
-		this.submitter = submitter;
+	public void setSubmitterId(Long submitterId) {
+		this.submitterId = submitterId;
 	}
 
 	public LocalDate getFinished() {
@@ -88,31 +86,33 @@ public class OrderDTO {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Order)) return false;
-		Order order = (Order) o;
-		return getState() == order.getState() &&
-				Objects.equals(getSubmitted(), order.getSubmitted()) &&
-				Objects.equals(getFinished(), order.getFinished()) &&
-				Objects.equals(getPrice(), order.getPrice()) &&
-				Objects.equals(getProducts(), order.getProducts());
+		if (o == null || getClass() != o.getClass()) return false;
+		OrderDTO orderDTO = (OrderDTO) o;
+		return Objects.equals(id, orderDTO.id) &&
+				state == orderDTO.state &&
+				Objects.equals(submitted, orderDTO.submitted) &&
+				Objects.equals(submitterId, orderDTO.submitterId) &&
+				Objects.equals(finished, orderDTO.finished) &&
+				Objects.equals(price, orderDTO.price) &&
+				Objects.equals(products, orderDTO.products);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getState(), getSubmitted(), getFinished(), getPrice(), getProducts());
+		return Objects.hash(id, state, submitted, submitterId, finished, price, products);
 	}
 
 	@Override
 	public String toString() {
-		return "Order{" +
+		return "OrderDTO{" +
 				"id=" + id +
 				", state=" + state +
 				", submitted=" + submitted +
-				", submitter=" + submitter +
+				", submitterId=" + submitterId +
 				", finished=" + finished +
 				", price=" + price +
+				", products=" + products +
 				'}';
 	}
-
 }

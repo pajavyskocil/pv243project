@@ -3,7 +3,7 @@ package cz.fi.muni.TACOS.service.Impl;
 import cz.fi.muni.TACOS.persistence.dao.OrderDao;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.service.AbstractEntityService;
 import cz.fi.muni.TACOS.service.OrderService;
 

@@ -8,9 +8,9 @@ import cz.fi.muni.TACOS.persistence.entity.Product;
 import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
 import cz.fi.muni.TACOS.persistence.entity.Template;
 import cz.fi.muni.TACOS.persistence.entity.User;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
-import cz.fi.muni.TACOS.persistence.enums.ProductAttributeStatus;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.OrderState;
+import cz.fi.muni.TACOS.enums.ProductAttributeStatus;
+import cz.fi.muni.TACOS.enums.UserRole;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

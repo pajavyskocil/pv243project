@@ -3,8 +3,7 @@ package cz.fi.muni.TACOS.facade;
 import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
-import cz.fi.muni.TACOS.dto.UserUpdateDTO;
-import cz.fi.muni.TACOS.persistence.enums.UserRole;
+import cz.fi.muni.TACOS.enums.UserRole;
 
 import java.util.List;
 
@@ -12,16 +11,9 @@ import java.util.List;
  * Facade Interface for User entity.
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
-public interface UserFacade extends Facade<UserDTO, UserCreateDTO> {
+public interface UserFacade extends Facade<UserDTO> {
 
-    /**
-     * Update UserDTO Entity
-     *
-     * @param user UserUpdateDTO with new attribute
-     * @return UserDTO
-     */
-     UserDTO update( UserUpdateDTO user);
-
+    Long create(UserCreateDTO entity);
     /**
      * Finds user by email
      * @param email email by which will be user found

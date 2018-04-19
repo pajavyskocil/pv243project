@@ -1,7 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.Template;
-
 import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
@@ -20,17 +18,6 @@ public class TemplateDTO {
 
 	private Set<AttributeCategoryDTO> attributeCategories = new HashSet<>();
 
-	private Set<ProductDTO> products = new HashSet<>();
-
-
-	public BigDecimal getMinimalPrice() {
-		return minimalPrice;
-	}
-
-	public void setMinimalPrice(BigDecimal minimalPrice) {
-		this.minimalPrice = minimalPrice;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +34,14 @@ public class TemplateDTO {
 		this.name = name;
 	}
 
+	public BigDecimal getMinimalPrice() {
+		return minimalPrice;
+	}
+
+	public void setMinimalPrice(BigDecimal minimalPrice) {
+		this.minimalPrice = minimalPrice;
+	}
+
 	public Set<AttributeCategoryDTO> getAttributeCategories() {
 		return attributeCategories;
 	}
@@ -55,33 +50,28 @@ public class TemplateDTO {
 		this.attributeCategories = attributeCategories;
 	}
 
-	public Set<ProductDTO> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<ProductDTO> products) {
-		this.products = products;
-	}
-
-
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Template)) return false;
-		Template template = (Template) o;
-		return Objects.equals(getName(), template.getName());
+		if (o == null || getClass() != o.getClass()) return false;
+		TemplateDTO that = (TemplateDTO) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(name, that.name) &&
+				Objects.equals(minimalPrice, that.minimalPrice) &&
+				Objects.equals(attributeCategories, that.attributeCategories);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getName());
+		return Objects.hash(id, name, minimalPrice, attributeCategories);
 	}
 
 	@Override
 	public String toString() {
-		return "Template{" +
-				"name='" + name + '\'' +
+		return "TemplateDTO{" +
+				"id=" + id +
+				", name='" + name + '\'' +
 				", minimalPrice=" + minimalPrice +
 				", attributeCategories=" + attributeCategories +
 				'}';

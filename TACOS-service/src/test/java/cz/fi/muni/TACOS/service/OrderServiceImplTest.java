@@ -4,7 +4,7 @@ import cz.fi.muni.TACOS.persistence.dao.CreatedProductDao;
 import cz.fi.muni.TACOS.persistence.dao.OrderDao;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
-import cz.fi.muni.TACOS.persistence.enums.OrderState;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.service.Impl.OrderServiceImpl;
 import cz.fi.muni.TACOS.service.utils.EntityCreator;
 import org.junit.Before;

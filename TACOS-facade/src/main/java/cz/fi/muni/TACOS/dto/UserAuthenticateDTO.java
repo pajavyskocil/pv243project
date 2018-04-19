@@ -27,14 +27,6 @@ public class UserAuthenticateDTO {
     }
 
     @Override
-    public String toString() {
-        return "UserAuthenticateDTO{" +
-                "email=" + getEmail() +
-                ", password='" + password + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -50,5 +42,13 @@ public class UserAuthenticateDTO {
         int result = getEmail() != null ? getEmail().hashCode() : 0;
         result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "UserAuthenticateDTO{" +
+                "email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }

@@ -2,9 +2,8 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
-import cz.fi.muni.TACOS.dto.UserUpdateDTO;
 import cz.fi.muni.TACOS.facade.utils.EntityCreator;
-import cz.fi.muni.TACOS.facadeImpl.UserFacadeImpl;
+import cz.fi.muni.TACOS.facade.impl.UserFacadeImpl;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.service.BeanMappingService;
@@ -48,10 +47,7 @@ public class UserFacadeImplTest {
 	private UserDTO userDTO;
 	private UserDTO secondUserDTO;
 	private UserCreateDTO userCreateDTO;
-	private UserUpdateDTO userUpdateDTO;
 	private Order order;
-
-
 
 	@Before
 	public void setFacade(){
@@ -65,7 +61,6 @@ public class UserFacadeImplTest {
 		userDTO = EntityCreator.createTestUserDTO();
 		secondUserDTO = EntityCreator.createTestSecondUserDTO();
 		userCreateDTO = EntityCreator.createTestUserCreateDTO();
-		userUpdateDTO = EntityCreator.createTestUserUpdateDTO();
 
 		order = EntityCreator.createTestOrder();
 	}
@@ -101,15 +96,6 @@ public class UserFacadeImplTest {
 		userFacade.delete(id);
 
 		verify(userService, times(1)).delete(user);
-	}
-
-	@Test
-	public void testUpdateUser() {
-		when(userService.findById(user.getId())).thenReturn(user);
-
-		userFacade.update(userUpdateDTO);
-
-		assertThat(user.getName()).isEqualTo(userUpdateDTO.getName());
 	}
 
 	@Test

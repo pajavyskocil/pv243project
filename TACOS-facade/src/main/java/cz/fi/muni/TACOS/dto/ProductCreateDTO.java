@@ -1,8 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.Product;
-
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -16,14 +13,7 @@ public class ProductCreateDTO {
 
 	private String description;
 
-	private BigDecimal minimalPrice;
-
-	private Set<TemplateDTO> templates = new HashSet<>();
-
-	private Set<ProductCategoryDTO> productCategories = new HashSet<>();
-
-	private Set<CreatedProductDTO> createdProducts = new HashSet<>();
-
+	private Set<Long> productCategories = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -41,58 +31,36 @@ public class ProductCreateDTO {
 		this.description = description;
 	}
 
-	public BigDecimal getMinimalPrice() {
-		return minimalPrice;
-	}
-
-	public void setMinimalPrice(BigDecimal minimalPrice) {
-		this.minimalPrice = minimalPrice;
-	}
-
-	public Set<TemplateDTO> getTemplates() {
-		return templates;
-	}
-
-	public void setTemplates(Set<TemplateDTO> templates) {
-		this.templates = templates;
-	}
-
-	public Set<ProductCategoryDTO> getProductCategories() {
+	public Set<Long> getProductCategories() {
 		return productCategories;
 	}
 
-	public void setProductCategories(Set<ProductCategoryDTO> productCategories) {
+	public void setProductCategories(Set<Long> productCategories) {
 		this.productCategories = productCategories;
-	}
-
-	public Set<CreatedProductDTO> getCreatedProducts() {
-		return createdProducts;
-	}
-
-	public void setCreatedProducts(Set<CreatedProductDTO> createdProducts) {
-		this.createdProducts = createdProducts;
 	}
 
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof Product)) return false;
-		Product product = (Product) o;
-		return Objects.equals(getName(), product.getName());
+		if (o == null || getClass() != o.getClass()) return false;
+		ProductCreateDTO that = (ProductCreateDTO) o;
+		return Objects.equals(name, that.name) &&
+				Objects.equals(description, that.description) &&
+				Objects.equals(productCategories, that.productCategories);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(getName());
+		return Objects.hash(name, description, productCategories);
 	}
 
 	@Override
 	public String toString() {
-		return "Product{" +
+		return "ProductCreateDTO{" +
 				"name='" + name + '\'' +
 				", description='" + description + '\'' +
-				", minimalPrice=" + minimalPrice +
+				", productCategories=" + productCategories +
 				'}';
 	}
 }

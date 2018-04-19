@@ -1,7 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
-
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Objects;
@@ -23,7 +21,6 @@ public class ProductCategoryDTO {
 	private ProductCategoryDTO parentCategory;
 
 	private Set<ProductCategoryDTO> subCategories = new HashSet<>();
-
 
 	public Long getId() {
 		return id;
@@ -48,7 +45,6 @@ public class ProductCategoryDTO {
 	public void setProducts(Set<ProductDTO> products) {
 		this.products = products;
 	}
-
 
 	public Byte[] getImage() {
 		return image;
@@ -77,29 +73,33 @@ public class ProductCategoryDTO {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof ProductCategory)) return false;
-		ProductCategory that = (ProductCategory) o;
-		return Objects.equals(getName(), that.getName()) &&
-				Arrays.equals(getImage(), that.getImage());
+		if (o == null || getClass() != o.getClass()) return false;
+		ProductCategoryDTO that = (ProductCategoryDTO) o;
+		return Objects.equals(id, that.id) &&
+				Objects.equals(name, that.name) &&
+				Objects.equals(products, that.products) &&
+				Arrays.equals(image, that.image) &&
+				Objects.equals(parentCategory, that.parentCategory) &&
+				Objects.equals(subCategories, that.subCategories);
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(getName());
-		result = 31 * result + Arrays.hashCode(getImage());
+		int result = Objects.hash(id, name, products, parentCategory, subCategories);
+		result = 31 * result + Arrays.hashCode(image);
 		return result;
 	}
 
 	@Override
 	public String toString() {
-		return "ProductCategory{" +
+		return "ProductCategoryDTO{" +
 				"id=" + id +
 				", name='" + name + '\'' +
 				", products=" + products +
 				", image=" + Arrays.toString(image) +
 				", parentCategory=" + parentCategory +
+				", subCategories=" + subCategories +
 				'}';
 	}
-
 }
