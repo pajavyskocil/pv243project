@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.ProductCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 
 /**
  * Facade Interface for ProductCategory entity.
@@ -11,7 +12,7 @@ import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
  */
 public interface ProductCategoryFacade extends Facade<ProductCategoryDTO> {
 
-    Long create(ProductCategoryCreateDTO entity);
+    Long create(ProductCategoryCreateDTO entity) throws InvalidRelationEntityIdException;
 
     /**
      * Adds subcategory to category

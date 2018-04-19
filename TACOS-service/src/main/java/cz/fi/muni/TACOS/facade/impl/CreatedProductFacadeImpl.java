@@ -2,7 +2,9 @@ package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
+import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
@@ -50,11 +52,14 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 	}
 
 	@Override
-	public Long create(CreatedProductCreateDTO entity, Long userId) {
+	public Long create(CreatedProductCreateDTO entity, Long userId) throws InvalidRelationEntityIdException {
 		CreatedProduct product = beanMappingService.mapTo(entity, CreatedProduct.class);
 		createdProductService.create(product);
 
 		User user = userService.findById(userId);
+		if (user == null) {
+			throw new InvalidRelationEntityIdException("User for given id does not exist. id: " + userId);
+		}
 		Set<Order> userOrders = user.getOrders();
 
 		Order openedOrder = null;
@@ -70,6 +75,15 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 			openedOrder.setState(OrderState.NEW);
 			openedOrder.setPrice(BigDecimal.ZERO);
 			orderService.create(openedOrder);
+		}
+
+		for (Long attrId : entity.getAttributeIds()) {
+			Attribute attribute = attributeService.findById(attrId);
+			if (attribute == null) {
+				throw new InvalidRelationEntityIdException("Attribute for given id does not exist. id: " + attrId);
+			}
+
+			createdProductService.addAttribute(product, attribute);
 		}
 
 		orderService.addProduct(openedOrder, product);

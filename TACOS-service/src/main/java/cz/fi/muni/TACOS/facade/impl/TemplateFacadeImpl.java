@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.TemplateCreateDTO;
 import cz.fi.muni.TACOS.dto.TemplateDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.TemplateFacade;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
 import cz.fi.muni.TACOS.persistence.entity.Template;
@@ -54,17 +55,23 @@ public class TemplateFacadeImpl implements TemplateFacade {
     }
 
     @Override
-    public Long create(TemplateCreateDTO entity) {
+    public Long create(TemplateCreateDTO entity) throws InvalidRelationEntityIdException {
         Template template = beanMappingService.mapTo(entity, Template.class);
         templateService.create(template);
 
         for (Long id : entity.getProducts()) {
             Product product = productService.findById(id);
+            if (product == null) {
+                throw new InvalidRelationEntityIdException("Product for given id does not exist. id: " + id);
+            }
             productService.addTemplate(product, template);
         }
 
         for (Long id : entity.getAttributeCategories()) {
             AttributeCategory attributeCategory = attributeCategoryService.findById(id);
+            if (attributeCategory == null) {
+                throw new InvalidRelationEntityIdException("Attribute category for given id does not exist. id: " + id);
+            }
             templateService.addAttributeCategory(template, attributeCategory);
         }
 
@@ -74,9 +81,6 @@ public class TemplateFacadeImpl implements TemplateFacade {
     @Override
     public void delete(Long id) {
         templateService.delete(templateService.findById(id));
-        Template template = templateService.findById(id);
-
-        templateService.delete(template);
     }
 
     @Override

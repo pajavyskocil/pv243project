@@ -1,4 +1,4 @@
-package cz.fi.muni.TACOS.rest.controlers;
+package cz.fi.muni.TACOS.rest.controllers;
 
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;

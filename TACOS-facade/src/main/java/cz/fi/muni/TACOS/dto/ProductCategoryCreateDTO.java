@@ -13,7 +13,7 @@ public class ProductCategoryCreateDTO {
 
 	private Byte[] image;
 
-	private Long parentCategory;
+	private Long parentCategoryId;
 
 	public String getName() {
 		return name;
@@ -31,12 +31,12 @@ public class ProductCategoryCreateDTO {
 		this.image = image;
 	}
 
-	public Long getParentCategory() {
-		return parentCategory;
+	public Long getParentCategoryId() {
+		return parentCategoryId;
 	}
 
-	public void setParentCategory(Long parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setParentCategoryId(Long parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
 	}
 
 	@Override
@@ -46,13 +46,13 @@ public class ProductCategoryCreateDTO {
 		ProductCategoryCreateDTO that = (ProductCategoryCreateDTO) o;
 		return Objects.equals(name, that.name) &&
 				Arrays.equals(image, that.image) &&
-				Objects.equals(parentCategory, that.parentCategory);
+				Objects.equals(parentCategoryId, that.parentCategoryId);
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(name, parentCategory);
+		int result = Objects.hash(name, parentCategoryId);
 		result = 31 * result + Arrays.hashCode(image);
 		return result;
 	}
@@ -62,7 +62,7 @@ public class ProductCategoryCreateDTO {
 		return "ProductCategoryCreateDTO{" +
 				"name='" + name + '\'' +
 				", image=" + Arrays.toString(image) +
-				", parentCategory=" + parentCategory +
+				", parentCategoryId=" + parentCategoryId +
 				'}';
 	}
 }

@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.ProductCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.ProductFacade;
 import cz.fi.muni.TACOS.persistence.entity.Product;
 import cz.fi.muni.TACOS.service.BeanMappingService;
@@ -44,12 +45,15 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public Long create(ProductCreateDTO entity) {
+    public Long create(ProductCreateDTO entity) throws InvalidRelationEntityIdException {
         Product product = beanMappingService.mapTo(entity, Product.class);
         productService.create(product);
 
         for (Long id : entity.getProductCategories()) {
             ProductCategory category = productCategoryService.findById(id);
+            if (category == null) {
+                throw new InvalidRelationEntityIdException("Product category for given id does not exist. id: " + id);
+            }
             productCategoryService.addProductToCategory(category, product);
         }
 
@@ -58,7 +62,6 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public void addTemplate(Long productId, Long templateId) {
-        productService.addTemplate(productService.findById(productId), templateService.findById(templateId));
         Product product = productService.findById(productId);
         Template template = templateService.findById(templateId);
 
@@ -67,7 +70,6 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public void removeTemplate(Long productId, Long templateId) {
-        productService.removeTemplate(productService.findById(productId), templateService.findById(templateId));
         Product product = productService.findById(productId);
         Template template = templateService.findById(templateId);
 
@@ -77,9 +79,6 @@ public class ProductFacadeImpl implements ProductFacade {
     @Override
     public void delete(Long id) {
         productService.delete(productService.findById(id));
-        Product product = productService.findById(id);
-
-        productService.delete(product);
     }
 
     @Override

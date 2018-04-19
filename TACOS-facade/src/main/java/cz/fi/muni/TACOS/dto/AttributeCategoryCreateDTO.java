@@ -1,6 +1,5 @@
 package cz.fi.muni.TACOS.dto;
 
-import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -12,8 +11,6 @@ public class AttributeCategoryCreateDTO {
 
 	private String name;
 
-	private BigDecimal minimalPrice;
-
 	private Set<Long> attributes = new HashSet<>();
 
 	private Set<Long> templates = new HashSet<>();
@@ -24,14 +21,6 @@ public class AttributeCategoryCreateDTO {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public BigDecimal getMinimalPrice() {
-		return minimalPrice;
-	}
-
-	public void setMinimalPrice(BigDecimal minimalPrice) {
-		this.minimalPrice = minimalPrice;
 	}
 
 	public Set<Long> getAttributes() {
@@ -56,7 +45,6 @@ public class AttributeCategoryCreateDTO {
 		if (o == null || getClass() != o.getClass()) return false;
 		AttributeCategoryCreateDTO that = (AttributeCategoryCreateDTO) o;
 		return Objects.equals(name, that.name) &&
-				Objects.equals(minimalPrice, that.minimalPrice) &&
 				Objects.equals(attributes, that.attributes) &&
 				Objects.equals(templates, that.templates);
 	}
@@ -64,14 +52,13 @@ public class AttributeCategoryCreateDTO {
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(name, minimalPrice, attributes, templates);
+		return Objects.hash(name, attributes, templates);
 	}
 
 	@Override
 	public String toString() {
 		return "AttributeCategoryCreateDTO{" +
 				"name='" + name + '\'' +
-				", minimalPrice=" + minimalPrice +
 				", attributes=" + attributes +
 				", templates=" + templates +
 				'}';

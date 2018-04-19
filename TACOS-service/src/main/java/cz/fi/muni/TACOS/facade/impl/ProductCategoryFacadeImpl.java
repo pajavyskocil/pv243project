@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.ProductCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductCategoryDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.ProductCategoryFacade;
 import cz.fi.muni.TACOS.persistence.entity.ProductCategory;
 import cz.fi.muni.TACOS.service.BeanMappingService;
@@ -68,12 +69,15 @@ public class ProductCategoryFacadeImpl implements ProductCategoryFacade {
     }
 
     @Override
-    public Long create(ProductCategoryCreateDTO entity) {
+    public Long create(ProductCategoryCreateDTO entity) throws InvalidRelationEntityIdException {
         ProductCategory productCategory = beanMappingService.mapTo(entity, ProductCategory.class);
         productCategoryService.create(productCategory);
 
-        if (entity.getParentCategory() != null) {
-            ProductCategory parentCategory = productCategoryService.findById(entity.getParentCategory());
+        if (entity.getParentCategoryId() != null) {
+            ProductCategory parentCategory = productCategoryService.findById(entity.getParentCategoryId());
+            if (parentCategory == null) {
+                throw new InvalidRelationEntityIdException("Parent category for given id does not exist. id: " + entity.getParentCategoryId());
+            }
             productCategoryService.addSubCategory(parentCategory, productCategory);
         }
 
@@ -83,9 +87,6 @@ public class ProductCategoryFacadeImpl implements ProductCategoryFacade {
     @Override
     public void delete(Long id) {
         productCategoryService.delete(productCategoryService.findById(id));
-        ProductCategory category = productCategoryService.findById(id);
-
-        productCategoryService.delete(category);
     }
 
     @Override

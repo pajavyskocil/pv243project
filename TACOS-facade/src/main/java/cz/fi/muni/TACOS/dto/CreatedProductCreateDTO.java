@@ -17,7 +17,7 @@ public class CreatedProductCreateDTO {
 
 	private Long productId;
 
-	private Set<Long> attributes = new HashSet<>();
+	private Set<Long> attributeIds = new HashSet<>();
 
 	public Long getCount() {
 		return count;
@@ -51,12 +51,12 @@ public class CreatedProductCreateDTO {
 		this.productId = productId;
 	}
 
-	public Set<Long> getAttributes() {
-		return attributes;
+	public Set<Long> getAttributeIds() {
+		return attributeIds;
 	}
 
-	public void setAttributes(Set<Long> attributes) {
-		this.attributes = attributes;
+	public void setAttributeIds(Set<Long> attributeIds) {
+		this.attributeIds = attributeIds;
 	}
 
 	@Override
@@ -68,13 +68,13 @@ public class CreatedProductCreateDTO {
 				Objects.equals(description, that.description) &&
 				Objects.equals(orderId, that.orderId) &&
 				Objects.equals(productId, that.productId) &&
-				Objects.equals(attributes, that.attributes);
+				Objects.equals(attributeIds, that.attributeIds);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(count, description, orderId, productId, attributes);
+		return Objects.hash(count, description, orderId, productId, attributeIds);
 	}
 
 	@Override
@@ -84,7 +84,7 @@ public class CreatedProductCreateDTO {
 				", description='" + description + '\'' +
 				", orderId=" + orderId +
 				", productId=" + productId +
-				", attributes=" + attributes +
+				", attributeIds=" + attributeIds +
 				'}';
 	}
 }
