@@ -1,7 +1,7 @@
 package cz.fi.muni.TACOS.rest;
 
-import cz.fi.muni.TACOS.rest.controlers.OrderControler;
-import cz.fi.muni.TACOS.rest.controlers.UserControler;
+import cz.fi.muni.TACOS.rest.controllers.OrderController;
+import cz.fi.muni.TACOS.rest.controllers.UserController;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
 import javax.annotation.PostConstruct;
@@ -32,8 +32,8 @@ public class RestApplication extends Application {
 		corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
 		singletons.add(corsFilter);
 
-		classes.add(OrderControler.class);
-		classes.add(UserControler.class);
+		classes.add(OrderController.class);
+		classes.add(UserController.class);
 	}
 
 	@Override

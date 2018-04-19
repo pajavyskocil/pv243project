@@ -28,4 +28,14 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 				.setParameter("state", state)
 				.getResultList();
 	}
+
+	@Override
+	public List<Order> getAllWithoutNewOrders() {
+
+		return em
+				.createQuery("select o from Order o where o.state <> :state", Order.class)
+				.setParameter("state", OrderState.NEW)
+				.getResultList();
+	}
+
 }

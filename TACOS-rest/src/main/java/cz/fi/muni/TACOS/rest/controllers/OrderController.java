@@ -24,9 +24,9 @@ import java.util.List;
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 @Path(ApiUris.URI_ORDERS)
-public class OrderControler {
+public class OrderController {
 
-	private static final Logger log = LoggerFactory.getLogger(OrderControler.class);
+	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
 	@Inject
 	private OrderFacade orderFacade;
@@ -36,7 +36,7 @@ public class OrderControler {
 
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	public void deleteOrder(@PathParam("id") Long id) {
 		log.debug("Rest delete Order with id ({})", id);
 
@@ -58,7 +58,7 @@ public class OrderControler {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/filter/{state}")
+	@Path("/filter/state/{state}")
 	public List<OrderDTO> getAllForState(@PathParam("state") OrderState state) {
 		log.debug("Rest get all orders for state ({})", state);
 
@@ -67,6 +67,15 @@ public class OrderControler {
 		}
 
 		return orderFacade.getAllForState(state);
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/filter/notNew")
+	public List<OrderDTO> getAllWithoutNewOrders() {
+		log.debug("Rest get all orders in OrderState != NEW");
+
+		return orderFacade.getAllWithoutNewOrders();
 	}
 
 	@PUT

@@ -92,6 +92,14 @@ public class OrderServiceImplTest {
 	}
 
 	@Test
+	public void testGetAllWithoutNewOrders() {
+		when(orderDao.getAllWithoutNewOrders()).thenReturn(Arrays.asList(secondOrder));
+
+		List<Order> orders = orderService.getAllWithoutNewOrders();
+		assertThat(orders).containsOnly(secondOrder);
+	}
+
+	@Test
 	public void testAddProductToOrder() {
 		when(orderDao.findById(order.getId())).thenReturn(order);
 		when(createdProductDao.findById(secondProduct.getId())).thenReturn(secondProduct);

@@ -58,6 +58,11 @@ public class OrderFacadeImpl implements OrderFacade {
 	}
 
 	@Override
+	public List<OrderDTO> getAllWithoutNewOrders() {
+		return beanMappingService.mapTo(orderService.getAllWithoutNewOrders(), OrderDTO.class);
+	}
+
+	@Override
 	public void removeProduct(Long orderId, Long productId) {
 		orderService.removeProduct(orderService.findById(orderId), createdProductService.findById(productId));
 	}

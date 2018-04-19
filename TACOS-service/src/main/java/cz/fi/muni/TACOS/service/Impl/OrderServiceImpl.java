@@ -35,6 +35,11 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 		return orderDao.getAllForState(state);
 	}
 
+
+	@Override
+	public List<Order> getAllWithoutNewOrders() {
+		return orderDao.getAllWithoutNewOrders();	}
+
 	@Override
 	public void addProduct(Order order, CreatedProduct product) {
 		if (order.getState() != OrderState.NEW) {

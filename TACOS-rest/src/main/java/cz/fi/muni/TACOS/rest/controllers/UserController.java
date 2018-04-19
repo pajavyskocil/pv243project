@@ -28,9 +28,9 @@ import java.util.List;
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 @Path(ApiUris.URI_USERS)
-public class UserControler {
+public class UserController {
 
-	private static final Logger log = LoggerFactory.getLogger(OrderControler.class);
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 
 	@Inject
 	private UserFacade userFacade;
@@ -48,7 +48,6 @@ public class UserControler {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/create")
 	public UserDTO createUser(UserCreateDTO userCreateDTO) {
 		log.debug("Rest create user ({})", userCreateDTO);
 
@@ -68,7 +67,7 @@ public class UserControler {
 	 */
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/delete/{id}")
+	@Path("/{id}")
 	public void deleteUser(@PathParam("id") Long id) {
 		log.debug("Rest delete user with id ({})", id);
 

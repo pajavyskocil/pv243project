@@ -22,6 +22,13 @@ public interface OrderService extends EntityService<Order> {
 	List<Order> getAllForState(OrderState state);
 
 	/**
+	 * Find all orders with OrderState != NEW
+	 *
+	 * @return List of orders with given state
+	 */
+	List<Order> getAllWithoutNewOrders();
+
+	/**
 	 * Add Product to Order's list of products
 	 *
 	 * @param order Order
