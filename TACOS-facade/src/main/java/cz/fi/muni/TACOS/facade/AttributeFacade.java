@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.AttributeCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 
 /**
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
@@ -14,5 +15,5 @@ public interface AttributeFacade extends Facade<AttributeDTO> {
      * @param attributeCreateDTO attribute specification
      * @return id of newly created enity
      */
-    Long create(AttributeCreateDTO attributeCreateDTO);
+    Long create(AttributeCreateDTO attributeCreateDTO) throws InvalidRelationEntityIdException;;
 }

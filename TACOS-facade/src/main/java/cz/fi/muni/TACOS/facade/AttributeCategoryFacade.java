@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.AttributeCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeCategoryDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 
 /**
  * Facade Interface for AttributeCategory entity.
@@ -10,7 +11,7 @@ import cz.fi.muni.TACOS.dto.AttributeCategoryDTO;
  */
 public interface AttributeCategoryFacade extends Facade<AttributeCategoryDTO> {
 
-    Long create(AttributeCategoryCreateDTO entity);
+    Long create(AttributeCategoryCreateDTO entity) throws InvalidRelationEntityIdException;
     /**
      * Adds attribute to category
      *

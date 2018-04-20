@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.AttributeCategoryCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeCategoryDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.AttributeCategoryFacade;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
 import cz.fi.muni.TACOS.persistence.entity.Template;
@@ -53,12 +54,15 @@ public class AttributeCategoryFacadeImpl implements AttributeCategoryFacade {
     }
 
     @Override
-    public Long create(AttributeCategoryCreateDTO entity) {
+    public Long create(AttributeCategoryCreateDTO entity) throws InvalidRelationEntityIdException {
         AttributeCategory attributeCategory = beanMappingService.mapTo(entity, AttributeCategory.class);
         attributeCategoryService.create(attributeCategory);
 
         for (Long templateId : entity.getTemplates()) {
             Template template = templateService.findById(templateId);
+            if (template == null) {
+                throw new InvalidRelationEntityIdException("Template for given id does not exist. id: " + templateId);
+            }
             templateService.addAttributeCategory(template, attributeCategory);
         }
         return attributeCategory.getId();
@@ -67,9 +71,6 @@ public class AttributeCategoryFacadeImpl implements AttributeCategoryFacade {
     @Override
     public void delete(Long id) {
         attributeCategoryService.delete(attributeCategoryService.findById(id));
-        AttributeCategory attributeCategory = attributeCategoryService.findById(id);
-
-        attributeCategoryService.delete(attributeCategory);
     }
 
     @Override

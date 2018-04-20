@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.ProductCreateDTO;
 import cz.fi.muni.TACOS.dto.ProductDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 
 /**
  * Facade Interface for Product entity.
@@ -17,7 +18,7 @@ public interface ProductFacade extends Facade<ProductDTO> {
      * @param entity specification
      * @return id of newly created entity
      */
-    Long create(ProductCreateDTO entity);
+    Long create(ProductCreateDTO entity) throws InvalidRelationEntityIdException;
 
     /**
      * Adds template to specified product

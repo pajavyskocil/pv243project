@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade.impl;
 
 import cz.fi.muni.TACOS.dto.AttributeCreateDTO;
 import cz.fi.muni.TACOS.dto.AttributeDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.AttributeFacade;
 import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.AttributeCategory;
@@ -36,12 +37,15 @@ public class AttributeFacadeImpl implements AttributeFacade {
     }
 
     @Override
-    public Long create(AttributeCreateDTO attributeCreateDTO) {
+    public Long create(AttributeCreateDTO attributeCreateDTO) throws InvalidRelationEntityIdException {
         Attribute attribute = beanMappingService.mapTo(attributeCreateDTO, Attribute.class);
         attributeService.create(attribute);
 
         for (Long attributeCategoryId : attributeCreateDTO.getAttributeCategories()) {
             AttributeCategory attributeCategory = attributeCategoryService.findById(attributeCategoryId);
+            if (attributeCategory == null) {
+                throw new InvalidRelationEntityIdException("Attribute category for given id does not exist. id: " + attributeCategoryId);
+            }
             attributeCategoryService.addAttribute(attributeCategory, attribute);
         }
 

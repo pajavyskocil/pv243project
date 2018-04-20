@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 
 /**
  * Facade interface for CreatedProduct entity
@@ -10,7 +11,7 @@ import cz.fi.muni.TACOS.dto.CreatedProductDTO;
  */
 public interface CreatedProductFacade extends Facade<CreatedProductDTO> {
 
-	Long create(CreatedProductCreateDTO entity, Long userId);
+	Long create(CreatedProductCreateDTO entity, Long userId) throws InvalidRelationEntityIdException;
 	/**
 	 * Add attribute to CreatedProduct's list of attributes
 	 *

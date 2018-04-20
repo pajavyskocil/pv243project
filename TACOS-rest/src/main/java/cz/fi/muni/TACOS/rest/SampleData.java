@@ -8,6 +8,7 @@ import cz.fi.muni.TACOS.dto.ProductCreateDTO;
 import cz.fi.muni.TACOS.dto.TemplateCreateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.AttributeCategoryFacade;
 import cz.fi.muni.TACOS.facade.AttributeFacade;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
@@ -96,7 +97,7 @@ public class SampleData {
 		userFacade.create(user);
 	}
 
-	public void loadCreatedProductSampleData() {
+	public void loadCreatedProductSampleData() throws InvalidRelationEntityIdException {
 		UserCreateDTO user = new UserCreateDTO();
 
 		user.setName("RegularDDDD");
@@ -126,7 +127,7 @@ public class SampleData {
 		createdProductFacade.create(createdProduct, userDto.getId());
 	}
 
-	public void loadTemplateSampleData() {
+	public void loadTemplateSampleData() throws InvalidRelationEntityIdException {
 		TemplateCreateDTO template = new TemplateCreateDTO();
 
 		template.setName("template");
@@ -145,7 +146,7 @@ public class SampleData {
 		templateFacade.create(template);
 	}
 
-	public void loadProductSampleData() {
+	public void loadProductSampleData() throws InvalidRelationEntityIdException {
 		ProductCreateDTO product = new ProductCreateDTO();
 
 		product.setDescription("desc");
@@ -166,7 +167,7 @@ public class SampleData {
 	}
 
 
-	public void loadProductCategorySampleData() {
+	public void loadProductCategorySampleData() throws InvalidRelationEntityIdException {
 		ProductCategoryCreateDTO category = new ProductCategoryCreateDTO();
 
 		category.setName("category1");
@@ -182,7 +183,7 @@ public class SampleData {
 		productCategoryFacade.create(category);
 	}
 
-	public void loadAttributeSampleData() {
+	public void loadAttributeSampleData() throws InvalidRelationEntityIdException {
 		AttributeCreateDTO attribute = new AttributeCreateDTO();
 
 		attribute.setName("XS");
@@ -210,7 +211,7 @@ public class SampleData {
 		attributeFacade.create(attribute);
 	}
 
-	public void loadAttributeCategorySampleData() {
+	public void loadAttributeCategorySampleData() throws InvalidRelationEntityIdException {
 		AttributeCategoryCreateDTO category = new AttributeCategoryCreateDTO();
 
 		category.setName("Tshirt size");

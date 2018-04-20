@@ -2,6 +2,7 @@ package cz.fi.muni.TACOS.facade;
 
 import cz.fi.muni.TACOS.dto.TemplateCreateDTO;
 import cz.fi.muni.TACOS.dto.TemplateDTO;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 
 /**
  * Facade Interface for Template entity.
@@ -11,7 +12,7 @@ import cz.fi.muni.TACOS.dto.TemplateDTO;
  */
 public interface TemplateFacade extends Facade<TemplateDTO> {
 
-    Long create(TemplateCreateDTO entity);
+    Long create(TemplateCreateDTO entity) throws InvalidRelationEntityIdException;
 
     /**
      * Adds attribute category to template
