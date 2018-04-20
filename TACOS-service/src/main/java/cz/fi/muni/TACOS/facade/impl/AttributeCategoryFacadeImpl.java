@@ -58,7 +58,7 @@ public class AttributeCategoryFacadeImpl implements AttributeCategoryFacade {
         AttributeCategory attributeCategory = beanMappingService.mapTo(entity, AttributeCategory.class);
         attributeCategoryService.create(attributeCategory);
 
-        for (Long templateId : entity.getTemplates()) {
+        for (Long templateId : entity.getTemplateIds()) {
             Template template = templateService.findById(templateId);
             if (template == null) {
                 throw new InvalidRelationEntityIdException("Template for given id does not exist. id: " + templateId);

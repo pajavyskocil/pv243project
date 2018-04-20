@@ -76,23 +76,17 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
 
     @Override
     public void setSuperadmin(User user) {
-        if (user.getRole() == UserRole.SUPERADMIN) {
-            user.setRole(UserRole.SUPERADMIN);
-        }
+        user.setRole(UserRole.SUPERADMIN);
     }
 
     @Override
     public void setSubmitter(User user) {
-        if (user.getRole() == UserRole.SUBMITTER) {
-            user.setRole(UserRole.SUBMITTER);
-        }
+        user.setRole(UserRole.SUBMITTER);
     }
 
     @Override
     public void setPractitioner(User user) {
-        if (user.getRole() == UserRole.PRACTITIONER) {
-            user.setRole(UserRole.PRACTITIONER);
-        }
+        user.setRole(UserRole.PRACTITIONER);
     }
 
     public static String createHash(String password) {

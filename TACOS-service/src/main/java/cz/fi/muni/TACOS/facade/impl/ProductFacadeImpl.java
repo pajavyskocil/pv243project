@@ -49,7 +49,7 @@ public class ProductFacadeImpl implements ProductFacade {
         Product product = beanMappingService.mapTo(entity, Product.class);
         productService.create(product);
 
-        for (Long id : entity.getProductCategories()) {
+        for (Long id : entity.getProductCategoryIds()) {
             ProductCategory category = productCategoryService.findById(id);
             if (category == null) {
                 throw new InvalidRelationEntityIdException("Product category for given id does not exist. id: " + id);

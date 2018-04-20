@@ -59,7 +59,7 @@ public class TemplateFacadeImpl implements TemplateFacade {
         Template template = beanMappingService.mapTo(entity, Template.class);
         templateService.create(template);
 
-        for (Long id : entity.getProducts()) {
+        for (Long id : entity.getProductIds()) {
             Product product = productService.findById(id);
             if (product == null) {
                 throw new InvalidRelationEntityIdException("Product for given id does not exist. id: " + id);
@@ -67,7 +67,7 @@ public class TemplateFacadeImpl implements TemplateFacade {
             productService.addTemplate(product, template);
         }
 
-        for (Long id : entity.getAttributeCategories()) {
+        for (Long id : entity.getAttributeCategoryIds()) {
             AttributeCategory attributeCategory = attributeCategoryService.findById(id);
             if (attributeCategory == null) {
                 throw new InvalidRelationEntityIdException("Attribute category for given id does not exist. id: " + id);

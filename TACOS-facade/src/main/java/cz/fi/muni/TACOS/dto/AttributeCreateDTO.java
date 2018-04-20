@@ -21,7 +21,7 @@ public class AttributeCreateDTO {
 
 	private ProductAttributeStatus status;
 
-	private Set<Long> attributeCategories = new HashSet<>();
+	private Set<Long> attributeCategoryIds = new HashSet<>();
 
 	private Byte[] image;
 
@@ -57,12 +57,12 @@ public class AttributeCreateDTO {
 		this.status = status;
 	}
 
-	public Set<Long> getAttributeCategories() {
-		return attributeCategories;
+	public Set<Long> getAttributeCategoryIds() {
+		return attributeCategoryIds;
 	}
 
-	public void setAttributeCategories(Set<Long> attributeCategories) {
-		this.attributeCategories = attributeCategories;
+	public void setAttributeCategoryIds(Set<Long> attributeCategories) {
+		this.attributeCategoryIds = attributeCategories;
 	}
 
 	public Byte[] getImage() {
@@ -82,14 +82,14 @@ public class AttributeCreateDTO {
 				Objects.equals(price, that.price) &&
 				Objects.equals(description, that.description) &&
 				status == that.status &&
-				Objects.equals(attributeCategories, that.attributeCategories) &&
+				Objects.equals(attributeCategoryIds, that.attributeCategoryIds) &&
 				Arrays.equals(image, that.image);
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(name, price, description, status, attributeCategories);
+		int result = Objects.hash(name, price, description, status, attributeCategoryIds);
 		result = 31 * result + Arrays.hashCode(image);
 		return result;
 	}
@@ -101,7 +101,7 @@ public class AttributeCreateDTO {
 				", price=" + price +
 				", description='" + description + '\'' +
 				", status=" + status +
-				", attributeCategories=" + attributeCategories +
+				", attributeCategoryIds=" + attributeCategoryIds +
 				", image=" + Arrays.toString(image) +
 				'}';
 	}

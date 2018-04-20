@@ -41,7 +41,7 @@ public class AttributeFacadeImpl implements AttributeFacade {
         Attribute attribute = beanMappingService.mapTo(attributeCreateDTO, Attribute.class);
         attributeService.create(attribute);
 
-        for (Long attributeCategoryId : attributeCreateDTO.getAttributeCategories()) {
+        for (Long attributeCategoryId : attributeCreateDTO.getAttributeCategoryIds()) {
             AttributeCategory attributeCategory = attributeCategoryService.findById(attributeCategoryId);
             if (attributeCategory == null) {
                 throw new InvalidRelationEntityIdException("Attribute category for given id does not exist. id: " + attributeCategoryId);

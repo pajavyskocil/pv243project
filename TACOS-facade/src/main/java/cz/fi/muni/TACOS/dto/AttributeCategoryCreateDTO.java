@@ -11,9 +11,9 @@ public class AttributeCategoryCreateDTO {
 
 	private String name;
 
-	private Set<Long> attributes = new HashSet<>();
+	private Set<Long> attributeIds = new HashSet<>();
 
-	private Set<Long> templates = new HashSet<>();
+	private Set<Long> templateIds = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -23,20 +23,20 @@ public class AttributeCategoryCreateDTO {
 		this.name = name;
 	}
 
-	public Set<Long> getAttributes() {
-		return attributes;
+	public Set<Long> getAttributeIds() {
+		return attributeIds;
 	}
 
-	public void setAttributes(Set<Long> attributes) {
-		this.attributes = attributes;
+	public void setAttributeIds(Set<Long> attributes) {
+		this.attributeIds = attributes;
 	}
 
-	public Set<Long> getTemplates() {
-		return templates;
+	public Set<Long> getTemplateIds() {
+		return templateIds;
 	}
 
-	public void setTemplates(Set<Long> templates) {
-		this.templates = templates;
+	public void setTemplateIds(Set<Long> templates) {
+		this.templateIds = templates;
 	}
 
 	@Override
@@ -45,22 +45,22 @@ public class AttributeCategoryCreateDTO {
 		if (o == null || getClass() != o.getClass()) return false;
 		AttributeCategoryCreateDTO that = (AttributeCategoryCreateDTO) o;
 		return Objects.equals(name, that.name) &&
-				Objects.equals(attributes, that.attributes) &&
-				Objects.equals(templates, that.templates);
+				Objects.equals(attributeIds, that.attributeIds) &&
+				Objects.equals(templateIds, that.templateIds);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(name, attributes, templates);
+		return Objects.hash(name, attributeIds, templateIds);
 	}
 
 	@Override
 	public String toString() {
 		return "AttributeCategoryCreateDTO{" +
 				"name='" + name + '\'' +
-				", attributes=" + attributes +
-				", templates=" + templates +
+				", attributeIds=" + attributeIds +
+				", templateIds=" + templateIds +
 				'}';
 	}
 }

@@ -14,9 +14,9 @@ public class TemplateCreateDTO {
 
 	private BigDecimal minimalPrice;
 
-	private Set<Long> attributeCategories = new HashSet<>();
+	private Set<Long> attributeCategoryIds = new HashSet<>();
 
-	private Set<Long> products = new HashSet<>();
+	private Set<Long> productIds = new HashSet<>();
 
 	public String getName() {
 		return name;
@@ -34,20 +34,20 @@ public class TemplateCreateDTO {
 		this.minimalPrice = minimalPrice;
 	}
 
-	public Set<Long> getAttributeCategories() {
-		return attributeCategories;
+	public Set<Long> getAttributeCategoryIds() {
+		return attributeCategoryIds;
 	}
 
-	public void setAttributeCategories(Set<Long> attributeCategories) {
-		this.attributeCategories = attributeCategories;
+	public void setAttributeCategoryIds(Set<Long> attributeCategories) {
+		this.attributeCategoryIds = attributeCategories;
 	}
 
-	public Set<Long> getProducts() {
-		return products;
+	public Set<Long> getProductIds() {
+		return productIds;
 	}
 
-	public void setProducts(Set<Long> products) {
-		this.products = products;
+	public void setProductIds(Set<Long> products) {
+		this.productIds = products;
 	}
 
 	@Override
@@ -57,14 +57,14 @@ public class TemplateCreateDTO {
 		TemplateCreateDTO that = (TemplateCreateDTO) o;
 		return Objects.equals(name, that.name) &&
 				Objects.equals(minimalPrice, that.minimalPrice) &&
-				Objects.equals(attributeCategories, that.attributeCategories) &&
-				Objects.equals(products, that.products);
+				Objects.equals(attributeCategoryIds, that.attributeCategoryIds) &&
+				Objects.equals(productIds, that.productIds);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(name, minimalPrice, attributeCategories, products);
+		return Objects.hash(name, minimalPrice, attributeCategoryIds, productIds);
 	}
 
 	@Override
@@ -72,8 +72,8 @@ public class TemplateCreateDTO {
 		return "TemplateCreateDTO{" +
 				"name='" + name + '\'' +
 				", minimalPrice=" + minimalPrice +
-				", attributeCategories=" + attributeCategories +
-				", products=" + products +
+				", attributeCategoryIds=" + attributeCategoryIds +
+				", productIds=" + productIds +
 				'}';
 	}
 }
