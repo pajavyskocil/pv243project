@@ -174,7 +174,7 @@ public class UserController {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/setSubmitterId/{id}")
+	@Path("/setSubmitter/{id}")
 	public void setSubmitter(@QueryParam("id") Long id) {
 		log.debug("Rest set UserRole.SUBMITTER for user with id ({})", id);
 
