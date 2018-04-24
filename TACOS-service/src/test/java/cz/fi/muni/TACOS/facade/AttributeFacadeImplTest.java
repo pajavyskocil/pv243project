@@ -115,9 +115,7 @@ public class AttributeFacadeImplTest {
 			return null;
 		}).when(attributeCategoryService).addAttribute(attributeCategory, attribute);
 
-		Set<Long> attributeCategoryIds = new HashSet<>();
-		attributeCategoryIds.add(attributeCategory.getId());
-		attributeCreateDTO.setAttributeCategoryIds(attributeCategoryIds);
+		attributeCreateDTO.setAttributeCategoryId(attributeCategory.getId());
 		Long id = attributeFacade.create(attributeCreateDTO);
 
 		verify(attributeService, times(1)).create(attribute);

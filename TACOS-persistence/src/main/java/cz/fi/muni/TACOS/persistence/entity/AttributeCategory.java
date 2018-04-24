@@ -4,10 +4,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -34,7 +36,7 @@ public class AttributeCategory implements Serializable {
     @DecimalMin("0.00")
     private BigDecimal minimalPrice;
 
-    @ManyToMany
+    @OneToMany(mappedBy = "attributeCategory")
     private Set<Attribute> attributes = new HashSet<>();
 
     @ManyToMany(mappedBy = "attributeCategories")
@@ -74,12 +76,12 @@ public class AttributeCategory implements Serializable {
 
     public void addAttribute(Attribute attribute) {
         this.attributes.add(attribute);
-        attribute.addProductAttributeCategoryFromOneSide(this);
+        attribute.setAttributeCategoryFromOneSide(this);
     }
 
     public void removeAttribute(Attribute attribute) {
         this.attributes.remove(attribute);
-        attribute.removeProductAttributeCategoryFromOneSide(this);
+        attribute.setAttributeCategoryFromOneSide(null);
     }
 
     public Set<Template> getTemplates() {

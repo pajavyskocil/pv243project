@@ -19,7 +19,8 @@ public class AttributeDaoImpl extends AbstractDao<Attribute> implements Attribut
 
     @Override
     public void delete(Attribute entity) {
-        for (AttributeCategory category : entity.getAttributeCategories()) {
+        AttributeCategory category = entity.getAttributeCategory();
+        if (category != null) {
             category.removeAttribute(entity);
         }
         for (CreatedProduct createdProduct : entity.getCreatedProducts()) {

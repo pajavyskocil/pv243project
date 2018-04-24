@@ -4,9 +4,7 @@ import cz.fi.muni.TACOS.enums.ProductAttributeStatus;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
@@ -21,7 +19,7 @@ public class AttributeCreateDTO {
 
 	private ProductAttributeStatus status;
 
-	private Set<Long> attributeCategoryIds = new HashSet<>();
+	private Long attributeCategoryId;
 
 	private Byte[] image;
 
@@ -57,14 +55,6 @@ public class AttributeCreateDTO {
 		this.status = status;
 	}
 
-	public Set<Long> getAttributeCategoryIds() {
-		return attributeCategoryIds;
-	}
-
-	public void setAttributeCategoryIds(Set<Long> attributeCategories) {
-		this.attributeCategoryIds = attributeCategories;
-	}
-
 	public Byte[] getImage() {
 		return image;
 	}
@@ -73,24 +63,32 @@ public class AttributeCreateDTO {
 		this.image = image;
 	}
 
+	public Long getAttributeCategoryId() {
+		return attributeCategoryId;
+	}
+
+	public void setAttributeCategoryId(Long attributeCategoryId) {
+		this.attributeCategoryId = attributeCategoryId;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (!(o instanceof AttributeCreateDTO)) return false;
 		AttributeCreateDTO that = (AttributeCreateDTO) o;
-		return Objects.equals(name, that.name) &&
-				Objects.equals(price, that.price) &&
-				Objects.equals(description, that.description) &&
-				status == that.status &&
-				Objects.equals(attributeCategoryIds, that.attributeCategoryIds) &&
-				Arrays.equals(image, that.image);
+		return Objects.equals(getName(), that.getName()) &&
+				Objects.equals(getPrice(), that.getPrice()) &&
+				Objects.equals(getDescription(), that.getDescription()) &&
+				getStatus() == that.getStatus() &&
+				Objects.equals(attributeCategoryId, that.attributeCategoryId) &&
+				Arrays.equals(getImage(), that.getImage());
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(name, price, description, status, attributeCategoryIds);
-		result = 31 * result + Arrays.hashCode(image);
+		int result = Objects.hash(getName(), getPrice(), getDescription(), getStatus(), attributeCategoryId);
+		result = 31 * result + Arrays.hashCode(getImage());
 		return result;
 	}
 
@@ -101,7 +99,7 @@ public class AttributeCreateDTO {
 				", price=" + price +
 				", description='" + description + '\'' +
 				", status=" + status +
-				", attributeCategoryIds=" + attributeCategoryIds +
+				", attributeCategoryId=" + attributeCategoryId +
 				", image=" + Arrays.toString(image) +
 				'}';
 	}

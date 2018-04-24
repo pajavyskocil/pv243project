@@ -10,6 +10,7 @@ import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
 import cz.fi.muni.TACOS.service.OrderService;
+import cz.fi.muni.TACOS.service.ProductService;
 import cz.fi.muni.TACOS.service.UserService;
 import org.junit.After;
 import org.junit.Before;
@@ -45,6 +46,8 @@ public class CreatedProductFacadeImplTest {
 
 	private final OrderService orderService = mock(OrderService.class);
 
+	private final ProductService productService = mock(ProductService.class);
+
 	@InjectMocks
 	private CreatedProductFacade createdProductFacade;
 
@@ -58,7 +61,7 @@ public class CreatedProductFacadeImplTest {
 	@Before
 	public void setFacade(){
 		createdProductFacade = new CreatedProductFacadeImpl(createdProductService, attributeService, beanMappingService,
-				userService, orderService);
+				userService, orderService, productService);
 	}
 
 	@Before

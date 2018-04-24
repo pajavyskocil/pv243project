@@ -5,11 +5,13 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -45,8 +47,8 @@ public class Attribute implements Serializable {
     @Column(nullable = false)
     private ProductAttributeStatus status;
 
-    @ManyToMany(mappedBy = "attributes")
-    private Set<AttributeCategory> attributeCategories = new HashSet<>();
+    @ManyToOne
+    private AttributeCategory attributeCategory;
 
     @Lob
     @Column(columnDefinition = "mediumblob")
@@ -107,16 +109,28 @@ public class Attribute implements Serializable {
         this.image = image;
     }
 
-    public Set<AttributeCategory> getAttributeCategories() {
-        return Collections.unmodifiableSet(attributeCategories);
+    public AttributeCategory getAttributeCategory() {
+        return attributeCategory;
     }
 
-    public void addProductAttributeCategoryFromOneSide(AttributeCategory category) {
-        this.attributeCategories.add(category);
+    public void setAttributeCategoryFromOneSide(AttributeCategory attributeCategory) {
+        this.attributeCategory = attributeCategory;
     }
 
-    public void removeProductAttributeCategoryFromOneSide(AttributeCategory category) {
-        this.attributeCategories.remove(category);
+    //used for mapper
+    public Long getAttributeCategoryId() {
+        if (attributeCategory == null) {
+            return null;
+        }
+        return attributeCategory.getId();
+    }
+
+    //used for mapper
+    public String getAttributeCategoryName() {
+        if (attributeCategory == null) {
+            return null;
+        }
+        return attributeCategory.getName();
     }
 
     public void addProductFromOneSide(CreatedProduct createdProduct) {

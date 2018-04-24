@@ -13,6 +13,11 @@ import {UserService} from "./services/user/user.service";
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailIdComponent } from './user-detail-id/user-detail-id.component';
 import { UserDetailEmailComponent } from './user-detail-email/user-detail-email.component';
+import { MarketplaceComponent } from './marketplace/marketplace.component';
+import { MarketplaceHeaderComponent } from './marketplace/marketplace-header/marketplace-header.component';
+import { EshopComponent } from './marketplace/eshop/eshop.component';
+import { ProfileComponent } from './marketplace/profile/profile.component';
+import { BasketComponent } from './marketplace/basket/basket.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +25,11 @@ import { UserDetailEmailComponent } from './user-detail-email/user-detail-email.
     UserDetailComponent,
     UserDetailIdComponent,
     UserDetailEmailComponent,
+    MarketplaceComponent,
+    MarketplaceHeaderComponent,
+    EshopComponent,
+    ProfileComponent,
+    BasketComponent,
   ],
   imports: [
     BrowserModule,

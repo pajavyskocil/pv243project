@@ -140,7 +140,7 @@ public class EntityIntegrationsTest {
         Attribute foundAttribute = attributeDao.findById(attribute.getId());
         AttributeCategory foundCategory = attributeCategoryDao.findById(attributeCategory.getId());
 
-        assertThat(foundAttribute.getAttributeCategories()).contains(foundCategory);
+        assertThat(foundAttribute.getAttributeCategory()).isEqualTo(foundCategory);
         assertThat(foundCategory.getAttributes()).contains(foundAttribute);
     }
 

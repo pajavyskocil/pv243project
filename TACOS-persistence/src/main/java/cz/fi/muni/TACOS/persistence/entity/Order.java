@@ -4,6 +4,7 @@ import cz.fi.muni.TACOS.enums.OrderState;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -39,7 +40,7 @@ public class Order implements Serializable {
 
     private LocalDate submitted;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User submitter;
 
     private LocalDate finished;
@@ -57,6 +58,13 @@ public class Order implements Serializable {
     public Order() {
     }
 
+    // used for mapper
+    public Long getSubmitterId() {
+        if (submitter == null) {
+            return null;
+        }
+        return submitter.getId();
+    }
 
     public Long getId() {
         return id;

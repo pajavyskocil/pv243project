@@ -23,6 +23,10 @@ public class AttributeDTO {
 
 	private Byte[] image;
 
+	private Long attributeCategoryId;
+
+	private String attributeCategoryName;
+
 	public Long getId() {
 		return id;
 	}
@@ -71,24 +75,42 @@ public class AttributeDTO {
 		this.image = image;
 	}
 
+	public Long getAttributeCategoryId() {
+		return attributeCategoryId;
+	}
+
+	public void setAttributeCategoryId(Long attributeCategoryId) {
+		this.attributeCategoryId = attributeCategoryId;
+	}
+
+	public String getAttributeCategoryName() {
+		return attributeCategoryName;
+	}
+
+	public void setAttributeCategoryName(String attributeCategoryName) {
+		this.attributeCategoryName = attributeCategoryName;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
+		if (!(o instanceof AttributeDTO)) return false;
 		AttributeDTO that = (AttributeDTO) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(name, that.name) &&
-				Objects.equals(price, that.price) &&
-				Objects.equals(description, that.description) &&
-				status == that.status &&
-				Arrays.equals(image, that.image);
+		return Objects.equals(getId(), that.getId()) &&
+				Objects.equals(getName(), that.getName()) &&
+				Objects.equals(getPrice(), that.getPrice()) &&
+				Objects.equals(getDescription(), that.getDescription()) &&
+				getStatus() == that.getStatus() &&
+				Arrays.equals(getImage(), that.getImage()) &&
+				Objects.equals(getAttributeCategoryId(), that.getAttributeCategoryId()) &&
+				Objects.equals(getAttributeCategoryName(), that.getAttributeCategoryName());
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(id, name, price, description, status);
-		result = 31 * result + Arrays.hashCode(image);
+		int result = Objects.hash(getId(), getName(), getPrice(), getDescription(), getStatus(), getAttributeCategoryId(), getAttributeCategoryName());
+		result = 31 * result + Arrays.hashCode(getImage());
 		return result;
 	}
 
@@ -101,6 +123,8 @@ public class AttributeDTO {
 				", description='" + description + '\'' +
 				", status=" + status +
 				", image=" + Arrays.toString(image) +
+				", attributeCategoryId=" + attributeCategoryId +
+				", attributeCategoryName='" + attributeCategoryName + '\'' +
 				'}';
 	}
 }

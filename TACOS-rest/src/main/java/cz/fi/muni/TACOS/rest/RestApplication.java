@@ -1,6 +1,12 @@
 package cz.fi.muni.TACOS.rest;
 
+import cz.fi.muni.TACOS.rest.controllers.AttributeCategoryController;
+import cz.fi.muni.TACOS.rest.controllers.AttributeController;
+import cz.fi.muni.TACOS.rest.controllers.CreatedProductController;
 import cz.fi.muni.TACOS.rest.controllers.OrderController;
+import cz.fi.muni.TACOS.rest.controllers.ProductCategoryController;
+import cz.fi.muni.TACOS.rest.controllers.ProductController;
+import cz.fi.muni.TACOS.rest.controllers.TemplateController;
 import cz.fi.muni.TACOS.rest.controllers.UserController;
 import org.jboss.resteasy.plugins.interceptors.CorsFilter;
 
@@ -32,7 +38,13 @@ public class RestApplication extends Application {
 		corsFilter.setAllowedMethods("OPTIONS, GET, POST, DELETE, PUT, PATCH");
 		singletons.add(corsFilter);
 
+		classes.add(AttributeCategoryController.class);
+		classes.add(AttributeController.class);
+		classes.add(CreatedProductController.class);
 		classes.add(OrderController.class);
+		classes.add(ProductCategoryController.class);
+		classes.add(ProductController.class);
+		classes.add(TemplateController.class);
 		classes.add(UserController.class);
 	}
 
@@ -49,14 +61,7 @@ public class RestApplication extends Application {
 	@PostConstruct
 	public void init() {
 		try {
-			sampleData.loadOrderSampleData();
-			sampleData.loadUserSampleData();
-			sampleData.loadAttributeCategorySampleData();
-			sampleData.loadAttributeSampleData();
-			sampleData.loadCreatedProductSampleData();
-			sampleData.loadProductCategorySampleData();
-			sampleData.loadProductSampleData();
-			sampleData.loadTemplateSampleData();
+			sampleData.loadSampleData();
 		} catch (Exception e) {
 
 		}
