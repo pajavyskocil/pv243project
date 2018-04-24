@@ -147,6 +147,16 @@ public class OrderDaoImplTest {
 	}
 
 	@Test
+	public void testGetAllWithoutNewOrders() {
+		Order order = EntityCreator.createTestOrder(orderDao, userDao);
+		Order finishedOrder = EntityCreator.createFinishedOrder(orderDao, userDao);
+
+		List<Order> foundOrders = orderDao.getAllWithoutNewOrders();
+
+		assertThat(foundOrders).containsOnly(finishedOrder);
+	}
+
+	@Test
 	public void testAddCreatedProduct() {
 		CreatedProduct createdProduct = EntityCreator
 				.createCreatedProductWithOrder(productDao, orderDao, createdProductDao, userDao);

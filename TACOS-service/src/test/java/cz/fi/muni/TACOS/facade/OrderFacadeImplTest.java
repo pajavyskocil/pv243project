@@ -116,7 +116,15 @@ public class OrderFacadeImplTest {
 		when(orderService.getAllForState(secondOrder.getState())).thenReturn(Collections.unmodifiableList(Arrays.asList(secondOrder, thirdOrder)));
 		when(beanMappingService.mapTo(any(), eq(OrderDTO.class))).thenReturn(Arrays.asList(secondOrderDTO, thirdOrderDTO));
 
-		assertThat(orderFacade.getAll()).containsOnly(secondOrderDTO, thirdOrderDTO);
+		assertThat(orderFacade.getAllForState(secondOrder.getState())).containsOnly(secondOrderDTO, thirdOrderDTO);
+	}
+
+	@Test
+	public void testGetAllForOtherState() {
+		when(orderService.getAllWithoutNewOrders()).thenReturn(Collections.unmodifiableList(Arrays.asList(thirdOrder)));
+		when(beanMappingService.mapTo(any(), eq(OrderDTO.class))).thenReturn(Arrays.asList(thirdOrderDTO));
+
+		assertThat(orderFacade.getAllWithoutNewOrders()).containsOnly(thirdOrderDTO);
 	}
 
 	@Test

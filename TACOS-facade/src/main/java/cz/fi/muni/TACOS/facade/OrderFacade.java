@@ -21,6 +21,13 @@ public interface OrderFacade extends Facade<OrderDTO> {
 	List<OrderDTO> getAllForState(OrderState state);
 
 	/**
+	 * Find all orders in OrderState != NEW
+	 *
+	 * @return List of orders with given state
+	 */
+	List<OrderDTO> getAllWithoutNewOrders();
+
+	/**
 	 * Remove Product from Order's list of products
 	 *
 	 * @param orderId order's Id
