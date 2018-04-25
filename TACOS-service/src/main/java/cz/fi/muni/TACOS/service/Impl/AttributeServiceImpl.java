@@ -10,8 +10,10 @@ import cz.fi.muni.TACOS.service.events.AttributePriceChanged;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.inject.Inject;
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
@@ -31,17 +33,8 @@ public class AttributeServiceImpl extends AbstractEntityService<Attribute> imple
     }
 
     @Override
-    public void create(Attribute entity) {
-        super.create(entity);
-
-        attributePriceChangedEvent.fire(new AttributePriceChanged(entity.getAttributeCategories().stream()
-                .map(AttributeCategory::getId)
-                .collect(Collectors.toSet())));
-    }
-
-    @Override
     public void delete(Attribute entity) {
-        Set<Long> affectedCategories = entity.getAttributeCategories().stream()
+        Set<Long> affectedCategories = Stream.of(entity.getAttributeCategory())
                 .map(AttributeCategory::getId)
                 .collect(Collectors.toSet());
         super.delete(entity);
@@ -60,7 +53,7 @@ public class AttributeServiceImpl extends AbstractEntityService<Attribute> imple
         }
         if (newVersion.getPrice() != null && !newVersion.getPrice().equals(attribute.getPrice())) {
             attribute.setPrice(newVersion.getPrice());
-            attributePriceChangedEvent.fire(new AttributePriceChanged(attribute.getAttributeCategories().stream()
+            attributePriceChangedEvent.fire(new AttributePriceChanged(Stream.of(attribute.getAttributeCategory())
                     .map(AttributeCategory::getId)
                     .collect(Collectors.toSet())));
         }

@@ -9,6 +9,7 @@ import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -73,7 +74,7 @@ public class OrderController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/filter/notNew")
 	public List<OrderDTO> getAllWithoutNewOrders() {
-		log.debug("Rest get all orders in OrderState != NEW");
+		log.debug("Rest get all orders in OrderState != BASKET");
 
 		return orderFacade.getAllWithoutNewOrders();
 	}

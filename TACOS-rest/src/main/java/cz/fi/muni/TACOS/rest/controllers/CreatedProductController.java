@@ -2,7 +2,9 @@ package cz.fi.muni.TACOS.rest.controllers;
 
 import cz.fi.muni.TACOS.dto.CreatedProductCreateDTO;
 import cz.fi.muni.TACOS.dto.CreatedProductDTO;
+import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
+import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.AttributeFacade;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
@@ -10,13 +12,11 @@ import cz.fi.muni.TACOS.facade.UserFacade;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
-import cz.fi.muni.TACOS.rest.filters.FakeUserFilter;
-import org.apache.http.protocol.HTTP;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -71,15 +71,27 @@ public class CreatedProductController {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Long createCreatedProduct(CreatedProductCreateDTO specification, HttpServletRequest request) {
+	public Long createCreatedProduct(CreatedProductCreateDTO specification) {
 		log.debug("rest createCreatedProduct({})", specification);
 
 		validateCreatedProduct(specification);
 
-		UserDTO userDTO = (UserDTO) request.getAttribute(FakeUserFilter.FAKE_USER);
+		//TODO : REMOVE THIS WHEN SECURITY IS IMPLEMENTED
+		UserDTO fakeUser = userFacade.findByEmail("fake@user.cz");
+		if (fakeUser == null) {
+			UserCreateDTO fakeUserCreate = new UserCreateDTO();
+			fakeUserCreate.setEmail("fake@user.cz");
+			fakeUserCreate.setName("fake");
+			fakeUserCreate.setSurname("user");
+			fakeUserCreate.setRole(UserRole.SUPERADMIN);
+			fakeUserCreate.setPassword("fakeuser");
+
+			userFacade.create(fakeUserCreate);
+			fakeUser = userFacade.findByEmail("fake@user.cz");
+		}
 
 		try {
-			return createdProductFacade.create(specification, userDTO.getId());
+			return createdProductFacade.create(specification, fakeUser.getId());
 		} catch (InvalidRelationEntityIdException e) {
 			throw new InvalidParameterException(e);
 		}

@@ -59,7 +59,7 @@ public final class EntityCreator {
         User user = createTestUser(userDao, "TestOrder");
 
         Order order = new Order();
-        order.setState(OrderState.NEW);
+        order.setState(OrderState.BASKET);
         order.setSubmitted(LocalDate.now());
         order.setFinished(LocalDate.now());
         order.setPrice(BigDecimal.ONE);

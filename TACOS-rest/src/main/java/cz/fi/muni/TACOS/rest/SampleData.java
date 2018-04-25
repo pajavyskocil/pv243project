@@ -23,6 +23,9 @@ import cz.fi.muni.TACOS.enums.UserRole;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 
 /**
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
@@ -54,9 +57,38 @@ public class SampleData {
 	@Inject
 	private AttributeCategoryFacade attributeCategoryFacade;
 
+	private Long userId1;
+	private Long userId2;
+	private Long userId3;
+	private Long userId4;
 
-	public void loadOrderSampleData() {
-	}
+	private Long cpId1;
+	private Long cpId2;
+	private Long cpId3;
+	private Long cpId4;
+	private Long templateId1;
+	private Long templateId2;
+	private Long templateId3;
+
+	private Long productId1;
+	private Long productId2;
+	private Long productId3;
+	private Long productId4;
+
+	private Long pcId1;
+	private Long pcId2;
+	private Long pcId3;
+	private Long pcId4;
+
+	private Long attributeId1;
+	private Long attributeId2;
+	private Long attributeId3;
+	private Long attributeId4;
+	private Long attributeId5;
+
+	private Long acId1;
+	private Long acId2;
+	private Long acId3;
 
 	public void loadUserSampleData() {
 		UserCreateDTO user = new UserCreateDTO();
@@ -66,35 +98,28 @@ public class SampleData {
 		user.setPassword("password");
 		user.setEmail("somerandomregularuser@worldofjava.com");
 		user.setRole(UserRole.SUBMITTER);
-		userFacade.create(user);
+		userId1 = userFacade.create(user);
 
 		user.setName("Name");
 		user.setSurname("Surname");
 		user.setPassword("password");
 		user.setEmail("email@worldofjava.com");
 		user.setRole(UserRole.SUPERADMIN);
-		userFacade.create(user);
+		userId2 = userFacade.create(user);
 
 		user.setName("Admin");
 		user.setSurname("User");
 		user.setPassword("password");
 		user.setEmail("ruser@worldofjava.com");
 		user.setRole(UserRole.SUPERADMIN);
-		userFacade.create(user);
+		userId3 = userFacade.create(user);
 
 		user.setName("Practitioner");
 		user.setSurname("User");
 		user.setPassword("password");
 		user.setEmail("somerandomregularuser@email.com");
 		user.setRole(UserRole.PRACTITIONER);
-		userFacade.create(user);
-
-		user.setName("Submiter");
-		user.setSurname("User");
-		user.setPassword("password");
-		user.setEmail("email@email.com");
-		user.setRole(UserRole.SUBMITTER);
-		userFacade.create(user);
+		userId4 = userFacade.create(user);
 	}
 
 	public void loadCreatedProductSampleData() throws InvalidRelationEntityIdException {
@@ -107,43 +132,48 @@ public class SampleData {
 		user.setRole(UserRole.SUBMITTER);
 		userFacade.create(user);
 
+		UserDTO userDto = userFacade.findByEmail(user.getEmail());
 		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
 
-		UserDTO userDto = userFacade.findByEmail(user.getEmail());
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeId1, attributeId5)));
 		createdProduct.setCount(10L);
 		createdProduct.setDescription("createdProduct1desc");
-		createdProductFacade.create(createdProduct, userDto.getId());
+		createdProduct.setProductId(productId1);
+		cpId1 = createdProductFacade.create(createdProduct, userDto.getId());
 
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeId2, attributeId5)));
 		createdProduct.setCount(5L);
 		createdProduct.setDescription("createdProduct 2 Description");
-		createdProductFacade.create(createdProduct, userDto.getId());
+		createdProduct.setProductId(productId1);
+		cpId2 = createdProductFacade.create(createdProduct, userDto.getId());
 
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeId3, attributeId5)));
 		createdProduct.setCount(3L);
 		createdProduct.setDescription("createdProduct3desc");
-		createdProductFacade.create(createdProduct, userDto.getId());
+		createdProduct.setProductId(productId1);
+		cpId3 = createdProductFacade.create(createdProduct, userDto.getId());
 
+		createdProduct.setAttributeIds(Collections.singleton(attributeId5));
 		createdProduct.setCount(8L);
 		createdProduct.setDescription("createdProduct4desc");
-		createdProductFacade.create(createdProduct, userDto.getId());
+		createdProduct.setProductId(productId1);
+		cpId4 = createdProductFacade.create(createdProduct, userDto.getId());
 	}
 
 	public void loadTemplateSampleData() throws InvalidRelationEntityIdException {
 		TemplateCreateDTO template = new TemplateCreateDTO();
 
+		template.setProductIds(Collections.singleton(productId1));
 		template.setName("template");
-		templateFacade.create(template);
+		templateId1 = templateFacade.create(template);
 
+		template.setProductIds(Collections.singleton(productId1));
 		template.setName("T-shirt Template");
-		templateFacade.create(template);
+		templateId2 = templateFacade.create(template);
 
+		template.setProductIds(Collections.singleton(productId2));
 		template.setName("template1");
-		templateFacade.create(template);
-
-		template.setName("template2");
-		templateFacade.create(template);
-
-		template.setName("template3");
-		templateFacade.create(template);
+		templateId3 = templateFacade.create(template);
 	}
 
 	public void loadProductSampleData() throws InvalidRelationEntityIdException {
@@ -151,79 +181,100 @@ public class SampleData {
 
 		product.setDescription("desc");
 		product.setName("product1");
-		productFacade.create(product);
+		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId1, pcId2)));
+		productId1 = productFacade.create(product);
 
 		product.setDescription("description");
 		product.setName("product1");
-		productFacade.create(product);
+		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId2, pcId3)));
+		productId2 = productFacade.create(product);
 
 		product.setDescription("desc");
 		product.setName("PRODUCT");
-		productFacade.create(product);
+		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId4, pcId1)));
+		productId3 = productFacade.create(product);
 
 		product.setDescription("desc");
 		product.setName("Product3");
-		productFacade.create(product);
+		product.setProductCategoryIds(Collections.singleton(pcId1));
+		productId4 = productFacade.create(product);
 	}
 
 
 	public void loadProductCategorySampleData() throws InvalidRelationEntityIdException {
 		ProductCategoryCreateDTO category = new ProductCategoryCreateDTO();
 
-		category.setName("category1");
-		productCategoryFacade.create(category);
+		category.setName("T shirts");
+		pcId1 = productCategoryFacade.create(category);
 
-		category.setName("category2");
-		productCategoryFacade.create(category);
+		category.setName("Trousers");
+		pcId2 = productCategoryFacade.create(category);
 
-		category.setName("category3");
-		productCategoryFacade.create(category);
+		category.setName("Accessories");
+		pcId3 = productCategoryFacade.create(category);
 
-		category.setName("category4");
-		productCategoryFacade.create(category);
+		category.setName("Shoes");
+		pcId4 = productCategoryFacade.create(category);
 	}
 
 	public void loadAttributeSampleData() throws InvalidRelationEntityIdException {
 		AttributeCreateDTO attribute = new AttributeCreateDTO();
 
+		attribute.setAttributeCategoryId(acId1);
 		attribute.setName("XS");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
-		attributeFacade.create(attribute);
+		attributeId1 = attributeFacade.create(attribute);
 
+		attribute.setAttributeCategoryId(acId1);
 		attribute.setName("S");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
-		attributeFacade.create(attribute);
+		attributeId2 = attributeFacade.create(attribute);
 
+		attribute.setAttributeCategoryId(acId1);
 		attribute.setName("M");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
-		attributeFacade.create(attribute);
+		attributeId3 = attributeFacade.create(attribute);
 
-		attribute.setName("M");
+		attribute.setAttributeCategoryId(acId1);
+		attribute.setName("L");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.NOT_AVAIBLE);
-		attributeFacade.create(attribute);
+		attributeId4 = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acId2);
+		attribute.setName("Black");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.TEN);
+		attribute.setStatus(ProductAttributeStatus.NOT_AVAIBLE);
+		attributeId5 = attributeFacade.create(attribute);
 	}
 
 	public void loadAttributeCategorySampleData() throws InvalidRelationEntityIdException {
 		AttributeCategoryCreateDTO category = new AttributeCategoryCreateDTO();
 
+		category.setTemplateIds(Collections.singleton(templateId1));
 		category.setName("Tshirt size");
-		attributeCategoryFacade.create(category);
+		acId1 = attributeCategoryFacade.create(category);
 
-		category.setName("Tshirt size");
-		attributeCategoryFacade.create(category);
+		category.setTemplateIds(new HashSet<>(Arrays.asList(templateId1, templateId2)));
+		category.setName("Tshirt color");
+		acId2 = attributeCategoryFacade.create(category);
+	}
 
-		category.setName("Tshirt size");
-		attributeCategoryFacade.create(category);
-
-		category.setName("Tshirt size");
-		attributeCategoryFacade.create(category);
+	public void loadSampleData() throws InvalidRelationEntityIdException {
+		loadProductCategorySampleData();
+		loadProductSampleData();
+		loadTemplateSampleData();
+		loadAttributeCategorySampleData();
+		loadAttributeSampleData();
+		loadUserSampleData();
+		loadCreatedProductSampleData();
 	}
 }

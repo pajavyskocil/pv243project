@@ -21,7 +21,7 @@ public interface OrderFacade extends Facade<OrderDTO> {
 	List<OrderDTO> getAllForState(OrderState state);
 
 	/**
-	 * Find all orders in OrderState != NEW
+	 * Find all orders in OrderState != BASKET
 	 *
 	 * @return List of orders with given state
 	 */

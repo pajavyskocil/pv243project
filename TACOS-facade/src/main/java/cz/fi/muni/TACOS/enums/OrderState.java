@@ -4,7 +4,7 @@ package cz.fi.muni.TACOS.enums;
  * @author Vyskocil Pavel <vyskocilpavel@muni.cz>
  */
 public enum OrderState {
-    NEW,
+    BASKET,
     SUBMITTED,
     CANCELED,
     FINISHED,

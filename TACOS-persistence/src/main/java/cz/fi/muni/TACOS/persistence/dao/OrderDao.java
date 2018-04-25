@@ -21,7 +21,7 @@ public interface OrderDao extends Dao<Order> {
 	List<Order> getAllForState(OrderState state);
 
 	/**
-	 * Gets all Order entities stored in database with state != NEW
+	 * Gets all Order entities stored in database with state != BASKET
 	 * @return List of Orders or empty list if there is not order with that state
 	 *
 	 * @throws IllegalArgumentException when given parameter is null

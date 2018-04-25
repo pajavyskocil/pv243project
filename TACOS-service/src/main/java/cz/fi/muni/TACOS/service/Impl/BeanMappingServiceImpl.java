@@ -1,6 +1,8 @@
 package cz.fi.muni.TACOS.service.Impl;
 
+import cz.fi.muni.TACOS.dto.AttributeDTO;
 import cz.fi.muni.TACOS.dto.OrderDTO;
+import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.annotations.TacosMapper;
@@ -30,9 +32,6 @@ public class BeanMappingServiceImpl implements BeanMappingService {
 		List<T> mappedCollection = new ArrayList<>();
 		for (Object object : objects) {
 			T mappedObject = dozer.map(object, mapToClass);
-			if (mappedObject instanceof OrderDTO && object instanceof Order) {
-				((OrderDTO) mappedObject).setSubmitterId(((Order)object).getSubmitter().getId());
-			}
 			mappedCollection.add(mappedObject);
 		}
 		return mappedCollection;
@@ -43,11 +42,7 @@ public class BeanMappingServiceImpl implements BeanMappingService {
 		if (o == null) {
 			return null;
 		}
-		T mappedObject = dozer.map(o, mapToClass);
-		if (mappedObject instanceof OrderDTO && o instanceof Order) {
-			((OrderDTO) mappedObject).setSubmitterId(((Order)o).getSubmitter().getId());
-		}
-		return mappedObject;
+		return dozer.map(o, mapToClass);
 	}
 
 	@Override

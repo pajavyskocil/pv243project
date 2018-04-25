@@ -49,7 +49,7 @@ public final class EntityCreator {
 	public static Order createTestOrder() {
 		Order order = new Order();
 		order.setId(1L);
-		order.setState(OrderState.NEW);
+		order.setState(OrderState.BASKET);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
 		order.setPrice(BigDecimal.ZERO);
@@ -59,7 +59,7 @@ public final class EntityCreator {
 	public static Order createSecondOrder() {
 		Order order = new Order();
 		order.setId(2L);
-		order.setState(OrderState.NEW);
+		order.setState(OrderState.BASKET);
 		order.setSubmitted(LocalDate.now());
 		order.setFinished(LocalDate.now());
 		order.setPrice(BigDecimal.valueOf(10));

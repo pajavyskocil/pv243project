@@ -7,12 +7,14 @@ import cz.fi.muni.TACOS.facade.CreatedProductFacade;
 import cz.fi.muni.TACOS.persistence.entity.Attribute;
 import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import cz.fi.muni.TACOS.persistence.entity.Order;
+import cz.fi.muni.TACOS.persistence.entity.Product;
 import cz.fi.muni.TACOS.persistence.entity.User;
 import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.service.AttributeService;
 import cz.fi.muni.TACOS.service.BeanMappingService;
 import cz.fi.muni.TACOS.service.CreatedProductService;
 import cz.fi.muni.TACOS.service.OrderService;
+import cz.fi.muni.TACOS.service.ProductService;
 import cz.fi.muni.TACOS.service.UserService;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -41,20 +43,32 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 
 	private final OrderService orderService;
 
+	private final ProductService productService;
+
 	@Inject
 	public CreatedProductFacadeImpl(CreatedProductService createdProductService, AttributeService attributeService,
-									BeanMappingService beanMappingService, UserService userService, OrderService orderService) {
+									BeanMappingService beanMappingService, UserService userService, OrderService orderService,
+									ProductService productService) {
 		this.createdProductService = createdProductService;
 		this.attributeService = attributeService;
 		this.beanMappingService = beanMappingService;
 		this.userService = userService;
 		this.orderService = orderService;
+		this.productService = productService;
 	}
 
 	@Override
 	public Long create(CreatedProductCreateDTO entity, Long userId) throws InvalidRelationEntityIdException {
-		CreatedProduct product = beanMappingService.mapTo(entity, CreatedProduct.class);
-		createdProductService.create(product);
+		CreatedProduct createdProduct = beanMappingService.mapTo(entity, CreatedProduct.class);
+		BigDecimal price = calculatePrice(entity);
+		createdProduct.setPrice(price);
+		createdProductService.create(createdProduct);
+		Product product = productService.findById(entity.getProductId());
+		if (product == null) {
+			throw new InvalidRelationEntityIdException("Product for given id does not exist. id" + entity.getProductId());
+		}
+		product.addCreatedProduct(createdProduct);
+
 
 		User user = userService.findById(userId);
 		if (user == null) {
@@ -65,15 +79,16 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 		Order openedOrder = null;
 
 		for (Order order : userOrders) {
-			if (order.getState().equals(OrderState.NEW)) {
+			if (order.getState().equals(OrderState.BASKET)) {
 				openedOrder = order;
 				break;
 			}
 		}
 		if (openedOrder == null) {
 			openedOrder = new Order();
-			openedOrder.setState(OrderState.NEW);
+			openedOrder.setState(OrderState.BASKET);
 			openedOrder.setPrice(BigDecimal.ZERO);
+			user.addSubmittedOrder(openedOrder);
 			orderService.create(openedOrder);
 		}
 
@@ -83,11 +98,32 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 				throw new InvalidRelationEntityIdException("Attribute for given id does not exist. id: " + attrId);
 			}
 
-			createdProductService.addAttribute(product, attribute);
+			createdProductService.addAttribute(createdProduct, attribute);
+			price = price.add(attribute.getPrice());
 		}
 
-		orderService.addProduct(openedOrder, product);
-		return product.getId();
+		orderService.addProduct(openedOrder, createdProduct);
+		return createdProduct.getId();
+	}
+
+	/**
+	 * Calculates price of created product
+	 *
+	 * @param product specification
+	 * @return price
+	 * @throws InvalidRelationEntityIdException when attributes for given ids dont exist
+	 */
+	private BigDecimal calculatePrice(CreatedProductCreateDTO product) throws InvalidRelationEntityIdException {
+		BigDecimal price = BigDecimal.ZERO;
+		for (Long attrId : product.getAttributeIds()) {
+			Attribute attribute = attributeService.findById(attrId);
+			if (attribute == null) {
+				throw new InvalidRelationEntityIdException("Attribute for given id does not exist. id: " + attrId);
+			}
+
+			price = price.add(attribute.getPrice());
+		}
+		return price;
 	}
 
 	@Override
