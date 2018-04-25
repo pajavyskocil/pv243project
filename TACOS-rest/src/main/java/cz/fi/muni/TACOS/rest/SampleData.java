@@ -181,18 +181,22 @@ public class SampleData {
 
 		product.setDescription("desc");
 		product.setName("product1");
+		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId1, pcId2)));
 		productId1 = productFacade.create(product);
 
 		product.setDescription("description");
 		product.setName("product1");
+		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId2, pcId3)));
 		productId2 = productFacade.create(product);
 
 		product.setDescription("desc");
 		product.setName("PRODUCT");
+		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId4, pcId1)));
 		productId3 = productFacade.create(product);
 
 		product.setDescription("desc");
 		product.setName("Product3");
+		product.setProductCategoryIds(Collections.singleton(pcId1));
 		productId4 = productFacade.create(product);
 	}
 
@@ -200,16 +204,16 @@ public class SampleData {
 	public void loadProductCategorySampleData() throws InvalidRelationEntityIdException {
 		ProductCategoryCreateDTO category = new ProductCategoryCreateDTO();
 
-		category.setName("category1");
+		category.setName("T shirts");
 		pcId1 = productCategoryFacade.create(category);
 
-		category.setName("category2");
+		category.setName("Trousers");
 		pcId2 = productCategoryFacade.create(category);
 
-		category.setName("category3");
+		category.setName("Accessories");
 		pcId3 = productCategoryFacade.create(category);
 
-		category.setName("category4");
+		category.setName("Shoes");
 		pcId4 = productCategoryFacade.create(category);
 	}
 

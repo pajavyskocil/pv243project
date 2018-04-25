@@ -42,8 +42,8 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 
 	@Override
 	public void addProduct(Order order, CreatedProduct product) {
-		if (order.getState() != OrderState.NEW) {
-			throw new IllegalArgumentException("Can not add product to order that is not in NEW state: " + order.getState());
+		if (order.getState() != OrderState.BASKET) {
+			throw new IllegalArgumentException("Can not add product to order that is not in BASKET state: " + order.getState());
 		}
 		if (order.getProducts().contains(product)) {
 			throw new IllegalArgumentException("Product is already in products for order");
@@ -54,8 +54,8 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 
 	@Override
 	public void removeProduct(Order order, CreatedProduct product) {
-		if (order.getState() != OrderState.NEW) {
-			throw new IllegalArgumentException("Can not remove product from order that is not in NEW state: " + order.getState());
+		if (order.getState() != OrderState.BASKET) {
+			throw new IllegalArgumentException("Can not remove product from order that is not in BASKET state: " + order.getState());
 		}
 		if (!order.getProducts().contains(product)) {
 			throw new IllegalArgumentException("Product is not in products for order");
@@ -66,7 +66,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 
 	@Override
 	public void submitOrder(Order order) {
-		if (order.getState() != OrderState.NEW) {
+		if (order.getState() != OrderState.BASKET) {
 			throw new IllegalArgumentException("Product is not in New state: " + order.getState());
 		}
 
@@ -76,7 +76,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 
 	@Override
 	public void cancelOrder(Order order) {
-    	if (!(order.getState() == OrderState.NEW ||
+    	if (!(order.getState() == OrderState.BASKET ||
 				order.getState() == OrderState.SUBMITTED)) {
     		throw new IllegalArgumentException("Given order can not be canceled due to its state: " + order.getState());
 		}

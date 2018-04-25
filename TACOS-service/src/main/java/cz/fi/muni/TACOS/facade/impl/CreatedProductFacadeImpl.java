@@ -79,14 +79,14 @@ public class CreatedProductFacadeImpl implements CreatedProductFacade {
 		Order openedOrder = null;
 
 		for (Order order : userOrders) {
-			if (order.getState().equals(OrderState.NEW)) {
+			if (order.getState().equals(OrderState.BASKET)) {
 				openedOrder = order;
 				break;
 			}
 		}
 		if (openedOrder == null) {
 			openedOrder = new Order();
-			openedOrder.setState(OrderState.NEW);
+			openedOrder.setState(OrderState.BASKET);
 			openedOrder.setPrice(BigDecimal.ZERO);
 			user.addSubmittedOrder(openedOrder);
 			orderService.create(openedOrder);

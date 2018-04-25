@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import {s} from "@angular/core/src/render3";
+import { ProductCategory } from '../product-category/product-category.service';
 
 @Injectable()
 export class UserService {
@@ -79,14 +80,22 @@ export interface UserCreate {
   password: String
 }
 
+export enum OrderState {
+  BASKET,
+  SUBMITTED,
+  CANCELED,
+  FINISHED,
+  PROCESSED
+}
+
 export interface Order {
   id: LongRange,
-  state: String,
-  submitted: String,
-  submitter: User,
-  finished: String,
-  price: String,
-  products: CreatedProduct[]
+  state: OrderState,
+  submitted: Object,
+  submitterId: LongRange,
+  finished: Object,
+  price: Number,
+  // products: CreatedProduct[]
 }
 
 export interface CreatedProduct {
@@ -126,15 +135,6 @@ export interface Template {
   minimalPrice: Number,
   attributesCategories: AttributeCategory[],
   products: CreatedProduct[]
-}
-
-export interface ProductCategory {
-  id: LongRange,
-  name: String,
-  minimalPrice: Number,
-  image: String,
-  parentCategory: ProductCategory,
-  subCategories: ProductCategory[]
 }
 
 export interface AttributeCategory {

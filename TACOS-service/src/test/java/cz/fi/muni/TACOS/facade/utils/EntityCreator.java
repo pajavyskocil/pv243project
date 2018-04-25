@@ -94,7 +94,7 @@ public class EntityCreator {
 	public static Order createTestOrder() {
 		Order order = new Order();
 		order.setId(1L);
-		order.setState(OrderState.NEW);
+		order.setState(OrderState.BASKET);
 		order.setPrice(BigDecimal.ONE);
 		return order;
 	}
@@ -123,7 +123,7 @@ public class EntityCreator {
 	public static OrderDTO createTestOrderDTO() {
 		OrderDTO order = new OrderDTO();
 		order.setId(1L);
-		order.setState(OrderState.NEW);
+		order.setState(OrderState.BASKET);
 		order.setPrice(BigDecimal.ONE);
 		return order;
 	}

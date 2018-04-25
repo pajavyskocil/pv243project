@@ -34,7 +34,7 @@ public class OrderDaoImpl extends AbstractDao<Order> implements OrderDao {
 
 		return em
 				.createQuery("select o from Order o where o.state <> :state", Order.class)
-				.setParameter("state", OrderState.NEW)
+				.setParameter("state", OrderState.BASKET)
 				.getResultList();
 	}
 

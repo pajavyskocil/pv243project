@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 
 
 import { FormsModule } from '@angular/forms';
-import {UserService} from "./services/user/user.service";
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserDetailIdComponent } from './user-detail-id/user-detail-id.component';
 import { UserDetailEmailComponent } from './user-detail-email/user-detail-email.component';
@@ -18,6 +17,11 @@ import { MarketplaceHeaderComponent } from './marketplace/marketplace-header/mar
 import { EshopComponent } from './marketplace/eshop/eshop.component';
 import { ProfileComponent } from './marketplace/profile/profile.component';
 import { BasketComponent } from './marketplace/basket/basket.component';
+
+import { UserService } from "./services/user/user.service";
+import { ProductCategoryService } from './services/product-category/product-category.service';
+import { EshopCategoriesComponent } from './marketplace/eshop/eshop-categories/eshop-categories.component';
+import { EshopCategoryComponent } from './marketplace/eshop/eshop-categories/eshop-category/eshop-category.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +34,8 @@ import { BasketComponent } from './marketplace/basket/basket.component';
     EshopComponent,
     ProfileComponent,
     BasketComponent,
+    EshopCategoriesComponent,
+    EshopCategoryComponent,
   ],
   imports: [
     BrowserModule,
@@ -38,7 +44,10 @@ import { BasketComponent } from './marketplace/basket/basket.component';
     HttpClientModule,
     MDBBootstrapModule.forRoot()
   ],
-  providers: [UserService],
+  providers: [
+    UserService,
+    ProductCategoryService
+  ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
 })

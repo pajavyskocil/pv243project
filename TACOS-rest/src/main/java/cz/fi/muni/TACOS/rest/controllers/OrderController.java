@@ -74,7 +74,7 @@ public class OrderController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/filter/notNew")
 	public List<OrderDTO> getAllWithoutNewOrders() {
-		log.debug("Rest get all orders in OrderState != NEW");
+		log.debug("Rest get all orders in OrderState != BASKET");
 
 		return orderFacade.getAllWithoutNewOrders();
 	}
