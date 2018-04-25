@@ -88,19 +88,13 @@ public class OrderDTO {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		OrderDTO orderDTO = (OrderDTO) o;
-		return Objects.equals(id, orderDTO.id) &&
-				state == orderDTO.state &&
-				Objects.equals(submitted, orderDTO.submitted) &&
-				Objects.equals(submitterId, orderDTO.submitterId) &&
-				Objects.equals(finished, orderDTO.finished) &&
-				Objects.equals(price, orderDTO.price) &&
-				Objects.equals(products, orderDTO.products);
+		return Objects.equals(id, orderDTO.id);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, state, submitted, submitterId, finished, price, products);
+		return Objects.hash(id);
 	}
 
 	@Override

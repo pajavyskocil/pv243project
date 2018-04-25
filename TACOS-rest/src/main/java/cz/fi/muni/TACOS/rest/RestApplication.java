@@ -63,7 +63,7 @@ public class RestApplication extends Application {
 		try {
 			sampleData.loadSampleData();
 		} catch (Exception e) {
-
+			e.printStackTrace();
 		}
 	}
 }

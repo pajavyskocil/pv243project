@@ -44,15 +44,13 @@ public class AttributeCategoryCreateDTO {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		AttributeCategoryCreateDTO that = (AttributeCategoryCreateDTO) o;
-		return Objects.equals(name, that.name) &&
-				Objects.equals(attributeIds, that.attributeIds) &&
-				Objects.equals(templateIds, that.templateIds);
+		return Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(name, attributeIds, templateIds);
+		return Objects.hash(name);
 	}
 
 	@Override

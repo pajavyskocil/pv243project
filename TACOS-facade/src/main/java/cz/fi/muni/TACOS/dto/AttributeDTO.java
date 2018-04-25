@@ -94,24 +94,16 @@ public class AttributeDTO {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof AttributeDTO)) return false;
+		if (o == null || getClass() != o.getClass()) return false;
 		AttributeDTO that = (AttributeDTO) o;
-		return Objects.equals(getId(), that.getId()) &&
-				Objects.equals(getName(), that.getName()) &&
-				Objects.equals(getPrice(), that.getPrice()) &&
-				Objects.equals(getDescription(), that.getDescription()) &&
-				getStatus() == that.getStatus() &&
-				Arrays.equals(getImage(), that.getImage()) &&
-				Objects.equals(getAttributeCategoryId(), that.getAttributeCategoryId()) &&
-				Objects.equals(getAttributeCategoryName(), that.getAttributeCategoryName());
+		return Objects.equals(id, that.id) &&
+				Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(getId(), getName(), getPrice(), getDescription(), getStatus(), getAttributeCategoryId(), getAttributeCategoryName());
-		result = 31 * result + Arrays.hashCode(getImage());
-		return result;
+		return Objects.hash(id, name);
 	}
 
 	@Override

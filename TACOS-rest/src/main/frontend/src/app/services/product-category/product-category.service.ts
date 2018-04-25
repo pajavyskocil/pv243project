@@ -47,7 +47,8 @@ export interface ProductCategory {
   id: LongRange,
   name: String,
   image: String,
-  parentCategory: ProductCategory,
+  products: Product[],
+  parentCategoryId: LongRange,
   subCategories: ProductCategory[]
 }
 

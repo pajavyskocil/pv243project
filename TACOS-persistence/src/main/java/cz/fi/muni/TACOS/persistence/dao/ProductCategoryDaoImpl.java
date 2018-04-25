@@ -6,6 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Implementation of ProductCategoryDao
@@ -47,6 +49,17 @@ public class ProductCategoryDaoImpl extends AbstractDao<ProductCategory> impleme
                     .getSingleResult();
         } catch (NoResultException nrf) {
             return null;
+        }
+    }
+
+    @Override
+    public List<ProductCategory> getAll() {
+        try {
+            return em.createQuery("select c from ProductCategory c where parentCategory IS NULL",
+                    ProductCategory.class)
+                    .getResultList();
+        } catch (NoResultException nrf) {
+            return new ArrayList<>();
         }
     }
 }

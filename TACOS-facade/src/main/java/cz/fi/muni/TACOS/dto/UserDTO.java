@@ -73,17 +73,13 @@ public class UserDTO {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(getName(), userDTO.getName()) &&
-                Objects.equals(getSurname(), userDTO.getSurname()) &&
-                Objects.equals(getEmail(), userDTO.getEmail()) &&
-                Objects.equals(getRole(), userDTO.getRole()) &&
-                Objects.equals(getOrders(), userDTO.getOrders());
+        return Objects.equals(id, userDTO.id);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(getName(), getSurname(), getEmail(), getRole(), getOrders());
+        return Objects.hash(id);
     }
 
     @Override

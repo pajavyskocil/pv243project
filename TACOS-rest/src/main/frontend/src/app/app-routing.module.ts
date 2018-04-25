@@ -7,6 +7,7 @@ import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { EshopComponent } from './marketplace/eshop/eshop.component';
 import { ProfileComponent } from './marketplace/profile/profile.component';
 import { BasketComponent } from './marketplace/basket/basket.component';
+import { SubcategoryComponent } from './marketplace/eshop/subcategory/subcategory.component';
 
 
 
@@ -24,10 +25,6 @@ const routes: Routes = [
     component: MarketplaceComponent,
     children: [
       {
-        path: '',
-        component: EshopComponent
-      },
-      {
         path: 'eshop',
         component: EshopComponent
       },
@@ -38,6 +35,15 @@ const routes: Routes = [
       {
         path: 'basket',
         component: BasketComponent
+      },
+      {
+        path: 'eshop-category/:id',
+        component: SubcategoryComponent
+      },
+      {
+        path: '',
+        redirectTo: '/eshop',
+        pathMatch: 'full'
       }
     ]
   },

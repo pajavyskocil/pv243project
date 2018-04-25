@@ -74,22 +74,15 @@ public class AttributeCreateDTO {
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) return true;
-		if (!(o instanceof AttributeCreateDTO)) return false;
+		if (o == null || getClass() != o.getClass()) return false;
 		AttributeCreateDTO that = (AttributeCreateDTO) o;
-		return Objects.equals(getName(), that.getName()) &&
-				Objects.equals(getPrice(), that.getPrice()) &&
-				Objects.equals(getDescription(), that.getDescription()) &&
-				getStatus() == that.getStatus() &&
-				Objects.equals(attributeCategoryId, that.attributeCategoryId) &&
-				Arrays.equals(getImage(), that.getImage());
+		return Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(getName(), getPrice(), getDescription(), getStatus(), attributeCategoryId);
-		result = 31 * result + Arrays.hashCode(getImage());
-		return result;
+		return Objects.hash(name);
 	}
 
 	@Override

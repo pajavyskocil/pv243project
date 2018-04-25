@@ -54,16 +54,13 @@ public class ProductCreateDTO {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		ProductCreateDTO that = (ProductCreateDTO) o;
-		return Objects.equals(name, that.name) &&
-				Objects.equals(description, that.description) &&
-				Objects.equals(productCategoryIds, that.productCategoryIds) &&
-				Objects.equals(templateIds, that.templateIds);
+		return Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(name, description, productCategoryIds, templateIds);
+		return Objects.hash(name);
 	}
 
 	@Override

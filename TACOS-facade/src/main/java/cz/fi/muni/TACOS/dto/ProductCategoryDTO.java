@@ -18,9 +18,17 @@ public class ProductCategoryDTO {
 
 	private Byte[] image;
 
-	private ProductCategoryDTO parentCategory;
+	private Long parentCategoryId;
 
 	private Set<ProductCategoryDTO> subCategories = new HashSet<>();
+
+	public Long getParentCategoryId() {
+		return parentCategoryId;
+	}
+
+	public void setParentCategoryId(Long parentCategoryId) {
+		this.parentCategoryId = parentCategoryId;
+	}
 
 	public Long getId() {
 		return id;
@@ -54,14 +62,6 @@ public class ProductCategoryDTO {
 		this.image = image;
 	}
 
-	public ProductCategoryDTO getParentCategory() {
-		return parentCategory;
-	}
-
-	public void setParentCategory(ProductCategoryDTO parentCategory) {
-		this.parentCategory = parentCategory;
-	}
-
 	public Set<ProductCategoryDTO> getSubCategories() {
 		return subCategories;
 	}
@@ -76,19 +76,13 @@ public class ProductCategoryDTO {
 		if (o == null || getClass() != o.getClass()) return false;
 		ProductCategoryDTO that = (ProductCategoryDTO) o;
 		return Objects.equals(id, that.id) &&
-				Objects.equals(name, that.name) &&
-				Objects.equals(products, that.products) &&
-				Arrays.equals(image, that.image) &&
-				Objects.equals(parentCategory, that.parentCategory) &&
-				Objects.equals(subCategories, that.subCategories);
+				Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		int result = Objects.hash(id, name, products, parentCategory, subCategories);
-		result = 31 * result + Arrays.hashCode(image);
-		return result;
+		return Objects.hash(id, name);
 	}
 
 	@Override
@@ -98,7 +92,6 @@ public class ProductCategoryDTO {
 				", name='" + name + '\'' +
 				", products=" + products +
 				", image=" + Arrays.toString(image) +
-				", parentCategory=" + parentCategory +
 				", subCategories=" + subCategories +
 				'}';
 	}
