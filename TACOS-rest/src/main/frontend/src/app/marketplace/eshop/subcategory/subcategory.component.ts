@@ -10,7 +10,7 @@ import { ProductCategory, ProductCategoryService } from '../../../services/produ
 export class SubcategoryComponent implements OnInit {
 
   private category : ProductCategory;
-  private loaded : boolean = false;
+  public loaded : boolean = false;
 
   constructor(private productCategoryService : ProductCategoryService, private route: ActivatedRoute) { }
 
@@ -18,8 +18,8 @@ export class SubcategoryComponent implements OnInit {
     this.route.params.subscribe(res => {
       let categoryId = res.id;
       this.loaded = false;
-      
-      this.productCategoryService.findProductCategoryById(categoryId).subscribe( 
+
+      this.productCategoryService.findProductCategoryById(categoryId).subscribe(
         productCategory => {
           this.category = productCategory;
           this.loaded = true;

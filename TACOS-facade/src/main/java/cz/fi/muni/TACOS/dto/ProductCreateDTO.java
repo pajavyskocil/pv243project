@@ -17,6 +17,16 @@ public class ProductCreateDTO {
 
 	private Set<Long> templateIds = new HashSet<>();
 
+	private byte[] image;
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
 	public String getName() {
 		return name;
 	}

@@ -5,10 +5,6 @@
      http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
 
     <display-name>Rest interface</display-name>
-    <error-page>
-        <error-code>404</error-code>
-        <location>/index.html</location>
-    </error-page>
 
     <context-param>
         <param-name>resteasy.servlet.mapping.prefix</param-name>

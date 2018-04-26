@@ -5,6 +5,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "build-prod": "yarn install && ng build -prod",
+    "build-dev": "yarn install && ng build -dev",
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",

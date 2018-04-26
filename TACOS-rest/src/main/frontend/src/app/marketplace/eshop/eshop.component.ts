@@ -8,7 +8,7 @@ import { ProductCategoryService, ProductCategory } from '../../services/product-
 })
 export class EshopComponent implements OnInit {
 
-  private categories : ProductCategory[];
+  public categories : ProductCategory[];
 
   constructor(private productCategorySerivce: ProductCategoryService) { }
 

@@ -22,8 +22,12 @@ import cz.fi.muni.TACOS.enums.UserRole;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -184,11 +188,13 @@ public class SampleData {
 
 		product.setDescription("Common T-shirt.");
 		product.setName("T-shirt");
+		product.setImage(readImage("t-shirt.png"));
 		product.setProductCategoryIds(Collections.singleton(pcTshirtsId));
 		productTshirtId1 = productFacade.create(product);
 
 		product.setDescription("Trousers made with great love.");
 		product.setName("Trousers");
+		product.setImage(null);
 		product.setProductCategoryIds(Collections.singleton(pcTrousersId));
 		productTrousers2 = productFacade.create(product);
 
@@ -298,5 +304,22 @@ public class SampleData {
 		loadAttributeSampleData();
 		loadUserSampleData();
 		loadCreatedProductSampleData();
+	}
+
+	private byte[] readImage(String file) {
+		try (InputStream is = this.getClass().getResourceAsStream("/" + file)) {
+			int nRead;
+			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+			byte[] data = new byte[1024];
+			while ((nRead = is.read(data, 0, data.length)) != -1) {
+				buffer.write(data, 0, nRead);
+			}
+			buffer.flush();
+			return Base64.getEncoder().encode(buffer.toByteArray());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return null;
 	}
 }

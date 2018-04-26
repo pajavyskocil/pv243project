@@ -18,7 +18,17 @@ public class ProductDTO {
 
 	private BigDecimal minimalPrice;
 
+	private byte[] image;
+
 	private Set<TemplateDTO> templates = new HashSet<>();
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public Long getId() {
 		return id;

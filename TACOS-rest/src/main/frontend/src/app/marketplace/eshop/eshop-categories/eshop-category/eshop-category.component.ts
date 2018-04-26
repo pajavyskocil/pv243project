@@ -12,7 +12,7 @@ export class EshopCategoryComponent implements OnInit {
   constructor(private router: Router) { }
 
   @Input()
-  private category : ProductCategory;
+  public category : ProductCategory;
 
   ngOnInit() {
   }

@@ -8,6 +8,7 @@ import { EshopComponent } from './marketplace/eshop/eshop.component';
 import { ProfileComponent } from './marketplace/profile/profile.component';
 import { BasketComponent } from './marketplace/basket/basket.component';
 import { SubcategoryComponent } from './marketplace/eshop/subcategory/subcategory.component';
+import { ProductDetailComponent } from './marketplace/eshop/product-detail/product-detail.component';
 
 
 
@@ -39,6 +40,10 @@ const routes: Routes = [
       {
         path: 'eshop-category/:id',
         component: SubcategoryComponent
+      },
+      {
+        path: 'product/:id',
+        component: ProductDetailComponent
       },
       {
         path: '',

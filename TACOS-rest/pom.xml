@@ -18,6 +18,10 @@
         <javaee7.web.spec.version>1.0.1.Final</javaee7.web.spec.version>
         <wildfly.version>11.0.0.Final</wildfly.version>
         <resteasy.version>3.5.0.Final</resteasy.version>
+        <node.version>v9.11.1</node.version>
+        <yarn.version>v1.3.2</yarn.version>
+        <frontend-maven-plugin.version>1.6</frontend-maven-plugin.version>
+        <environment>prod</environment>
     </properties>
 
     <build>
@@ -25,6 +29,47 @@
         <!-- (Which is the name given to the generated war, and hence the context root) -->
         <finalName>${project.artifactId}</finalName>
         <plugins>
+           <!-- <plugin>
+                <groupId>com.github.eirslett</groupId>
+                <artifactId>frontend-maven-plugin</artifactId>
+                <version>${frontend-maven-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>install node and yarn</id>
+                        <goals>
+                            <goal>install-node-and-yarn</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                    </execution>
+                    <execution>
+                        <id>yarn install</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <phase>compile</phase>
+                        <configuration>
+                            <arguments>install</arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>ng build</id>
+                        <goals>
+                            <goal>yarn</goal>
+                        </goals>
+                        <phase>generate-resources</phase>
+                        <configuration>
+                            <arguments>run build-${environment}</arguments>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <nodeVersion>${node.version}</nodeVersion>
+                    <yarnVersion>${yarn.version}</yarnVersion>
+                    <workingDirectory>src/main/frontend</workingDirectory>
+                    <installDirectory>target</installDirectory>
+                </configuration>
+            </plugin>-->
+
             <!-- Compiler plugin enforces Java 1.6 compatibility and activates annotation processors -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -39,6 +84,11 @@
                 <version>3.2.0</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!--<webResources>
+                        <resource>
+                            <directory>src/main/frontend/dist</directory>
+                        </resource>
+                    </webResources>-->
                 </configuration>
             </plugin>
             <plugin>
@@ -46,6 +96,7 @@
                 <artifactId>wildfly-maven-plugin</artifactId>
                 <version>1.0.2.Final</version>
             </plugin>
+
         </plugins>
     </build>
 

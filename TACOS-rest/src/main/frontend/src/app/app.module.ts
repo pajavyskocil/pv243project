@@ -32,6 +32,7 @@ import {AttributeService} from "./services/attribute/attribute.service";
 import {AttributeCategoryService} from "./services/attributeCategory/attribute-category.service";
 import { SubcategoryComponent } from './marketplace/eshop/subcategory/subcategory.component';
 import { ProductIconComponent } from './marketplace/eshop/subcategory/product-icon/product-icon.component';
+import { ProductDetailComponent } from './marketplace/eshop/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { ProductIconComponent } from './marketplace/eshop/subcategory/product-ic
     EshopCategoryComponent,
     SubcategoryComponent,
     ProductIconComponent,
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
