@@ -43,8 +43,8 @@ public class AttributeCategoryController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{id}")
-    public AttributeCategoryDTO getFindAttributeCategoryById(@PathParam("id") Long id) {
-        log.debug("rest getFindAttributeCategoryById({})", id);
+    public AttributeCategoryDTO findAttributeCategoryById(@PathParam("id") Long id) {
+        log.debug("rest findAttributeCategoryById({})", id);
 
         AttributeCategoryDTO attributeCategoryDTO = attributeCategoryFacade.findById(id);
 

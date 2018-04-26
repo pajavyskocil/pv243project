@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
-import { HttpClient, HttpParams } from '@angular/common/http';
-import {s} from "@angular/core/src/render3";
-import { ProductCategory } from '../product-category/product-category.service';
+import { HttpClient } from '@angular/common/http';
+import {Order} from "../order/order.service";
 
 @Injectable()
 export class UserService {
@@ -11,8 +10,8 @@ export class UserService {
 
   constructor(protected httpClient:HttpClient) { }
 
-  public createUser(userCreate: UserCreate) : Observable<UserCreate>  {
-    return this.httpClient.post<UserCreate>(this.URL, userCreate,{});
+  public createUser(userCreate: UserCreate) : Observable<LongRange>  {
+    return this.httpClient.post<LongRange>(this.URL, userCreate,{});
   }
 
   public deleteUser(user: User) : Observable<LongRange>  {
@@ -68,7 +67,6 @@ export interface User {
   surname: String,
   email: String,
   role: UserRole,TA
-  password: String,
   orders: Order[]
 }
 
@@ -80,69 +78,7 @@ export interface UserCreate {
   password: String
 }
 
-export enum OrderState {
-  BASKET,
-  SUBMITTED,
-  CANCELED,
-  FINISHED,
-  PROCESSED
+export interface UserAuthenticate {
+  email: String,
+  password: String
 }
-
-export interface Order {
-  id: LongRange,
-  state: OrderState,
-  submitted: Object,
-  submitterId: LongRange,
-  finished: Object,
-  price: Number,
-  // products: CreatedProduct[]
-}
-
-export interface CreatedProduct {
-  id: LongRange,
-  price: Number,
-  count: LongRange,
-  description: String,
-  order: Order,
-  product: Product,
-  attributes: Attribute[]
-}
-
-export interface Product {
-  id: LongRange,
-  name: String,
-  description: String,
-  minimalPrice: Number,
-  templates: Template[],
-  productCategories: ProductCategory[],
-  createdProducts: CreatedProduct[]
-}
-
-export interface Attribute {
-  id: LongRange,
-  name: String,
-  price: Number,
-  description: String,
-  status: String,
-  attributesCategories: AttributeCategory[],
-  image: String,
-  createdProducts: CreatedProduct[]
-}
-
-export interface Template {
-  id: LongRange,
-  name: String,
-  minimalPrice: Number,
-  attributesCategories: AttributeCategory[],
-  products: CreatedProduct[]
-}
-
-export interface AttributeCategory {
-  id: LongRange,
-  name: String,
-  minimalPrice: Number,
-  attributes: Attribute[],
-  templates: Template[]
-}
-
-

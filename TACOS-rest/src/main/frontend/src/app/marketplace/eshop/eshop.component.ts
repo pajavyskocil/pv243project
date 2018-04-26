@@ -13,7 +13,7 @@ export class EshopComponent implements OnInit {
   constructor(private productCategorySerivce: ProductCategoryService) { }
 
   ngOnInit() {
-    this.productCategorySerivce.getAllCategories().subscribe( categories => this.categories = categories)
+    this.productCategorySerivce.getAllProductCategories().subscribe( categories => this.categories = categories)
   }
 
 }

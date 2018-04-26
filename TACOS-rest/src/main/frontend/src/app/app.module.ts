@@ -22,6 +22,12 @@ import { UserService } from "./services/user/user.service";
 import { ProductCategoryService } from './services/product-category/product-category.service';
 import { EshopCategoriesComponent } from './marketplace/eshop/eshop-categories/eshop-categories.component';
 import { EshopCategoryComponent } from './marketplace/eshop/eshop-categories/eshop-category/eshop-category.component';
+import {ProductService} from "./services/product/product.service";
+import {OrderService} from "./services/order/order.service";
+import {CreatedProductService} from "./services/createdProduct/created-product.service";
+import {TemplateService} from "./services/template/template.service";
+import {AttributeService} from "./services/attribute/attribute.service";
+import {AttributeCategoryService} from "./services/attributeCategory/attribute-category.service";
 
 @NgModule({
   declarations: [
@@ -46,7 +52,13 @@ import { EshopCategoryComponent } from './marketplace/eshop/eshop-categories/esh
   ],
   providers: [
     UserService,
-    ProductCategoryService
+    ProductCategoryService,
+    ProductService,
+    OrderService,
+    CreatedProductService,
+    TemplateService,
+    AttributeService,
+    AttributeCategoryService,
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]
