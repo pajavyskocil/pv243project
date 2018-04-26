@@ -16,9 +16,4 @@ export class EshopCategoryComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  navigateToCategory() {
-    this.router.navigate(['/marketplace/eshop-category', this.category.id]);
-  }
-
 }

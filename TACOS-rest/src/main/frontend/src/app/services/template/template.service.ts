@@ -6,23 +6,23 @@ import {AttributeCategory} from "../attributeCategory/attribute-category.service
 @Injectable()
 export class TemplateService {
 
-  private readonly URL = "http://localhost:8080/TACOS-rest/api/v1/productCategories";
+  private readonly URL = "http://localhost:8080/TACOS-rest/api/v1/templates";
 
   constructor(protected httpClient : HttpClient) { }
 
-  public createTemplate(templateCreate: TemplateCreate) : Observable<LongRange>  {
-    return this.httpClient.post<LongRange>(this.URL, templateCreate,{});
+  public createTemplate(templateCreate: TemplateCreate) : Observable<number>  {
+    return this.httpClient.post<number>(this.URL, templateCreate,{});
   }
 
-  public deleteTemplate(template: Template) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${template.id}`,{});
+  public deleteTemplate(template: Template) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${template.id}`,{});
   }
 
   public getAllTemplates(): Observable<Array<Template>> {
     return this.httpClient.get<Array<Template>>(this.URL, {});
   }
 
-  public findTemplateById(id: LongRange) : Observable<Template> {
+  public findTemplateById(id: number) : Observable<Template> {
     return this.httpClient.get<Template>(`${this.URL}/${id}`,{});
   }
 
@@ -30,16 +30,16 @@ export class TemplateService {
 
 
 export interface Template {
-  id: LongRange,
+  id: number,
   name: String,
   minimalPrice: Number,
-  attributesCategories: AttributeCategory[]
+  attributeCategories: AttributeCategory[]
 }
 
 export interface TemplateCreate {
   name: String,
   minimalPrice: Number,
-  attributesCategoryIds: LongRange[],
-  productIds: LongRange[]
+  attributesCategoryIds: number[],
+  productIds: number[]
 
 }

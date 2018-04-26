@@ -10,31 +10,31 @@ export class AttributeService {
   constructor(protected httpClient: HttpClient) {
   }
 
-  public createAttribute(attributeCreate: AttributeCreate) : Observable<LongRange>  {
-    return this.httpClient.post<LongRange>(this.URL, attributeCreate,{});
+  public createAttribute(attributeCreate: AttributeCreate) : Observable<number>  {
+    return this.httpClient.post<number>(this.URL, attributeCreate,{});
   }
 
-  public deleteAttribute(attribute: Attribute) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${attribute.id}`,{});
+  public deleteAttribute(attribute: Attribute) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${attribute.id}`,{});
   }
 
   public getAllAttributes() : Observable<Array<Attribute>> {
     return this.httpClient.get<Array<Attribute>>(this.URL, {});
   }
 
-  public findAttributeById(id: LongRange) : Observable<Attribute> {
+  public findAttributeById(id: number) : Observable<Attribute> {
     return this.httpClient.get<Attribute>(`${this.URL}/${id}`,{});
   }
 }
 
   export interface Attribute {
-  id: LongRange,
+  id: number,
   name: String,
   price: Number,
   description: String,
   status: String,
   image: String,
-  attributeCategoryId: LongRange;
+  attributeCategoryId: number;
   attributeCategoryName: String;
 }
 
@@ -44,5 +44,5 @@ export class AttributeService {
   description: String,
   status: String,
   image: String,
-  attributeCategoryId: LongRange;
+  attributeCategoryId: number;
 }

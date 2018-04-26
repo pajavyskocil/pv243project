@@ -33,6 +33,9 @@ import {AttributeCategoryService} from "./services/attributeCategory/attribute-c
 import { SubcategoryComponent } from './marketplace/eshop/subcategory/subcategory.component';
 import { ProductIconComponent } from './marketplace/eshop/subcategory/product-icon/product-icon.component';
 import { ProductDetailComponent } from './marketplace/eshop/product-detail/product-detail.component';
+import { TemplateSelectorComponent } from './marketplace/eshop/product-detail/template-selector/template-selector.component';
+import { AttributeCategoriesComponent } from './marketplace/eshop/product-detail/attribute-categories/attribute-categories.component';
+import { AttributeSelectorComponent } from './marketplace/eshop/product-detail/attribute-categories/attribute-selector/attribute-selector.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import { ProductDetailComponent } from './marketplace/eshop/product-detail/produ
     SubcategoryComponent,
     ProductIconComponent,
     ProductDetailComponent,
+    TemplateSelectorComponent,
+    AttributeCategoriesComponent,
+    AttributeSelectorComponent,
   ],
   imports: [
     BrowserModule,

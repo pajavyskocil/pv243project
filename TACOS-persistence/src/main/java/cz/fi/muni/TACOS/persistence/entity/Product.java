@@ -38,7 +38,7 @@ public class Product implements Serializable {
     private String name;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2000)
     private String description;
 
     @DecimalMin("0.00")

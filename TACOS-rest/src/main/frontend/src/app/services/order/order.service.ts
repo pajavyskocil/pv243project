@@ -10,16 +10,16 @@ export class OrderService {
 
   constructor(protected httpClient:HttpClient) { }
 
-  public deleteOrder(order: Order) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${order.id}`,{});
+  public deleteOrder(order: Order) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${order.id}`,{});
   }
 
   public getAllOrders() : Observable<Array<Order>> {
     return this.httpClient.get<Array<Order>>(this.URL, {});
   }
 
-  public removeCreatedProduct(order : Order, createdProduct : CreatedProduct, ) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${order.id}/removeCreatedProduct/${createdProduct.id}`, {});
+  public removeCreatedProduct(order : Order, createdProduct : CreatedProduct, ) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${order.id}/removeCreatedProduct/${createdProduct.id}`, {});
   }
 
   public getAllOrdersForState(orderState : OrderState) : Observable<Array<Order>> {
@@ -30,20 +30,20 @@ export class OrderService {
     return this.httpClient.get<Array<Order>>(`${this.URL}/filter/notNew`, {});
   }
 
-  public submitOrder(order: Order) : Observable<LongRange>  {
-    return this.httpClient.put<LongRange>( `${this.URL}/submitOrder/${order.id}`,{});
+  public submitOrder(order: Order) : Observable<number>  {
+    return this.httpClient.put<number>( `${this.URL}/submitOrder/${order.id}`,{});
   }
 
-  public cancelOrder(order: Order) : Observable<LongRange>  {
-    return this.httpClient.put<LongRange>( `${this.URL}/cancelOrder/${order.id}`,{});
+  public cancelOrder(order: Order) : Observable<number>  {
+    return this.httpClient.put<number>( `${this.URL}/cancelOrder/${order.id}`,{});
   }
 
-  public finishOrder(order: Order) : Observable<LongRange>  {
-    return this.httpClient.put<LongRange>( `${this.URL}/finishOrder/${order.id}`,{});
+  public finishOrder(order: Order) : Observable<number>  {
+    return this.httpClient.put<number>( `${this.URL}/finishOrder/${order.id}`,{});
   }
 
-  public processOrder(order: Order) : Observable<LongRange>  {
-    return this.httpClient.put<LongRange>( `${this.URL}/processOrder/${order.id}`,{});
+  public processOrder(order: Order) : Observable<number>  {
+    return this.httpClient.put<number>( `${this.URL}/processOrder/${order.id}`,{});
   }
 }
 
@@ -56,10 +56,10 @@ export enum OrderState {
 }
 
 export interface Order {
-  id: LongRange,
+  id: number,
   state: OrderState,
   submitted: Object,
-  submitterId: LongRange,
+  submitterId: number,
   finished: Object,
   price: Number,
   products: CreatedProduct[]

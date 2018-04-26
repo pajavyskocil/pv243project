@@ -1,0 +1,16 @@
+<div class="attribute-selector shadow">
+  <div class="attribute-selector-header">
+    <h4>Select {{attributeCategory.name}}</h4>
+  </div>
+  <div class="attribute-selector-body">
+    <div *ngFor="let attribute of attributeCategory.attributes"
+         (click)="selectAttribute(attribute)">
+      <div class="attribute" *ngIf="selectedAttribute == undefined || selectedAttribute.id != attribute.id">
+        {{attribute.name}}
+      </div>
+      <div class="attribute selected" *ngIf="selectedAttribute != undefined && selectedAttribute.id == attribute.id">
+        {{attribute.name}}
+      </div>
+    </div>
+  </div>
+</div>

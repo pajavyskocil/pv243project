@@ -1,3 +1,43 @@
-<p>
-  product-detail works!
-</p>
+<div *ngIf="product != undefined" class="product-detail">
+  <!--Product header-->
+  <h2>{{product.name}}</h2>
+  <div class="row">
+    <div class="col-md-4 col-s-12">
+      <div class="fake-image shadow"></div>
+    </div>
+    <div class="col-md-8 col-s-12 product-description">
+      {{product.description}}
+    </div>
+  </div>
+
+  <!--Template select-->
+  <div class="row template-select justify-content-center">
+      <h3>
+        Choose a model
+      </h3>
+  </div>
+  <div class="row justify-content-center">
+    <div class="templates justify-content-center">
+      <app-template-selector class="template-selector"
+        [templates]="product.templates"
+        (templateSelected)="switchTemplate($event)">
+      </app-template-selector>
+    </div>
+  </div>
+
+  <!--Attribute categories-->
+  <div *ngIf="selectedTemplate != undefined" class="product-attribute-categories">
+    <app-attribute-categories
+      class="row"
+      [attributeCategories]="selectedTemplate.attributeCategories"
+      (selectedAttribute)="setAttribute($event)">
+    </app-attribute-categories>
+  </div>
+
+  <!--Total price-->
+  <div *ngIf="createdProductCreate != undefined" class="summary shadow-lg">
+    <div class="total-price">
+      <h1>{{singleProductPrice}}</h1>
+    </div>
+  </div>
+</div>

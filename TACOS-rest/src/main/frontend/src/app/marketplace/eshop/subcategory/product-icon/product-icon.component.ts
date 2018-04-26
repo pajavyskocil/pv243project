@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Product } from '../../../../services/user/user.service';
+import {Product} from "../../../../services/product/product.service";
 
 @Component({
   selector: 'app-product-icon',
@@ -12,7 +12,7 @@ export class ProductIconComponent implements OnInit {
 
   @Input()
   public product : Product;
-  
+
   ngOnInit() {
   }
 

@@ -10,25 +10,25 @@ export class AttributeCategoryService {
 
   constructor(protected httpClient:HttpClient) { }
 
-  public createAttributeCategory(attributeCategoryCreate: AttributeCategoryCreate) : Observable<LongRange>  {
-    return this.httpClient.post<LongRange>(this.URL, attributeCategoryCreate,{});
+  public createAttributeCategory(attributeCategoryCreate: AttributeCategoryCreate) : Observable<number>  {
+    return this.httpClient.post<number>(this.URL, attributeCategoryCreate,{});
   }
 
-  public deleteAttributeCategory(attributeCategory: AttributeCategory) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${attributeCategory.id}`,{});
+  public deleteAttributeCategory(attributeCategory: AttributeCategory) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${attributeCategory.id}`,{});
   }
 
   public getAllAttributeCategories() : Observable<Array<AttributeCategory>> {
     return this.httpClient.get<Array<AttributeCategory>>(this.URL, {});
   }
 
-  public findAttributeCategoryById(id: LongRange) : Observable<AttributeCategory> {
+  public findAttributeCategoryById(id: number) : Observable<AttributeCategory> {
     return this.httpClient.get<AttributeCategory>(`${this.URL}/${id}`,{});
   }
 }
 
 export interface AttributeCategory {
-  id: LongRange,
+  id: number,
   name: String,
   minimalPrice: Number,
   attributes: Attribute[],
@@ -36,6 +36,6 @@ export interface AttributeCategory {
 
 export interface AttributeCategoryCreate {
   name: String,
-  attributeIds: LongRange[],
-  templateIds: LongRange[]
+  attributeIds: number[],
+  templateIds: number[]
 }

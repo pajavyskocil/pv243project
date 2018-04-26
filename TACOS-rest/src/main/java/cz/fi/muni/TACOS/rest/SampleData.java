@@ -22,12 +22,8 @@ import cz.fi.muni.TACOS.enums.UserRole;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Arrays;
-import java.util.Base64;
 import java.util.Collections;
 import java.util.HashSet;
 
@@ -93,9 +89,13 @@ public class SampleData {
 
 	private Long acTshirtSizeId;
 	private Long acTshirtColorId;
+	private Long acTshirtMaterialId;
 	private Long acId3;
 	private Long attributeBlackColorId;
 	private Long attributeWhiteColorId;
+	private Long attributeCottonColorId;
+	private Long attributePolyesterColorId;
+	private Long attributeGrassColorId;
 
 	public void loadUserSampleData() {
 		UserCreateDTO user = new UserCreateDTO();
@@ -186,24 +186,22 @@ public class SampleData {
 	public void loadProductSampleData() throws InvalidRelationEntityIdException {
 		ProductCreateDTO product = new ProductCreateDTO();
 
-		product.setDescription("Common T-shirt.");
+		product.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eleifend mi velit, nec dapibus elit maximus at. Aenean venenatis imperdiet auctor. Vestibulum id lectus enim. Aenean nec arcu enim. Sed at imperdiet lectus. Duis consequat mollis lacus sit amet hendrerit. Fusce gravida semper imperdiet. Sed elit lorem, auctor euismod viverra ut, vulputate id tellus. ");
 		product.setName("T-shirt");
-		product.setImage(readImage("t-shirt.png"));
 		product.setProductCategoryIds(Collections.singleton(pcTshirtsId));
 		productTshirtId1 = productFacade.create(product);
 
-		product.setDescription("Trousers made with great love.");
+		product.setDescription("Donec est ligula, dignissim vitae mattis nec, facilisis et sem. Aliquam eleifend massa vel nisi placerat, vitae lobortis diam auctor. In finibus consectetur dapibus. Ut ut ex cursus, luctus metus sed, elementum leo. Mauris sollicitudin condimentum nisl ac venenatis. Donec laoreet, quam a elementum bibendum, velit sapien efficitur libero, in euismod neque est quis libero.");
 		product.setName("Trousers");
-		product.setImage(null);
 		product.setProductCategoryIds(Collections.singleton(pcTrousersId));
 		productTrousers2 = productFacade.create(product);
 
-		product.setDescription("Shorts used from bla bal.");
+		product.setDescription("Phasellus eu ullamcorper nulla. Nulla augue lectus, dictum ut est sed, ultrices auctor ipsum. Mauris semper eu nibh a porttitor. Donec magna leo, gravida sed tincidunt vitae, sodales volutpat metus. Aliquam tempus efficitur augue et fringilla. Aliquam euismod ultrices nunc. Proin erat ligula, vulputate ac odio ac, rhoncus tempor nunc. Mauris nibh eros, tincidunt eget fringilla eget, semper ut ex.");
 		product.setName("Shorts");
 		product.setProductCategoryIds(Collections.singleton(pcTrousersId));
 		productShortsId3 = productFacade.create(product);
 
-		product.setDescription("Common Shoes");
+		product.setDescription("Morbi eu mi turpis. Cras auctor risus a ligula feugiat bibendum. Duis eu pulvinar nisi, consectetur efficitur urna. Etiam ac euismod diam, eget consequat quam. Donec luctus, dui id blandit interdum, turpis elit sodales nibh, a porta elit elit non augue. Morbi iaculis dictum diam in lobortis. Sed id sem massa. Donec quis aliquam est, vel maximus eros. Pellentesque a maximus lacus.");
 		product.setName("Trainers");
 		product.setProductCategoryIds(Collections.singleton(pcShoesId));
 		productTrainersId4 = productFacade.create(product);
@@ -282,18 +280,43 @@ public class SampleData {
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
 		attributeWhiteColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtMaterialId);
+		attribute.setName("Cotton");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(28L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeCottonColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtMaterialId);
+		attribute.setName("Polyester");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(22L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributePolyesterColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtMaterialId);
+		attribute.setName("Grass");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(15L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
 	}
 
 	public void loadAttributeCategorySampleData() throws InvalidRelationEntityIdException {
 		AttributeCategoryCreateDTO category = new AttributeCategoryCreateDTO();
 
 		category.setTemplateIds(new HashSet<>(Arrays.asList(templateWomenTshirtId, templateMenTshirtId)));
-		category.setName("Tshirt size");
+		category.setName("t-shirt size");
 		acTshirtSizeId = attributeCategoryFacade.create(category);
 
 		category.setTemplateIds(new HashSet<>(Arrays.asList(templateWomenTshirtId, templateMenTshirtId)));
-		category.setName("Tshirt color");
+		category.setName("t-shirt color");
 		acTshirtColorId = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templateWomenTshirtId));
+		category.setName("t-shirt material");
+		acTshirtMaterialId = attributeCategoryFacade.create(category);
 	}
 
 	public void loadSampleData() throws InvalidRelationEntityIdException {
@@ -304,22 +327,5 @@ public class SampleData {
 		loadAttributeSampleData();
 		loadUserSampleData();
 		loadCreatedProductSampleData();
-	}
-
-	private byte[] readImage(String file) {
-		try (InputStream is = this.getClass().getResourceAsStream("/" + file)) {
-			int nRead;
-			ByteArrayOutputStream buffer = new ByteArrayOutputStream();
-			byte[] data = new byte[1024];
-			while ((nRead = is.read(data, 0, data.length)) != -1) {
-				buffer.write(data, 0, nRead);
-			}
-			buffer.flush();
-			return Base64.getEncoder().encode(buffer.toByteArray());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return null;
 	}
 }
