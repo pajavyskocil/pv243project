@@ -11,7 +11,6 @@ import java.util.List;
  * @author Sassmann Vojtech <vojtech.sassmann@gmail.com>
  * @param <T> Class of the entity
  */
-@Stateless
 public abstract class AbstractDao<T> implements Dao<T> {
 
     @PersistenceContext(unitName = "primary")

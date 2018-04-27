@@ -56,15 +56,13 @@ public class TemplateDTO {
 		if (o == null || getClass() != o.getClass()) return false;
 		TemplateDTO that = (TemplateDTO) o;
 		return Objects.equals(id, that.id) &&
-				Objects.equals(name, that.name) &&
-				Objects.equals(minimalPrice, that.minimalPrice) &&
-				Objects.equals(attributeCategories, that.attributeCategories);
+				Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, name, minimalPrice, attributeCategories);
+		return Objects.hash(id, name);
 	}
 
 	@Override

@@ -18,7 +18,17 @@ public class ProductDTO {
 
 	private BigDecimal minimalPrice;
 
+	private byte[] image;
+
 	private Set<TemplateDTO> templates = new HashSet<>();
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public Long getId() {
 		return id;
@@ -66,16 +76,13 @@ public class ProductDTO {
 		if (o == null || getClass() != o.getClass()) return false;
 		ProductDTO that = (ProductDTO) o;
 		return Objects.equals(id, that.id) &&
-				Objects.equals(name, that.name) &&
-				Objects.equals(description, that.description) &&
-				Objects.equals(minimalPrice, that.minimalPrice) &&
-				Objects.equals(templates, that.templates);
+				Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, name, description, minimalPrice, templates);
+		return Objects.hash(id, name);
 	}
 
 	@Override

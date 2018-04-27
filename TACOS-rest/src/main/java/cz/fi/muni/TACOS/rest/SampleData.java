@@ -66,29 +66,36 @@ public class SampleData {
 	private Long cpId2;
 	private Long cpId3;
 	private Long cpId4;
-	private Long templateId1;
-	private Long templateId2;
-	private Long templateId3;
+	private Long templateWomenTshirtId;
+	private Long templateMenTshirtId;
+	private Long templateTrousersId;
 
-	private Long productId1;
-	private Long productId2;
-	private Long productId3;
-	private Long productId4;
+	private Long productTshirtId1;
+	private Long productTrousers2;
+	private Long productShortsId3;
+	private Long productTrainersId4;
 
-	private Long pcId1;
-	private Long pcId2;
-	private Long pcId3;
-	private Long pcId4;
+	private Long pcTshirtsId;
+	private Long pcTrousersId;
+	private Long pcAccessoriesId;
+	private Long pcShoesId;
+	private Long pcClothesId;
 
-	private Long attributeId1;
-	private Long attributeId2;
-	private Long attributeId3;
-	private Long attributeId4;
-	private Long attributeId5;
+	private Long attributeXSSizeId;
+	private Long attributeSSizeId;
+	private Long attributeMSizeId;
+	private Long attributeLSizeId;
+	private Long attributeGreenColorId;
 
-	private Long acId1;
-	private Long acId2;
+	private Long acTshirtSizeId;
+	private Long acTshirtColorId;
+	private Long acTshirtMaterialId;
 	private Long acId3;
+	private Long attributeBlackColorId;
+	private Long attributeWhiteColorId;
+	private Long attributeCottonColorId;
+	private Long attributePolyesterColorId;
+	private Long attributeGrassColorId;
 
 	public void loadUserSampleData() {
 		UserCreateDTO user = new UserCreateDTO();
@@ -135,137 +142,181 @@ public class SampleData {
 		UserDTO userDto = userFacade.findByEmail(user.getEmail());
 		CreatedProductCreateDTO createdProduct = new CreatedProductCreateDTO();
 
-		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeId1, attributeId5)));
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeXSSizeId, attributeGreenColorId)));
 		createdProduct.setCount(10L);
 		createdProduct.setDescription("createdProduct1desc");
-		createdProduct.setProductId(productId1);
+		createdProduct.setProductId(productTshirtId1);
 		cpId1 = createdProductFacade.create(createdProduct, userDto.getId());
 
-		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeId2, attributeId5)));
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeSSizeId, attributeGreenColorId)));
 		createdProduct.setCount(5L);
 		createdProduct.setDescription("createdProduct 2 Description");
-		createdProduct.setProductId(productId1);
+		createdProduct.setProductId(productTshirtId1);
 		cpId2 = createdProductFacade.create(createdProduct, userDto.getId());
 
-		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeId3, attributeId5)));
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeMSizeId, attributeGreenColorId)));
 		createdProduct.setCount(3L);
 		createdProduct.setDescription("createdProduct3desc");
-		createdProduct.setProductId(productId1);
+		createdProduct.setProductId(productTshirtId1);
 		cpId3 = createdProductFacade.create(createdProduct, userDto.getId());
 
-		createdProduct.setAttributeIds(Collections.singleton(attributeId5));
+		createdProduct.setAttributeIds(Collections.singleton(attributeGreenColorId));
 		createdProduct.setCount(8L);
 		createdProduct.setDescription("createdProduct4desc");
-		createdProduct.setProductId(productId1);
+		createdProduct.setProductId(productTshirtId1);
 		cpId4 = createdProductFacade.create(createdProduct, userDto.getId());
 	}
 
 	public void loadTemplateSampleData() throws InvalidRelationEntityIdException {
 		TemplateCreateDTO template = new TemplateCreateDTO();
 
-		template.setProductIds(Collections.singleton(productId1));
-		template.setName("template");
-		templateId1 = templateFacade.create(template);
+		template.setName("Women t-shirt");
+		template.setProductIds(Collections.singleton(productTshirtId1));
+		templateWomenTshirtId = templateFacade.create(template);
 
-		template.setProductIds(Collections.singleton(productId1));
-		template.setName("T-shirt Template");
-		templateId2 = templateFacade.create(template);
+		template.setProductIds(Collections.singleton(productTshirtId1));
+		template.setName("Men t-shirt");
+		templateMenTshirtId = templateFacade.create(template);
 
-		template.setProductIds(Collections.singleton(productId2));
-		template.setName("template1");
-		templateId3 = templateFacade.create(template);
+		template.setProductIds(Collections.singleton(productTrousers2));
+		template.setName("Trousers");
+		templateTrousersId = templateFacade.create(template);
 	}
 
 	public void loadProductSampleData() throws InvalidRelationEntityIdException {
 		ProductCreateDTO product = new ProductCreateDTO();
 
-		product.setDescription("desc");
-		product.setName("product1");
-		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId1, pcId2)));
-		productId1 = productFacade.create(product);
+		product.setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras eleifend mi velit, nec dapibus elit maximus at. Aenean venenatis imperdiet auctor. Vestibulum id lectus enim. Aenean nec arcu enim. Sed at imperdiet lectus. Duis consequat mollis lacus sit amet hendrerit. Fusce gravida semper imperdiet. Sed elit lorem, auctor euismod viverra ut, vulputate id tellus. ");
+		product.setName("T-shirt");
+		product.setProductCategoryIds(Collections.singleton(pcTshirtsId));
+		productTshirtId1 = productFacade.create(product);
 
-		product.setDescription("description");
-		product.setName("product1");
-		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId2, pcId3)));
-		productId2 = productFacade.create(product);
+		product.setDescription("Donec est ligula, dignissim vitae mattis nec, facilisis et sem. Aliquam eleifend massa vel nisi placerat, vitae lobortis diam auctor. In finibus consectetur dapibus. Ut ut ex cursus, luctus metus sed, elementum leo. Mauris sollicitudin condimentum nisl ac venenatis. Donec laoreet, quam a elementum bibendum, velit sapien efficitur libero, in euismod neque est quis libero.");
+		product.setName("Trousers");
+		product.setProductCategoryIds(Collections.singleton(pcTrousersId));
+		productTrousers2 = productFacade.create(product);
 
-		product.setDescription("desc");
-		product.setName("PRODUCT");
-		product.setProductCategoryIds(new HashSet<>(Arrays.asList(pcId4, pcId1)));
-		productId3 = productFacade.create(product);
+		product.setDescription("Phasellus eu ullamcorper nulla. Nulla augue lectus, dictum ut est sed, ultrices auctor ipsum. Mauris semper eu nibh a porttitor. Donec magna leo, gravida sed tincidunt vitae, sodales volutpat metus. Aliquam tempus efficitur augue et fringilla. Aliquam euismod ultrices nunc. Proin erat ligula, vulputate ac odio ac, rhoncus tempor nunc. Mauris nibh eros, tincidunt eget fringilla eget, semper ut ex.");
+		product.setName("Shorts");
+		product.setProductCategoryIds(Collections.singleton(pcTrousersId));
+		productShortsId3 = productFacade.create(product);
 
-		product.setDescription("desc");
-		product.setName("Product3");
-		product.setProductCategoryIds(Collections.singleton(pcId1));
-		productId4 = productFacade.create(product);
+		product.setDescription("Morbi eu mi turpis. Cras auctor risus a ligula feugiat bibendum. Duis eu pulvinar nisi, consectetur efficitur urna. Etiam ac euismod diam, eget consequat quam. Donec luctus, dui id blandit interdum, turpis elit sodales nibh, a porta elit elit non augue. Morbi iaculis dictum diam in lobortis. Sed id sem massa. Donec quis aliquam est, vel maximus eros. Pellentesque a maximus lacus.");
+		product.setName("Trainers");
+		product.setProductCategoryIds(Collections.singleton(pcShoesId));
+		productTrainersId4 = productFacade.create(product);
 	}
 
 
 	public void loadProductCategorySampleData() throws InvalidRelationEntityIdException {
 		ProductCategoryCreateDTO category = new ProductCategoryCreateDTO();
 
-		category.setName("T shirts");
-		pcId1 = productCategoryFacade.create(category);
-
-		category.setName("Trousers");
-		pcId2 = productCategoryFacade.create(category);
+		category.setName("Clothes");
+		pcClothesId = productCategoryFacade.create(category);
 
 		category.setName("Accessories");
-		pcId3 = productCategoryFacade.create(category);
+		pcAccessoriesId = productCategoryFacade.create(category);
 
 		category.setName("Shoes");
-		pcId4 = productCategoryFacade.create(category);
+		pcShoesId = productCategoryFacade.create(category);
+
+		category.setName("T shirts");
+		category.setParentCategoryId(pcClothesId);
+		pcTshirtsId = productCategoryFacade.create(category);
+
+		category.setName("Trousers");
+		category.setParentCategoryId(pcClothesId);
+		pcTrousersId = productCategoryFacade.create(category);
 	}
 
 	public void loadAttributeSampleData() throws InvalidRelationEntityIdException {
 		AttributeCreateDTO attribute = new AttributeCreateDTO();
 
-		attribute.setAttributeCategoryId(acId1);
+		attribute.setAttributeCategoryId(acTshirtSizeId);
 		attribute.setName("XS");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
-		attributeId1 = attributeFacade.create(attribute);
+		attributeXSSizeId = attributeFacade.create(attribute);
 
-		attribute.setAttributeCategoryId(acId1);
+		attribute.setAttributeCategoryId(acTshirtSizeId);
 		attribute.setName("S");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
-		attributeId2 = attributeFacade.create(attribute);
+		attributeSSizeId = attributeFacade.create(attribute);
 
-		attribute.setAttributeCategoryId(acId1);
+		attribute.setAttributeCategoryId(acTshirtSizeId);
 		attribute.setName("M");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
-		attributeId3 = attributeFacade.create(attribute);
+		attributeMSizeId = attributeFacade.create(attribute);
 
-		attribute.setAttributeCategoryId(acId1);
+		attribute.setAttributeCategoryId(acTshirtSizeId);
 		attribute.setName("L");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
-		attribute.setStatus(ProductAttributeStatus.NOT_AVAIBLE);
-		attributeId4 = attributeFacade.create(attribute);
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeLSizeId = attributeFacade.create(attribute);
 
-		attribute.setAttributeCategoryId(acId2);
+		attribute.setAttributeCategoryId(acTshirtColorId);
 		attribute.setName("Black");
 		attribute.setDescription("Random description(to be honest, not so random)");
 		attribute.setPrice(BigDecimal.TEN);
-		attribute.setStatus(ProductAttributeStatus.NOT_AVAIBLE);
-		attributeId5 = attributeFacade.create(attribute);
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeBlackColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtColorId);
+		attribute.setName("Green");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.TEN);
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGreenColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtColorId);
+		attribute.setName("White");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.TEN);
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeWhiteColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtMaterialId);
+		attribute.setName("Cotton");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(28L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeCottonColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtMaterialId);
+		attribute.setName("Polyester");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(22L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributePolyesterColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTshirtMaterialId);
+		attribute.setName("Grass");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(15L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
 	}
 
 	public void loadAttributeCategorySampleData() throws InvalidRelationEntityIdException {
 		AttributeCategoryCreateDTO category = new AttributeCategoryCreateDTO();
 
-		category.setTemplateIds(Collections.singleton(templateId1));
-		category.setName("Tshirt size");
-		acId1 = attributeCategoryFacade.create(category);
+		category.setTemplateIds(new HashSet<>(Arrays.asList(templateWomenTshirtId, templateMenTshirtId)));
+		category.setName("t-shirt size");
+		acTshirtSizeId = attributeCategoryFacade.create(category);
 
-		category.setTemplateIds(new HashSet<>(Arrays.asList(templateId1, templateId2)));
-		category.setName("Tshirt color");
-		acId2 = attributeCategoryFacade.create(category);
+		category.setTemplateIds(new HashSet<>(Arrays.asList(templateWomenTshirtId, templateMenTshirtId)));
+		category.setName("t-shirt color");
+		acTshirtColorId = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templateWomenTshirtId));
+		category.setName("t-shirt material");
+		acTshirtMaterialId = attributeCategoryFacade.create(category);
 	}
 
 	public void loadSampleData() throws InvalidRelationEntityIdException {

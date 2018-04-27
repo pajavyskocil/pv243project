@@ -10,7 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 export class UserDetailIdComponent implements OnInit {
 
   user : User;
-  userId : LongRange;
+  userId : number;
   constructor(private userService: UserService, private route: ActivatedRoute) {
     this.route.params.subscribe(res => this.userId = res.id);
   }

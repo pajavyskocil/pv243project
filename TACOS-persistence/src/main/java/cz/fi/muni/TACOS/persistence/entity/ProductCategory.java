@@ -57,6 +57,14 @@ public class ProductCategory implements Serializable {
 
     }
 
+    // created for mapper
+    public Long getParentCategoryId() {
+        if (parentCategory == null) {
+            return null;
+        }
+        return parentCategory.getId();
+    }
+
     public Long getId() {
         return id;
     }

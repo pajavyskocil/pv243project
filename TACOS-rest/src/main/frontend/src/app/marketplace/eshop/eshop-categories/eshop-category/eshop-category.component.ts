@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ProductCategory } from '../../../../services/product-category/product-category.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-eshop-category',
@@ -8,12 +9,11 @@ import { ProductCategory } from '../../../../services/product-category/product-c
 })
 export class EshopCategoryComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   @Input()
-  private category : ProductCategory;
+  public category : ProductCategory;
 
   ngOnInit() {
   }
-
 }

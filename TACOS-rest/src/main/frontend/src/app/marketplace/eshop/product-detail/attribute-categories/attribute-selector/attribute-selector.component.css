@@ -1,0 +1,30 @@
+.attribute-selector {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.attribute-selector-header {
+  padding: 10px;
+  background: #212121;
+  color: #fff;
+}
+
+.attribute:last-child {
+  border: none !important;
+}
+
+.attribute {
+  padding: 10px;
+  /*background: #eee;*/
+  border-bottom: solid 1px #aaaaaa;
+}
+
+.attribute:hover {
+  background: #28a745;
+  color: #ffffff;
+}
+
+.selected {
+  background: #4abde8 !important;
+  color: #ffffff;
+}

@@ -11,7 +11,7 @@ export class EshopCategoriesComponent implements OnInit {
   constructor() { }
 
   @Input()
-  private categories : ProductCategory[];
+  public categories : ProductCategory[];
 
   ngOnInit() {
   }

@@ -11,43 +11,43 @@ export class CreatedProductService {
 
   constructor(protected httpClient:HttpClient) { }
 
-  public createCreatedProduct(createdProductCreate: CreatedProductCreate) : Observable<LongRange>  {
-    return this.httpClient.post<LongRange>(this.URL, createdProductCreate,{});
+  public createCreatedProduct(createdProductCreate: CreatedProductCreate) : Observable<number>  {
+    return this.httpClient.post<number>(this.URL, createdProductCreate,{});
   }
 
-  public deleteCreatedProduct(createdProduct: CreatedProduct) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${createdProduct.id}`,{});
+  public deleteCreatedProduct(createdProduct: CreatedProduct) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${createdProduct.id}`,{});
   }
 
   public getAllCreatedProducts() : Observable<Array<CreatedProduct>> {
     return this.httpClient.get<Array<CreatedProduct>>(this.URL, {});
   }
 
-  public findCreatedProductById(id: LongRange) : Observable<CreatedProduct> {
+  public findCreatedProductById(id: number) : Observable<CreatedProduct> {
     return this.httpClient.get<CreatedProduct>(`${this.URL}/${id}`,{});
   }
 
-  public addAttribute(createdProduct : CreatedProduct, attribute : Attribute) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${createdProduct.id}/addAttribute/${attribute.id}`, {});
+  public addAttribute(createdProduct : CreatedProduct, attribute : Attribute) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${createdProduct.id}/addAttribute/${attribute.id}`, {});
   }
 
-  public removeAttribute(createdProduct : CreatedProduct, attribute : Attribute) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${createdProduct.id}/removeAttribute/${attribute.id}`, {});
+  public removeAttribute(createdProduct : CreatedProduct, attribute : Attribute) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${createdProduct.id}/removeAttribute/${attribute.id}`, {});
   }
 }
 
 export interface CreatedProduct {
-  id: LongRange,
+  id: number,
   price: Number,
-  count: LongRange,
+  count: number,
   description: String,
   product: Product,
   attributes: Attribute[]
 }
 
 export interface CreatedProductCreate {
-  count: LongRange,
+  count: number,
   description: String,
-  productId: LongRange,
-  attributeIds: LongRange[]
+  productId: number,
+  attributeIds: number[]
 }

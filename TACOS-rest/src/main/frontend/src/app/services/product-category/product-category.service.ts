@@ -10,49 +10,50 @@ export class ProductCategoryService {
 
   constructor(protected httpClient : HttpClient) { }
 
-  public createProductCategory(productCategoryCreate: ProductCategoryCreate) : Observable<LongRange>  {
-    return this.httpClient.post<LongRange>(this.URL, productCategoryCreate,{});
+  public createProductCategory(productCategoryCreate: ProductCategoryCreate) : Observable<number>  {
+    return this.httpClient.post<number>(this.URL, productCategoryCreate,{});
   }
 
-  public deleteProductCategory(productCategory: ProductCategory) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${productCategory.id}`,{});
+  public deleteProductCategory(productCategory: ProductCategory) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${productCategory.id}`,{});
   }
 
   public getAllProductCategories() : Observable<Array<ProductCategory>> {
     return this.httpClient.get<Array<ProductCategory>>(this.URL, {});
   }
 
-  public findProductCategoryById(id: LongRange) : Observable<ProductCategory> {
+  public findProductCategoryById(id: number) : Observable<ProductCategory> {
     return this.httpClient.get<ProductCategory>(`${this.URL}/${id}`,{});
   }
 
-  public addSubCategory(productCategory : ProductCategory, subCategory : ProductCategory) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${productCategory.id}/addSubCategory/${subCategory.id}`, {});
+  public addSubCategory(productCategory : ProductCategory, subCategory : ProductCategory) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${productCategory.id}/addSubCategory/${subCategory.id}`, {});
   }
 
-  public removeSubCategory(productCategory : ProductCategory, subCategory : ProductCategory) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${productCategory.id}/removeSubCategory/${subCategory.id}`, {});
+  public removeSubCategory(productCategory : ProductCategory, subCategory : ProductCategory) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${productCategory.id}/removeSubCategory/${subCategory.id}`, {});
   }
 
-  public addProduct(productCategory : ProductCategory, product : Product) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${productCategory.id}/addProduct/${product.id}`, {});
+  public addProduct(productCategory : ProductCategory, product : Product) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${productCategory.id}/addProduct/${product.id}`, {});
   }
 
-  public removeProduct(productCategory : ProductCategory, product : Product) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${productCategory.id}/removeProduct/${product.id}`, {});
+  public removeProduct(productCategory : ProductCategory, product : Product) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${productCategory.id}/removeProduct/${product.id}`, {});
   }
 }
 
 export interface ProductCategory {
-  id: LongRange,
+  id: number,
   name: String,
   image: String,
-  parentCategory: ProductCategory,
+  products: Product[],
+  parentCategoryId: number,
   subCategories: ProductCategory[]
 }
 
 export interface ProductCategoryCreate {
   name: String,
   image: String,
-  parentCategory: LongRange
+  parentCategory: number
 }

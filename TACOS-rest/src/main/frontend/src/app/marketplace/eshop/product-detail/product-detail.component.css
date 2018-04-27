@@ -1,0 +1,34 @@
+.product-detail {
+  margin-top: 20px;
+}
+
+.fake-image {
+  width: 220px;
+  height: 270px;
+  background: #ffffff;
+  border: solid 1px #dedede;
+}
+
+.product-attribute-categories {
+  margin-top: 20px;
+}
+
+.summary {
+  padding: 20px;
+  position: fixed;
+  bottom: 0;
+  right: 10%;
+  background: #ffffff;
+}
+
+.template-select {
+  margin-top: 20px;
+}
+
+.product-description {
+  font-size: 20px;
+}
+
+.template-selector {
+  display: inline-flex;
+}

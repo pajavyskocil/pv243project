@@ -1,0 +1,22 @@
+<div *ngIf="loaded" class="subcategory-content">
+  <div class="subcategory-header mt-4">
+    <h1>{{category.name}}</h1>
+  </div>
+  <div *ngIf="category.products.length > 0" class="mt-4">
+    <h2>Products</h2>
+    <div class="product-icons row">
+      <app-product-icon *ngFor="let product of category.products;"
+      class="col-lg-3 col-md-4 col-sm-6 col-xs-12"
+        [product]="product"></app-product-icon>
+    </div>
+  </div>
+  <div *ngIf="category.subCategories.length > 0" class="mt-4">
+    <h3>Subcategories</h3>
+    <div class="subcategories row">
+      <app-eshop-category *ngFor="let category of category.subCategories;"
+        [category]="category"
+        class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
+      </app-eshop-category>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.DecimalMin;
@@ -37,11 +38,15 @@ public class Product implements Serializable {
     private String name;
 
     @NotNull
-    @Column(nullable = false)
+    @Column(nullable = false, length = 2000)
     private String description;
 
     @DecimalMin("0.00")
     private BigDecimal minimalPrice;
+
+    @Lob
+    @Column(columnDefinition = "mediumblob")
+    private Byte[] image;
 
     @NotNull
     @Column(nullable = false)
@@ -59,6 +64,14 @@ public class Product implements Serializable {
     private Set<CreatedProduct> createdProducts = new HashSet<>();
 
     public Product() {
+    }
+
+    public Byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(Byte[] image) {
+        this.image = image;
     }
 
     public Long getId() {

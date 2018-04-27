@@ -6,37 +6,37 @@ import {Template} from "../template/template.service";
 @Injectable()
 export class ProductService {
 
-  private readonly URL = "http://localhost:8080/TACOS-rest/api/v1/orders";
+  private readonly URL = "http://localhost:8080/TACOS-rest/api/v1/products";
 
   constructor(protected httpClient:HttpClient) { }
 
-  public createProduct(productCreate: ProductCreate) : Observable<LongRange>  {
-    return this.httpClient.post<LongRange>(this.URL, productCreate,{});
+  public createProduct(productCreate: ProductCreate) : Observable<number>  {
+    return this.httpClient.post<number>(this.URL, productCreate,{});
   }
 
-  public deleteProduct(product: Product) : Observable<LongRange>  {
-    return this.httpClient.delete<LongRange>( `${this.URL}/${product.id}`,{});
+  public deleteProduct(product: Product) : Observable<number>  {
+    return this.httpClient.delete<number>( `${this.URL}/${product.id}`,{});
   }
 
   public getAllProducts() : Observable<Array<Product>> {
     return this.httpClient.get<Array<Product>>(this.URL, {});
   }
 
-  public findProductById(id: LongRange) : Observable<Product> {
+  public findProductById(id: number) : Observable<Product> {
     return this.httpClient.get<Product>(`${this.URL}/${id}`,{});
   }
 
-  public addTemplate(product : Product, template : Template) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${product.id}/addTemplate/${template.id}`, {});
+  public addTemplate(product : Product, template : Template) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${product.id}/addTemplate/${template.id}`, {});
   }
 
-  public removeTemplate(product : Product, template : Template) : Observable<LongRange> {
-    return this.httpClient.put<LongRange>(`${this.URL}/${product.id}/removeTemplate/${template.id}`, {});
+  public removeTemplate(product : Product, template : Template) : Observable<number> {
+    return this.httpClient.put<number>(`${this.URL}/${product.id}/removeTemplate/${template.id}`, {});
   }
 }
 
 export interface Product {
-  id: LongRange,
+  id: number,
   name: String,
   description: String,
   minimalPrice: Number,
@@ -46,6 +46,6 @@ export interface Product {
 export interface ProductCreate {
   name: String,
   description: String,
-  templateIds: LongRange[],
-  productCategoryIds: LongRange[]
+  templateIds: number[],
+  productCategoryIds: number[]
 }

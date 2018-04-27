@@ -55,16 +55,13 @@ public class TemplateCreateDTO {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		TemplateCreateDTO that = (TemplateCreateDTO) o;
-		return Objects.equals(name, that.name) &&
-				Objects.equals(minimalPrice, that.minimalPrice) &&
-				Objects.equals(attributeCategoryIds, that.attributeCategoryIds) &&
-				Objects.equals(productIds, that.productIds);
+		return Objects.equals(name, that.name);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(name, minimalPrice, attributeCategoryIds, productIds);
+		return Objects.hash(name);
 	}
 
 	@Override

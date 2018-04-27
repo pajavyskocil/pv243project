@@ -75,18 +75,13 @@ public class CreatedProductDTO {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		CreatedProductDTO that = (CreatedProductDTO) o;
-		return Objects.equals(id, that.id) &&
-				Objects.equals(price, that.price) &&
-				Objects.equals(count, that.count) &&
-				Objects.equals(description, that.description) &&
-				Objects.equals(product, that.product) &&
-				Objects.equals(attributes, that.attributes);
+		return Objects.equals(id, that.id);
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, price, count, description, product, attributes);
+		return Objects.hash(id);
 	}
 
 	@Override
