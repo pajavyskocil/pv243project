@@ -92,7 +92,6 @@ public class ProductCategoryDTO {
 				", name='" + name + '\'' +
 				", products=" + products +
 				", image=" + Arrays.toString(image) +
-				", subCategories=" + subCategories +
 				'}';
 	}
 }

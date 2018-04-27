@@ -39,7 +39,7 @@ export interface Product {
   id: number,
   name: String,
   description: String,
-  minimalPrice: Number,
+  minimalPrice: number,
   templates: Template[]
 }
 
