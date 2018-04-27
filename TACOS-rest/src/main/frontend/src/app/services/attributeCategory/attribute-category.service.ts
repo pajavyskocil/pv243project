@@ -30,7 +30,7 @@ export class AttributeCategoryService {
 export interface AttributeCategory {
   id: number,
   name: String,
-  minimalPrice: Number,
+  minimalPrice: number,
   attributes: Attribute[],
 }
 

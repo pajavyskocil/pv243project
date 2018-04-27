@@ -61,6 +61,6 @@ export interface Order {
   submitted: Object,
   submitterId: number,
   finished: Object,
-  price: Number,
+  price: number,
   products: CreatedProduct[]
 }

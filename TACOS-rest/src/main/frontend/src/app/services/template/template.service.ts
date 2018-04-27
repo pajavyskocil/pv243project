@@ -32,13 +32,13 @@ export class TemplateService {
 export interface Template {
   id: number,
   name: String,
-  minimalPrice: Number,
+  minimalPrice: number,
   attributeCategories: AttributeCategory[]
 }
 
 export interface TemplateCreate {
   name: String,
-  minimalPrice: Number,
+  minimalPrice: number,
   attributesCategoryIds: number[],
   productIds: number[]
 

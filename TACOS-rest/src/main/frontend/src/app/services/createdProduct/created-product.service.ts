@@ -38,7 +38,7 @@ export class CreatedProductService {
 
 export interface CreatedProduct {
   id: number,
-  price: Number,
+  price: number,
   count: number,
   description: String,
   product: Product,

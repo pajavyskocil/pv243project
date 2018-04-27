@@ -30,7 +30,7 @@ export class AttributeService {
   export interface Attribute {
   id: number,
   name: String,
-  price: Number,
+  price: number,
   description: String,
   status: String,
   image: String,
@@ -40,7 +40,7 @@ export class AttributeService {
 
   export interface AttributeCreate {
   name: String,
-  price: Number,
+  price: number,
   description: String,
   status: String,
   image: String,
