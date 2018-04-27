@@ -1,4 +1,8 @@
 <div *ngIf="product != undefined" class="product-detail">
+<div *ngIf="showSuccess" class="alert alert-success" role="alert">
+  <a href="#" class="close" (click)="showSuccess=false">&times;</a>
+  Your product has been added to basket.  <a class="alert-link" [routerLink]="['/marketplace/basket']">Show it.</a>
+</div>
   <!--Product header-->
   <h2>{{product.name}}</h2>
   <div class="row">
@@ -37,7 +41,25 @@
   <!--Total price-->
   <div *ngIf="createdProductCreate != undefined" class="summary shadow-lg">
     <div class="total-price">
-      <h1>{{singleProductPrice}}</h1>
+      <div class="product-count">
+        Count:
+        <label>
+          <input type="number" [(ngModel)]="countOfProducts" (ngModelChange)="recalculateTotalPrice()"/>
+        </label>
+      </div>
+      <div class="single-product-price">
+        Single product price is:
+        <div class="pull-right">
+          {{singleProductPrice}},-
+        </div>
+      </div>
+      <div class="total-price">
+        Total price is:
+        <div class="pull-right">
+          {{totalPrice}},-
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary pull-right" (click)="addProductToBasket()">Add to backet</button>
     </div>
   </div>
 </div>
