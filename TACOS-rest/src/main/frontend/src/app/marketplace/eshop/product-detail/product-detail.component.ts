@@ -5,7 +5,11 @@ import {Template} from "../../../services/template/template.service";
 import {AttributeCategory} from "../../../services/attributeCategory/attribute-category.service";
 import {Attribute} from "../../../services/attribute/attribute.service";
 import {AttributeSelect} from "./attribute-categories/attribute-selector/attribute-selector.component";
-import {CreatedProduct, CreatedProductCreate} from "../../../services/createdProduct/created-product.service";
+import {
+  CreatedProduct,
+  CreatedProductCreate,
+  CreatedProductService
+} from "../../../services/createdProduct/created-product.service";
 
 @Component({
   selector: 'app-product-detail',
@@ -14,7 +18,7 @@ import {CreatedProduct, CreatedProductCreate} from "../../../services/createdPro
 })
 export class ProductDetailComponent implements OnInit {
 
-  constructor(private productService : ProductService, private route: ActivatedRoute) { }
+  constructor(private productService : ProductService, private route: ActivatedRoute, private createdProductService : CreatedProductService) { }
 
   public product : Product;
   public selectedTemplate : Template;
@@ -23,6 +27,7 @@ export class ProductDetailComponent implements OnInit {
   public singleProductPrice : number;
   public countOfProducts : number;
   public totalPrice : number;
+  public showSuccess : boolean = false;
 
   ngOnInit() {
     this.route.params.subscribe(res => {
@@ -56,6 +61,25 @@ export class ProductDetailComponent implements OnInit {
       };
       this.calculatePrice();
     }
+  }
+
+  public recalculateTotalPrice() {
+    this.createdProductCreate.count = this.countOfProducts;
+    this.totalPrice = this.singleProductPrice * this.countOfProducts;
+    console.log(this.countOfProducts);
+    console.log(this.totalPrice);
+  }
+
+  public addProductToBasket() {
+    this.createdProductService.createCreatedProduct(this.createdProductCreate).subscribe(success => {
+      this.showSuccess = true;
+      this.selectedTemplate = undefined;
+      this.selectedAttributes = undefined;
+      this.createdProductCreate = undefined;
+      this.singleProductPrice = undefined;
+      this.countOfProducts = undefined;
+      this.totalPrice = undefined;
+    });
   }
 
   private calculatePrice() {

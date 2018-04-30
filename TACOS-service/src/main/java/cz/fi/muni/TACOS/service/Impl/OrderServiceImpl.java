@@ -45,9 +45,6 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 		if (order.getState() != OrderState.BASKET) {
 			throw new IllegalArgumentException("Can not add product to order that is not in BASKET state: " + order.getState());
 		}
-		if (order.getProducts().contains(product)) {
-			throw new IllegalArgumentException("Product is already in products for order");
-		}
 		order.addProduct(product);
 		updatePrice(order);
 	}

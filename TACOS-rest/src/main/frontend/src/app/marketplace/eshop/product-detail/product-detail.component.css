@@ -32,3 +32,15 @@
 .template-selector {
   display: inline-flex;
 }
+
+.product-count {
+  font-size: 1em;
+}
+
+.single-product-price {
+  font-size: 0.8em;
+}
+
+.total-price {
+  font-size: 1.6em;
+}
