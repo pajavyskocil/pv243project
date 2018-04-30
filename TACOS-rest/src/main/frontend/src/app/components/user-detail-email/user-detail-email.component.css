@@ -1,0 +1,7 @@
+.detail{
+  margin: 20px auto auto auto;
+  padding: 20px 50px;
+  min-width: 320px;
+  border-radius: 10px;
+  box-shadow: rgba(0,0,0,0.8) 0 0 10px;
+}

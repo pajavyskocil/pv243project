@@ -2,16 +2,15 @@ package cz.fi.muni.TACOS.rest.controllers;
 
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
+import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
-import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceAlreadyExistException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -131,7 +130,7 @@ public class UserController {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{userId}/addOrder/{orderId}")
-	public void addOrdertoUser(@PathParam("userId") Long id, @QueryParam("orderId") Long orderId) {
+	public void addOrdertoUser(@PathParam("userId") Long id, @PathParam("orderId") Long orderId) {
 		log.debug("Rest add order with id ({}) to user with id ({})", id, orderId);
 
 		if (userFacade.findById(id) == null) {
@@ -147,7 +146,7 @@ public class UserController {
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{userId}/removeOrder/{orderId}")
-	public void removeOrdertoUser(@PathParam("userId") Long id, @QueryParam("orderId") Long orderId) {
+	public void removeOrdertoUser(@PathParam("userId") Long id, @PathParam("orderId") Long orderId) {
 		log.debug("Rest remove order with id ({}) from user with id ({})", id, orderId);
 
 		if (userFacade.findById(id) == null) {
@@ -161,10 +160,11 @@ public class UserController {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/setSuperadmin/{id}")
-	public void setSuperadmin(@QueryParam("id") Long id) {
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/setSuperadmin")
+	public void setSuperadmin(@QueryParam("id")Long id) {
 		log.debug("Rest set UserRole.SUPERADMIN for user with id ({})", id);
+
 
 		try {
 			userFacade.setSuperadmin(id);
@@ -174,8 +174,8 @@ public class UserController {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/setSubmitter/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/setSubmitter")
 	public void setSubmitter(@QueryParam("id") Long id) {
 		log.debug("Rest set UserRole.SUBMITTER for user with id ({})", id);
 
@@ -187,8 +187,8 @@ public class UserController {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/setPractitioner/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/setPractitioner")
 	public void setPractitioner(@QueryParam("id") Long id) {
 		log.debug("Rest set UserRole.PRACTITIONER for user with id ({})", id);
 

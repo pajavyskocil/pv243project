@@ -10,8 +10,8 @@ export class UserService {
 
   constructor(protected httpClient:HttpClient) { }
 
-  public createUser(userCreate: UserCreate) : Observable<number>  {
-    return this.httpClient.post<number>(this.URL, userCreate,{});
+  public createUser(userCreate: UserCreate) : Observable<User>  {
+    return this.httpClient.post<User>(this.URL, userCreate,{});
   }
 
   public deleteUser(user: User) : Observable<number>  {
@@ -22,7 +22,7 @@ export class UserService {
     return this.httpClient.get<Array<User>>(this.URL, {});
   }
 
-  public findUserById(id: number) : Observable<User> {
+  public findUserById(id: Number) : Observable<User> {
     return this.httpClient.get<User>(`${this.URL}/${id}`,{});
   }
 
@@ -30,7 +30,7 @@ export class UserService {
     return this.httpClient.get<User>(`${this.URL}/filter/email/${email}`,{});
   }
 
-  public getAllUsersForRole(userRole: UserRole): Observable<Array<User>> {
+  public getAllUsersForRole(userRole: String): Observable<Array<User>> {
     return this.httpClient.get<Array<User>>(`${this.URL}/filter/role/${userRole}`, {});
   }
 
@@ -42,31 +42,26 @@ export class UserService {
     return this.httpClient.put<number>(`${this.URL}/${user.id}/removeOrder/${order.id}`, {});
   }
 
-  public setSubmitter(user: User) : Observable<number>  {
-    return this.httpClient.put<number>( `${this.URL}/setSubmitter/${user.id}`,{});
+  public setSubmitter(user: User)  {
+    return this.httpClient.put( `${this.URL}/setSubmitter?id=${user.id}`, {});
   }
 
-  public setPractitioner(user: User) : Observable<number>  {
-    return this.httpClient.put<number>( `${this.URL}/setPractitioner/${user.id}`,{});
+  public setPractitioner(user: User) {
+    return this.httpClient.put( `${this.URL}/setPractitioner?id=${user.id}`,{});
   }
 
-  public setSuperAdmin(user: User) : Observable<number>  {
-    return this.httpClient.put<number>( `${this.URL}/setSuperAdmin/${user.id}`,{});
+  public setSuperAdmin(user: User) {
+    return this.httpClient.put( `${this.URL}/setSuperadmin?id=${user.id}`,{});
   }
 
 }
 
-export enum UserRole {
-  SUBMITTER,
-  PRACTITIONER,
-  SUPERADMIN
-}
 export interface User {
-  id: number,
+  id: Number,
   name: String,
   surname: String,
   email: String,
-  role: UserRole,TA
+  role: String,
   orders: Order[]
 }
 

@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {User, UserService} from "../services/user/user.service";
-import {ActivatedRoute} from "@angular/router";
+import {User} from "../../services/user/user.service";
 
 @Component({
   selector: 'app-user-detail',
@@ -11,7 +10,9 @@ export class UserDetailComponent implements OnInit {
 
   @Input()
   user : User;
-  constructor(private userService: UserService) {}
 
-  ngOnInit() {}
+  constructor() {}
+
+  ngOnInit() {
+  }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {User, UserService} from "../services/user/user.service";
+import {User, UserService} from "../../services/user/user.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
@@ -11,6 +11,7 @@ export class UserDetailEmailComponent implements OnInit {
 
   user : User;
   email : String;
+  loaded : boolean = false;
   constructor(private userService: UserService, private route: ActivatedRoute) {
     this.route.params.subscribe(res => this.email = res.email);
   }
@@ -18,6 +19,7 @@ export class UserDetailEmailComponent implements OnInit {
   ngOnInit() {
     this.userService.findUserByEmail(this.email).subscribe((user) => {
       this.user = user;
+      this.loaded = true;
     });
   }
 
