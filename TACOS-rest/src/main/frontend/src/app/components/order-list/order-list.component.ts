@@ -10,6 +10,7 @@ export class OrderListComponent implements OnInit {
 
   @Input()
   public orders : Order[];
+
   constructor() { }
 
   ngOnInit() {

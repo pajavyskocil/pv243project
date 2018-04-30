@@ -1,5 +1,6 @@
 package cz.fi.muni.TACOS.facade.impl;
 
+import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
@@ -102,5 +103,10 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public void setPractitioner(Long id) {
         userService.setPractitioner(userService.findById(id));
+    }
+
+    @Override
+    public OrderDTO getBasket(Long userId) {
+        return beanMappingService.mapTo(userService.getBasket(userService.findById(userId)), OrderDTO.class);
     }
 }

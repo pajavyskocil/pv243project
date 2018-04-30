@@ -77,4 +77,6 @@ public interface UserService extends EntityService<User> {
      * @param user
      */
     void setPractitioner(User user);
+
+    Order getBasket(User user);
 }

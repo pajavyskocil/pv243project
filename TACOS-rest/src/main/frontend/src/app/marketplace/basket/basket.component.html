@@ -1,3 +1,27 @@
-<p>
-  basket works!
-</p>
+<div *ngIf="loaded" class="basket">
+
+  <app-basket-product-list [order]="this.order" (reload)="loadBasket()">
+
+  </app-basket-product-list>
+
+
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" [disabled]="this.order == null || this.order == undefined || this.order.products == null || this.order.products.length == 0" (click)="basicModal.show()" >Submit order</button>
+  </div>
+
+</div>
+
+<div mdbModal #basicModal="mdb-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myBasicModalLabel" aria-hidden="true" (onShow)="submitOrder()" [config]="{backdrop: false, ignoreBackdropClick: true}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+      <div class="modal-body">
+        <span>Your order is succesfully submitted.</span>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default waves-light" routerLink="./../eshop" >OK</button>
+      </div>
+    </div>
+  </div>
+</div>

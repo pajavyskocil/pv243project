@@ -1,17 +1,17 @@
 <div class="user-list-node">
     <div class="row">
-      <div class="col-lg-3">
+      <div class="col-lg-3 ">
         {{user.name}}
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-3 ">
         {{user.surname}}
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-4 ">
         <a [routerLink]="['/admin/users/', this.user.id]">
         {{user.email}}
         </a>
       </div>
-      <div class="col-lg-3">
+      <div class="col-lg-2 text-center">
         <button type="button" class="close" aria-label="Close" (click)="deleteUser()">
           <span aria-hidden="true">&times;</span>
         </button>

@@ -1,5 +1,6 @@
 package cz.fi.muni.TACOS.facade;
 
+import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.dto.UserAuthenticateDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
@@ -14,8 +15,10 @@ import java.util.List;
 public interface UserFacade extends Facade<UserDTO> {
 
     Long create(UserCreateDTO entity);
+
     /**
      * Finds user by email
+     *
      * @param email email by which will be user found
      * @return UserDTO or null if there is not user with that email
      */
@@ -23,6 +26,7 @@ public interface UserFacade extends Facade<UserDTO> {
 
     /**
      * Get all users with given role
+     *
      * @param role role by which willl be return list of users
      * @return UserDTO[] with given role
      */
@@ -30,14 +34,16 @@ public interface UserFacade extends Facade<UserDTO> {
 
     /**
      * Add order to user
-     * @param userId Id of user
+     *
+     * @param userId  Id of user
      * @param orderId Id of order
      */
     void addOrder(Long userId, Long orderId);
 
     /**
      * Remove order from user
-     * @param userId Id of user
+     *
+     * @param userId  Id of user
      * @param orderId Id of order
      */
     void removeOrder(Long userId, Long orderId);
@@ -51,20 +57,20 @@ public interface UserFacade extends Facade<UserDTO> {
     boolean authenticate(UserAuthenticateDTO user);
 
     /**
-     *
      * @param id
      */
     void setSuperadmin(Long id);
 
     /**
-     *
      * @param id
      */
     void setSubmitter(Long id);
 
     /**
-     *
      * @param id
      */
     void setPractitioner(Long id);
+
+
+    OrderDTO getBasket(Long userId);
 }

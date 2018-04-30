@@ -1,20 +1,20 @@
-<div class="order-list" >
+<div class="card order-list" >
   <div class="row header">
-    <div class="col-lg-3">
+    <div class="col-lg-3 text-center">
       Id
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 text-center">
       State
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 text-center">
       Submitted
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-3 text-center">
       Price
     </div>
   </div>
   <app-order-list-node *ngFor="let order of this.orders"
-                       [order] = order class="col-sm-1 col-md-1 col-lg-1">
+                       [order] = order class="col-sm-12 col-md-12 col-lg-12">
   </app-order-list-node>
   <div *ngIf="this.orders == null || this.orders.length == 0" class="order-list-node">
   </div>

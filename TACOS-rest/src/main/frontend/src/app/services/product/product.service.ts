@@ -40,7 +40,8 @@ export interface Product {
   name: String,
   description: String,
   minimalPrice: number,
-  templates: Template[]
+  templates: Template[],
+  image: String
 }
 
 export interface ProductCreate {
