@@ -90,7 +90,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 				order.getState() == OrderState.PROCESSED) {
     		throw new IllegalArgumentException("Given order can not be finished due to its state: " + order.getState());
 		}
-
+		order.setFinished(LocalDate.now());
 		order.setState(OrderState.FINISHED);
 	}
 

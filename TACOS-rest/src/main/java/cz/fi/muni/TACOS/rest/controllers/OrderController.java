@@ -1,16 +1,16 @@
 package cz.fi.muni.TACOS.rest.controllers;
 
 import cz.fi.muni.TACOS.dto.OrderDTO;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.facade.CreatedProductFacade;
 import cz.fi.muni.TACOS.facade.OrderFacade;
-import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
@@ -59,6 +59,20 @@ public class OrderController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/{id}")
+	public OrderDTO findOrderById(@PathParam("id") Long id) {
+		log.debug("Rest find Order by id({})", id);
+
+		OrderDTO orderDTO = orderFacade.findById(id);
+
+		if (orderDTO == null) {
+			throw new ResourceNotFoundException("Order not found");
+		}
+		return orderDTO;
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/filter/state/{state}")
 	public List<OrderDTO> getAllForState(@PathParam("state") OrderState state) {
 		log.debug("Rest get all orders for state ({})", state);
@@ -97,8 +111,8 @@ public class OrderController {
 
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/submitOrder/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/submitOrder")
 	public void submitOrder(@QueryParam("id") Long id) {
 		log.debug("Rest submit Order with id ({})", id);
 
@@ -110,8 +124,8 @@ public class OrderController {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/cancelOrder/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/cancelOrder")
 	public void cancelOrder(@QueryParam("id") Long id) {
 		log.debug("Rest cancel Order with id ({})", id);
 
@@ -123,8 +137,8 @@ public class OrderController {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/finishOrder/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/finishOrder")
 	public void finishOrder(@QueryParam("id") Long id) {
 		log.debug("Rest finish Order with id ({})", id);
 
@@ -136,8 +150,8 @@ public class OrderController {
 	}
 
 	@PUT
-	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/processOrder/{id}")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("/processOrder")
 	public void processOrder(@QueryParam("id") Long id) {
 		log.debug("Rest process Order with id ({})", id);
 

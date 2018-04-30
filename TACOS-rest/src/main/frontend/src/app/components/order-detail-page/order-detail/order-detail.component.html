@@ -1,0 +1,47 @@
+<div class="order-detail">
+  <div class="form-group row">
+    <label for="id" class="col-form-label">Id</label>
+    <div class="col-sm-6">
+      <div class="md-form mt-0">
+        <input type="text" value="{{order.id}}" class="form-control" id="id" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="order.submitted != undefined">
+    <label for="submitted" class="col-form-label">Submitted</label>
+    <div class="col-sm-6">
+      <div class="md-form mt-0">
+        <input type="text" value="{{order.submitted.dayOfMonth}} - {{order.submitted.month}} - {{order.submitted.year}}" class="form-control" id="submitted" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label class="col-form-label">Submitter</label>
+    <div class="col-sm-6">
+      <div class="md-form mt-0">
+        <a href="" ><span>{{order.submitterId}}</span></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row">
+    <label for="state" class="col-form-label">State</label>
+    <div class="col-sm-6">
+      <div class="md-form mt-0">
+        <input type="text" value="{{order.state}}" class="form-control" id="state" disabled>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group row" *ngIf="order.finished != undefined">
+    <label for="finished" class="col-form-label">Finished</label>
+    <div class="col-sm-6">
+      <div class="md-form mt-0">
+        <input type="text" value="{{order.finished.dayOfMonth}} - {{order.finished.month}} - {{order.finished.year}}" class="form-control" id="finished" disabled>
+      </div>
+    </div>
+  </div>
+
+</div>

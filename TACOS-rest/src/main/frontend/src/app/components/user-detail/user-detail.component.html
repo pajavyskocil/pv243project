@@ -1,7 +1,7 @@
-<div>
+<div class="user-detail">
   <div class="form-group row">
     <label for="id" class="col-form-label">Id</label>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
       <div class="md-form mt-0">
         <input type="text" value="{{user.id}}" class="form-control" id="id" disabled>
       </div>
@@ -10,7 +10,7 @@
 
   <div class="form-group row">
     <label for="name" class="col-form-label">Name</label>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
       <div class="md-form mt-0">
         <input type="text" value="{{user.name}}" class="form-control" id="name" disabled>
       </div>
@@ -19,7 +19,7 @@
 
   <div class="form-group row">
     <label for="surname" class="col-form-label">Surname</label>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
       <div class="md-form mt-0">
         <input type="text" value="{{user.surname}}" class="form-control" id="surname" disabled>
       </div>
@@ -28,7 +28,7 @@
 
   <div class="form-group row">
     <label for="email" class="col-form-label">Email</label>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
       <div class="md-form mt-0">
         <input type="text" value="{{user.email}}" class="form-control" id="email" disabled>
       </div>
@@ -37,15 +37,19 @@
 
   <div class="form-group row">
     <label for="role" class="col-form-label">User role</label>
-    <div class="col-sm-3">
+    <div class="col-sm-6">
       <div class="md-form mt-0">
         <input type="text" value="{{user.role}}" class="form-control" id="role" disabled>
       </div>
     </div>
   </div>
 
-  <!--
-  List od orders
-  -->
+  <h4>Orders</h4>
+  <div>
+    <app-order-list
+    [orders]=this.user.orders>
+
+    </app-order-list>
+  </div>
 </div>
 

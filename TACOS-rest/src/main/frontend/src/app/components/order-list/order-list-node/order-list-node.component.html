@@ -1,0 +1,18 @@
+<div class="order-list-node">
+  <div class="row">
+    <div class="col-lg-3">
+      <a [routerLink]="['./', this.order.id]">
+        {{order.id}}
+      </a>
+    </div>
+    <div class="col-lg-3">
+      {{order.state}}
+    </div>
+    <div class="col-lg-3">
+      {{order.submitted.dayOfMonth}} - {{order.submitted.month}} - {{order.submitted.year}}
+    </div>
+    <div class="col-lg-3">
+      {{order.price}}
+    </div>
+  </div>
+</div>

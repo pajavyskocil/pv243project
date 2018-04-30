@@ -1,0 +1,58 @@
+<app-header></app-header>
+<div class="register">
+  <form [formGroup]="formGroup">
+    <p class="h4 text-center mb-4">Register</p>
+
+    <div class="md-form">
+      <i class="fa fa-user prefix grey-text"></i>
+      <input type="text" #name class="form-control" placeholder="Your name" formControlName="nameCtrl" required >
+      <div *ngIf="formGroup.controls['nameCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['nameCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <div class="md-form">
+      <i class="fa fa-user prefix grey-text"></i>
+      <input type="text" #surname class="form-control" placeholder="Your surname" formControlName="surnameCtrl" required >
+      <div *ngIf="formGroup.controls['surnameCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['surnameCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <div class="md-form">
+      <i class="fa fa-envelope prefix grey-text"></i>
+      <input type="email" #email class="form-control" placeholder="Your email" formControlName="emailCtrl" required pattern="^[a-zA-Z0-9.]+@[a-zA-Z0-9.]+\.[a-zA-Z0-9.]+$">
+      <div *ngIf="formGroup.controls['emailCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['emailCtrl'].errors?.required">This field is required!</div>
+        <div class="alert alert-danger" *ngIf="formGroup.controls['emailCtrl'].errors?.pattern">This is not valid email format!</div>
+
+      </div>
+    </div>
+
+    <div class="md-form">
+      <i class="fa fa-lock prefix grey-text"></i>
+      <input type="password" #password class="form-control" placeholder="Your password" formControlName="passwdCtrl" required minlength="6">
+      <div *ngIf="formGroup.controls['passwdCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['passwdCtrl'].errors?.required">This field is required!</div>
+        <div class="alert alert-danger" *ngIf="formGroup.controls['passwdCtrl'].errors?.minlength">Password is too short!</div>
+      </div>
+    </div>
+
+    <div class="md-form">
+      <i class="fa fa-lock prefix grey-text"></i>
+      <input type="password" #password2 class="form-control" placeholder="Confirm your password" formControlName="passwd2Ctrl" required minlength="6">
+      <div *ngIf="formGroup.controls['passwd2Ctrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['passwd2Ctrl'].errors?.required">This field is required!</div>
+        <div class="alert alert-danger" *ngIf="formGroup.controls['passwd2Ctrl'].errors?.minlength">Control password is too short!</div>
+        <div class="alert alert-danger" *ngIf="!formGroup.controls['passwd2Ctrl'].errors?.minlength && password.value!= password2.value">Passwords aren't the same!</div>
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-default" routerLink="/login">Cancel</button>
+      <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="createUser(name.value, surname.value, email.value, password.value)">Submit</button>
+    </div>
+  </form>
+
+
+</div>
