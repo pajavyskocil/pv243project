@@ -2,7 +2,12 @@
   <div class="card mt-4">
 
     <!-- <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/43.jpg" alt="Card image cap"> -->
-    <div class="image"></div>
+    <!--<div class="image">-->
+    <div class="thumbnail">
+      <img class="col-12 product-image " *ngIf="product.image != null" [src]="'data:image/png;base64,' + product.image">
+      <div class="fake-image" *ngIf="product.image == null"></div>
+    </div>
+    <!--</div>-->
 
     <div class="card-body">
       <h4 class="card-title">{{product.name}}</h4>

@@ -1,0 +1,24 @@
+<form [formGroup]="formGroup">
+  <p class="h4 text-center mb-4">Add product</p>
+  <div class="md-form">
+    <input [(ngModel)]="productToBeCreated.name" type="text" #name class="form-control" placeholder="Product name" formControlName="nameCtrl" required >
+    <div *ngIf="formGroup.controls['nameCtrl'].touched">
+      <div class="alert alert-danger" *ngIf="formGroup.controls['nameCtrl'].errors?.required">This field is required!</div>
+    </div>
+    <ng-select [(ngModel)]="productToBeCreated.productCategoryIds" [ngModelOptions]="{standalone: true}" placeholder="Select product categories" [multiple]="true">
+      <ng-option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</ng-option>
+    </ng-select>
+    <ng-select [(ngModel)]="productToBeCreated.templateIds" [ngModelOptions]="{standalone: true}" placeholder="Select templates" [multiple]="true">
+      <ng-option *ngFor="let temp of templates" [value]="temp.id">{{temp.name}}</ng-option>
+    </ng-select>
+    Select product image
+    <input type="file" accept="image/png" (change)="fileSelected($event)">
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-default" routerLink="/admin/products">Cancel</button>
+    <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="submit()">Submit</button>
+  </div>
+
+  <img *ngIf="data != undefined" [src]="data">
+</form>
