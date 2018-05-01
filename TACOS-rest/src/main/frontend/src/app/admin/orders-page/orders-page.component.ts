@@ -14,7 +14,7 @@ export class OrdersPageComponent implements OnInit {
   constructor(private orderService : OrderService) { }
 
   ngOnInit() {
-    this.orderService.getAllOrders().subscribe((orders) => {
+    this.orderService.getAllOrdersWithoutNewOrders().subscribe((orders) => {
       this.orders = orders;
       this.loaded = true;
 

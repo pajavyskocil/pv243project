@@ -95,9 +95,9 @@ public class OrderController {
 
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
-	@Path("/{orderId}/removeCreatedProduct/{createdProductId}")
+	@Path("/{orderId}/removeCreatedProduct")
 	public void removeCreatedProduct(@PathParam("orderId") Long id, @QueryParam("createdProductId") Long createdProductId) {
-		log.debug("Rest remove CreatedProduct with id ({}) to Order with id ({})", id, createdProductId);
+		log.error("Rest remove CreatedProduct with id ({}) to Order with id ({})", id, createdProductId);
 
 		if (orderFacade.findById(id) == null) {
 			throw new ResourceNotFoundException("Order with id "+ id +" not found!");

@@ -1,9 +1,10 @@
 package cz.fi.muni.TACOS.service.Impl;
 
+import cz.fi.muni.TACOS.enums.OrderState;
+import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.persistence.dao.UserDao;
 import cz.fi.muni.TACOS.persistence.entity.Order;
 import cz.fi.muni.TACOS.persistence.entity.User;
-import cz.fi.muni.TACOS.enums.UserRole;
 import cz.fi.muni.TACOS.service.AbstractEntityService;
 import cz.fi.muni.TACOS.service.UserService;
 
@@ -87,6 +88,16 @@ public class UserServiceImpl extends AbstractEntityService<User> implements User
     @Override
     public void setPractitioner(User user) {
         user.setRole(UserRole.PRACTITIONER);
+    }
+
+    @Override
+    public Order getBasket(User user) {
+        for (Order order : user.getOrders()) {
+            if (order.getState() == OrderState.BASKET) {
+                return order;
+            }
+        }
+        return null;
     }
 
     public static String createHash(String password) {

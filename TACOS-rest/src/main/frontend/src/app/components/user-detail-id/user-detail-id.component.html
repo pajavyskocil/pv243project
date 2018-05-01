@@ -1,12 +1,12 @@
-<div *ngIf="loaded" class="detail">
+<div *ngIf="loaded" class=" card detail">
   <app-user-detail
     [user] = this.user >
   </app-user-detail>
 
   <div class="text-center mt-4">
-    <button class="btn btn-primary" routerLink="./..">Back</button>
-    <button class="btn btn-primary" [hidden]="isSubmitter()" (click)="makeSubmitter()">Make Submitter</button>
-    <button class="btn btn-primary" [hidden]="isPractitioner()" (click)="makePractitioner()">Make Practitioner</button>
-    <button class="btn btn-primary" [hidden]="isSuperadmin()" (click)="makeSuperAdmin()" >Make SuperAdmin</button>
+    <button class="btn btn-default" routerLink="./..">Back</button>
+    <button class="btn btn-default" [hidden]="isSubmitter()" (click)="makeSubmitter()">Make Submitter</button>
+    <button class="btn btn-default" [hidden]="isPractitioner()" (click)="makePractitioner()">Make Practitioner</button>
+    <button class="btn btn-default" [hidden]="isSuperadmin()" (click)="makeSuperAdmin()" >Make SuperAdmin</button>
   </div>
 </div>

@@ -6,11 +6,11 @@
     <div class="col-lg-3">
       Surname
     </div>
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       Email
     </div>
   </div>
   <app-users-list-node *ngFor="let user of this.users; let i = index"
-    [user] = user class="col-sm-1 col-md-1 col-lg-1" (deleteAction)="deleteUser(i)">
+    [user] = user class="col-sm-12 col-md-12 col-lg-12" (deleteAction)="deleteUser(i)">
   </app-users-list-node>
 </div>

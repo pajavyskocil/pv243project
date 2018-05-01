@@ -2,11 +2,6 @@
   width: 80%;
   margin: 20px auto auto auto;
   padding: 20px ;
-  border-radius: 10px;
-  box-shadow: rgba(0,0,0,0.8) 0 0 10px;
-}
-.inputVal {
-  top: 45px;
 }
 
 .userRole-label {

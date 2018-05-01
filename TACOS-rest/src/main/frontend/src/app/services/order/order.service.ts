@@ -22,8 +22,9 @@ export class OrderService {
     return this.httpClient.get<Order>(`${this.URL}/${id}`,{});
   }
 
-  public removeCreatedProduct(order : Order, createdProduct : CreatedProduct, ) : Observable<number> {
-    return this.httpClient.put<number>(`${this.URL}/${order.id}/removeCreatedProduct/${createdProduct.id}`, {});
+  public removeCreatedProduct(order : Order, createdProduct : CreatedProduct, ){
+    console.log(`${this.URL}/${order.id}/removeCreatedProduct?createdProductId=${createdProduct.id}`);
+    return this.httpClient.put(`${this.URL}/${order.id}/removeCreatedProduct?createdProductId=${createdProduct.id}`, {});
   }
 
   public getAllOrdersForState(orderState : String) : Observable<Array<Order>> {

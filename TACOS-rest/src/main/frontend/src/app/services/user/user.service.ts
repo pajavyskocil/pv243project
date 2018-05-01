@@ -54,6 +54,11 @@ export class UserService {
     return this.httpClient.put( `${this.URL}/setSuperadmin?id=${user.id}`,{});
   }
 
+  public getBasket() : Observable<Order> {
+    console.log("Test");
+    return this.httpClient.get<Order>(`${this.URL}/getBasket`,{});
+  }
+
 }
 
 export interface User {

@@ -1,11 +1,15 @@
 package cz.fi.muni.TACOS.rest.controllers;
 
+import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
+import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.enums.UserRole;
+import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
 import cz.fi.muni.TACOS.rest.ApiUris;
+import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceAlreadyExistException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
@@ -23,6 +27,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
@@ -197,5 +202,27 @@ public class UserController {
 		} catch (Exception e) {
 			throw new ResourceNotFoundException("User not found");
 		}
+	}
+
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/getBasket")
+	public OrderDTO getBasket() {
+		log.error("Rest getBaslet");
+
+		//TODO : REMOVE THIS WHEN SECURITY IS IMPLEMENTED
+		UserDTO fakeUser = userFacade.findByEmail("fake@user.cz");
+		if (fakeUser == null) {
+			UserCreateDTO fakeUserCreate = new UserCreateDTO();
+			fakeUserCreate.setEmail("fake@user.cz");
+			fakeUserCreate.setName("fake");
+			fakeUserCreate.setSurname("user");
+			fakeUserCreate.setRole(UserRole.SUPERADMIN);
+			fakeUserCreate.setPassword("fakeuser");
+
+			userFacade.create(fakeUserCreate);
+			fakeUser = userFacade.findByEmail("fake@user.cz");
+		}
+		return userFacade.getBasket(fakeUser.getId());
 	}
 }

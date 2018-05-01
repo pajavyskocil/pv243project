@@ -1,0 +1,17 @@
+.product-list{
+  width: 100%;
+  margin: 20px auto auto auto;
+}
+
+.header {
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-weight: bold;
+}
+
+.product-list-node {
+  width: 100%;
+  border-top: black solid 1px;
+  padding: 20px 0 0 0;
+}
+

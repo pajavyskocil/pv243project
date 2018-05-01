@@ -1,0 +1,32 @@
+<div class="card product-list">
+  <h2 class="card-header">Basket</h2>
+  <div class="row header">
+    <div class="col-lg-2 text-center">
+      Picture
+    </div>
+    <div class="col-lg-2 text-center">
+      Name
+    </div>
+    <div class="col-lg-2 text-center">
+      Count
+    </div>
+    <div class="col-lg-2 text-center">
+      Price
+    </div>
+    <div class="col-lg-2 text-center">
+      Total price
+    </div>
+  </div>
+  <div *ngIf="this.products != null && this.products.length != 0">
+    <app-basket-product-list-node  *ngFor="let product of this.products; let i = index"
+                                   [product]="product" class="col-sm-12 col-md-12 col-lg-12" (removeAction)="removeCreatedProduct(i)">
+    </app-basket-product-list-node>
+  </div>
+  <div *ngIf="this.products == null || this.products.length == 0" class="product-list-node">
+  </div>
+  <div  class="card-footer text-right">
+    <h4 *ngIf="this.products != null && this.products.length != 0">Price : {{order.price}} ,-</h4>
+    <h4 *ngIf="this.products == null || this.products.length == 0">Price : 0 ,-</h4>
+  </div>
+
+</div>

@@ -1,16 +1,17 @@
-<div *ngIf="loaded" class="detail">
+<div *ngIf="loaded" class="card detail">
+  <h4 class="card-header">Order detail</h4>
   <app-order-detail
     [order]="this.order">
   </app-order-detail>
 
-  <h4>Products</h4>
-  <app-product-list>
+  <div class="products">
+    <h4>Products</h4>
+    <app-product-list  [products]="this.order.products">
+    </app-product-list>
+  </div>
 
-  </app-product-list>
-
-  <div class="row">
-    <p>Price : </p>
-    <p>{{order.price}}</p>
+  <div  class="card-footer text-right">
+    <h4>Price : {{order.price}} ,-</h4>
   </div>
 
   <div class="text-center mt-4">
