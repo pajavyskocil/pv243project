@@ -15,7 +15,7 @@ import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -33,6 +33,7 @@ import java.util.List;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  */
 @Path(ApiUris.URI_CREATED_PRODUCTS)
+@Stateless
 public class CreatedProductController {
 
 	private static final Logger log = LoggerFactory.getLogger(AttributeCategoryController.class);
@@ -63,7 +64,7 @@ public class CreatedProductController {
 		CreatedProductDTO createdProductDTO = createdProductFacade.findById(id);
 
 		if (createdProductDTO == null) {
-			throw new InvalidParameterException("Created product for given id does not exist. id: " + id);
+			throw new ResourceNotFoundException("Created product for given id does not exist. id: " + id);
 		}
 
 		return createdProductDTO;
@@ -106,7 +107,7 @@ public class CreatedProductController {
 		CreatedProductDTO createdProductDTO = createdProductFacade.findById(id);
 
 		if (createdProductDTO == null) {
-			throw new InvalidParameterException("Created product for given id does not exist. id: " + id);
+			throw new ResourceNotFoundException("Created product for given id does not exist. id: " + id);
 		}
 
 		createdProductFacade.delete(id);

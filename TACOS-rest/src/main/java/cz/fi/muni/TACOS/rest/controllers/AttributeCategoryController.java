@@ -6,10 +6,11 @@ import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.AttributeCategoryFacade;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
+import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 @Path(ApiUris.URI_ATTRIBUTE_CATEGORIES)
+@Stateless
 public class AttributeCategoryController {
 
     private static final Logger log = LoggerFactory.getLogger(AttributeCategoryController.class);
@@ -49,7 +51,7 @@ public class AttributeCategoryController {
         AttributeCategoryDTO attributeCategoryDTO = attributeCategoryFacade.findById(id);
 
         if (attributeCategoryDTO == null) {
-            throw new InvalidParameterException("Attribute category for given id does not exist. id: " + id);
+            throw new ResourceNotFoundException("Attribute category for given id does not exist. id: " + id);
         }
 
         return attributeCategoryDTO;
@@ -78,7 +80,7 @@ public class AttributeCategoryController {
         AttributeCategoryDTO categoryDTO = attributeCategoryFacade.findById(id);
 
         if (categoryDTO == null) {
-            throw new InvalidParameterException("Attribute category for given id does not exist. id: " + id);
+            throw new ResourceNotFoundException("Attribute category for given id does not exist. id: " + id);
         }
 
         attributeCategoryFacade.delete(id);

@@ -5,11 +5,11 @@ import cz.fi.muni.TACOS.dto.TemplateDTO;
 import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.TemplateFacade;
 import cz.fi.muni.TACOS.rest.ApiUris;
-import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
+import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,6 +25,7 @@ import java.util.List;
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 @Path(ApiUris.URI_TEMPLATES)
+@Stateless
 public class TemplateController {
 
     private static final Logger log = LoggerFactory.getLogger(TemplateController.class);
@@ -41,7 +42,7 @@ public class TemplateController {
         try {
             return templateFacade.create(specification);
         } catch (InvalidRelationEntityIdException e) {
-            throw new InvalidParameterException("Invalid relation ids given.", e);
+            throw new ResourceNotFoundException("Invalid relation ids given.", e);
         }
     }
 
@@ -54,7 +55,7 @@ public class TemplateController {
         TemplateDTO templateDTO = templateFacade.findById(id);
 
         if (templateDTO == null) {
-            throw new InvalidParameterException("For given id does not exist any template. id: " + id);
+            throw new ResourceNotFoundException("For given id does not exist any template. id: " + id);
         }
 
         templateFacade.delete(id);
@@ -77,7 +78,7 @@ public class TemplateController {
         TemplateDTO templateDTO = templateFacade.findById(id);
 
         if (templateDTO == null) {
-            throw new InvalidParameterException("For given id does not exist any template. id: " + id);
+            throw new ResourceNotFoundException("For given id does not exist any template. id: " + id);
         }
 
         return templateDTO;
