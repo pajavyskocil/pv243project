@@ -3,18 +3,16 @@ package cz.fi.muni.TACOS.rest.controllers;
 import cz.fi.muni.TACOS.dto.OrderDTO;
 import cz.fi.muni.TACOS.dto.UserCreateDTO;
 import cz.fi.muni.TACOS.dto.UserDTO;
-import cz.fi.muni.TACOS.enums.OrderState;
 import cz.fi.muni.TACOS.enums.UserRole;
-import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.OrderFacade;
 import cz.fi.muni.TACOS.facade.UserFacade;
 import cz.fi.muni.TACOS.rest.ApiUris;
-import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceAlreadyExistException;
 import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -27,12 +25,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 @Path(ApiUris.URI_USERS)
+@Stateless
 public class UserController {
 
 	private static final Logger log = LoggerFactory.getLogger(UserController.class);
@@ -208,7 +206,7 @@ public class UserController {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/getBasket")
 	public OrderDTO getBasket() {
-		log.error("Rest getBaslet");
+		log.debug("Rest getBasket");
 
 		//TODO : REMOVE THIS WHEN SECURITY IS IMPLEMENTED
 		UserDTO fakeUser = userFacade.findByEmail("fake@user.cz");

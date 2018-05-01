@@ -96,6 +96,14 @@ public class SampleData {
 	private Long attributeCottonColorId;
 	private Long attributePolyesterColorId;
 	private Long attributeGrassColorId;
+	private Long templateFemaleTrainers;
+	private Long templatePaintedShorts;
+	private Long acShoeSize;
+	private Long acShoeColor;
+	private Long acShortsColor;
+	private Long acShortsMaterial;
+	private Long acTrousersColor;
+	private Long acTrousersMaterial;
 
 	public void loadUserSampleData() {
 		UserCreateDTO user = new UserCreateDTO();
@@ -165,6 +173,41 @@ public class SampleData {
 		createdProduct.setDescription("createdProduct4desc");
 		createdProduct.setProductId(productTshirtId1);
 		cpId4 = createdProductFacade.create(createdProduct, userDto.getId());
+
+		Long basketId = userFacade.getBasket(userDto.getId()).getId();
+		orderFacade.submitOrder(basketId);
+
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeSSizeId, attributeGreenColorId)));
+		createdProduct.setCount(2L);
+		createdProduct.setDescription("createdProduct 88888 Description");
+		createdProduct.setProductId(productTshirtId1);
+		cpId2 = createdProductFacade.create(createdProduct, userDto.getId());
+
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeMSizeId, attributeGreenColorId)));
+		createdProduct.setCount(8L);
+		createdProduct.setDescription("createdProduct4545 3desc");
+		createdProduct.setProductId(productTshirtId1);
+		cpId3 = createdProductFacade.create(createdProduct, userDto.getId());
+
+		basketId = userFacade.getBasket(userDto.getId()).getId();
+		orderFacade.submitOrder(basketId);
+		orderFacade.processOrder(basketId);
+
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeSSizeId, attributeGreenColorId)));
+		createdProduct.setCount(2L);
+		createdProduct.setDescription("createdProduct 88888 Description");
+		createdProduct.setProductId(productTshirtId1);
+		cpId2 = createdProductFacade.create(createdProduct, userDto.getId());
+
+		createdProduct.setAttributeIds(new HashSet<>(Arrays.asList(attributeMSizeId, attributeGreenColorId)));
+		createdProduct.setCount(8L);
+		createdProduct.setDescription("createdProduct4545 3desc");
+		createdProduct.setProductId(productTshirtId1);
+		cpId3 = createdProductFacade.create(createdProduct, userDto.getId());
+
+		basketId = userFacade.getBasket(userDto.getId()).getId();
+		orderFacade.submitOrder(basketId);
+		orderFacade.finishOrder(basketId);
 	}
 
 	public void loadTemplateSampleData() throws InvalidRelationEntityIdException {
@@ -181,6 +224,14 @@ public class SampleData {
 		template.setProductIds(Collections.singleton(productTrousers2));
 		template.setName("Trousers");
 		templateTrousersId = templateFacade.create(template);
+
+		template.setProductIds(Collections.singleton(productTrainersId4));
+		template.setName("Female trainers");
+		templateFemaleTrainers = templateFacade.create(template);
+
+		template.setProductIds(Collections.singleton(productShortsId3));
+		template.setName("Painted shorts");
+		templatePaintedShorts = templateFacade.create(template);
 	}
 
 	public void loadProductSampleData() throws InvalidRelationEntityIdException {
@@ -301,6 +352,160 @@ public class SampleData {
 		attribute.setPrice(BigDecimal.valueOf(15L));
 		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
 		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeColor);
+		attribute.setName("Green");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(18L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeColor);
+		attribute.setName("Red");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(19L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeColor);
+		attribute.setName("Black");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(11L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeColor);
+		attribute.setName("Brown");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeSize);
+		attribute.setName("38");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeSize);
+		attribute.setName("39");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeSize);
+		attribute.setName("40");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeSize);
+		attribute.setName("41");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeSize);
+		attribute.setName("42");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShoeSize);
+		attribute.setName("43");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(12L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShortsColor);
+		attribute.setName("Red");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(11L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShortsColor);
+		attribute.setName("Brown");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(10L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShortsColor);
+		attribute.setName("Yellow");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(8L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShortsMaterial);
+		attribute.setName("Wool");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(20L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShortsMaterial);
+		attribute.setName("Polyester");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(30L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acShortsMaterial);
+		attribute.setName("Cotton");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(40L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTrousersColor);
+		attribute.setName("Red");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(11L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTrousersColor);
+		attribute.setName("Brown");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(10L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTrousersColor);
+		attribute.setName("Yellow");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(5L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTrousersMaterial);
+		attribute.setName("Wool");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(20L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTrousersMaterial);
+		attribute.setName("Polyester");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(30L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
+
+		attribute.setAttributeCategoryId(acTrousersMaterial);
+		attribute.setName("Cotton");
+		attribute.setDescription("Random description(to be honest, not so random)");
+		attribute.setPrice(BigDecimal.valueOf(40L));
+		attribute.setStatus(ProductAttributeStatus.IN_STOCK);
+		attributeGrassColorId = attributeFacade.create(attribute);
 	}
 
 	public void loadAttributeCategorySampleData() throws InvalidRelationEntityIdException {
@@ -317,6 +522,30 @@ public class SampleData {
 		category.setTemplateIds(Collections.singleton(templateWomenTshirtId));
 		category.setName("t-shirt material");
 		acTshirtMaterialId = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templateFemaleTrainers));
+		category.setName("Shoe size");
+		acShoeSize = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templateFemaleTrainers));
+		category.setName("Color");
+		acShoeColor = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templatePaintedShorts));
+		category.setName("Shorts material");
+		acShortsMaterial = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templatePaintedShorts));
+		category.setName("Shorts color");
+		acShortsColor = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templateTrousersId));
+		category.setName("Trousers material");
+		acTrousersMaterial = attributeCategoryFacade.create(category);
+
+		category.setTemplateIds(Collections.singleton(templateTrousersId));
+		category.setName("Trousers color");
+		acTrousersColor = attributeCategoryFacade.create(category);
 	}
 
 	public void loadSampleData() throws InvalidRelationEntityIdException {

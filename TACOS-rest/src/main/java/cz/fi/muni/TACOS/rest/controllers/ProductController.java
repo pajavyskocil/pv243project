@@ -11,7 +11,7 @@ import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -29,6 +29,7 @@ import java.util.List;
  * @author Peter Balcirak <peter.balcirak@gmail.com>
  */
 @Path(ApiUris.URI_PRODUCTS)
+@Stateless
 public class ProductController {
 
 
@@ -64,7 +65,7 @@ public class ProductController {
 		ProductDTO productDTO = productFacade.findById(id);
 
 		if (productDTO == null) {
-			throw new InvalidParameterException("Product for given id does not exist. id: " + id);
+			throw new ResourceNotFoundException("Product for given id does not exist. id: " + id);
 		}
 
 		productFacade.delete(id);
@@ -87,7 +88,7 @@ public class ProductController {
 		ProductDTO productDTO = productFacade.findById(id);
 
 		if (productDTO == null) {
-			throw new InvalidParameterException("Product for given id does not exist.");
+			throw new ResourceNotFoundException("Product for given id does not exist.");
 		}
 
 		return productDTO;

@@ -6,10 +6,11 @@ import cz.fi.muni.TACOS.exceptions.InvalidRelationEntityIdException;
 import cz.fi.muni.TACOS.facade.AttributeFacade;
 import cz.fi.muni.TACOS.rest.ApiUris;
 import cz.fi.muni.TACOS.rest.exceptions.InvalidParameterException;
+import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.enterprise.context.ApplicationScoped;
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -26,6 +27,7 @@ import java.util.List;
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
  */
 @Path(ApiUris.URI_ATTRIBUTES)
+@Stateless
 public class AttributeController {
 
     private static final Logger log = LoggerFactory.getLogger(AttributeController.class);
@@ -57,7 +59,7 @@ public class AttributeController {
         AttributeDTO attributeDTO = attributeFacade.findById(id);
 
         if (attributeDTO == null) {
-            throw new InvalidParameterException("Attribute for given id does not exist. id: " + id);
+            throw new ResourceNotFoundException("Attribute for given id does not exist. id: " + id);
         }
 
         attributeFacade.delete(id);
@@ -80,7 +82,7 @@ public class AttributeController {
         AttributeDTO attributeDTO = attributeFacade.findById(id);
 
         if (attributeDTO == null) {
-            throw new InvalidParameterException("Attribute for given id does not exist.");
+            throw new ResourceNotFoundException("Attribute for given id does not exist.");
         }
 
         return attributeDTO;

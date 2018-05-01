@@ -9,6 +9,7 @@ import cz.fi.muni.TACOS.rest.exceptions.ResourceNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -25,6 +26,7 @@ import java.util.List;
  * @author Pavel Vyskocil <vyskocilpavel@muni.cz>
  */
 @Path(ApiUris.URI_ORDERS)
+@Stateless
 public class OrderController {
 
 	private static final Logger log = LoggerFactory.getLogger(OrderController.class);
