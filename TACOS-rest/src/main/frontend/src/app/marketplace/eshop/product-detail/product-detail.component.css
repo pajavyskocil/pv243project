@@ -2,9 +2,13 @@
   margin-top: 20px;
 }
 
-.fake-image {
-  width: 220px;
-  height: 270px;
+.product-image {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+}
+
+.image {
+  height: 260px;
   background: #ffffff;
   border: solid 1px #dedede;
 }

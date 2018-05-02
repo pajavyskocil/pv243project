@@ -16,6 +16,8 @@ import {RegisterUserPageComponent} from "./register-user-page/register-user-page
 import {LoginPageComponent} from "./login-page/login-page.component";
 import {AddUserComponent} from "./admin/add-user/add-user.component";
 import {OrderDetailPageComponent} from "./components/order-detail-page/order-detail-page.component";
+import {AddProductComponent} from "./components/add-product/add-product.component";
+import {AddProductPageComponent} from "./admin/add-product-page/add-product-page.component";
 
 
 
@@ -47,6 +49,10 @@ const routes: Routes = [
       {
         path: 'users/:id',
         component: UserDetailIdComponent
+      },
+      {
+        path:'addProduct',
+        component: AddProductPageComponent
       }
     ]
   },

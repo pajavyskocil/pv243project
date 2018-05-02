@@ -15,6 +15,7 @@ import cz.fi.muni.TACOS.service.TemplateService;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -46,8 +47,10 @@ public class ProductFacadeImpl implements ProductFacade {
 
     @Override
     public Long create(ProductCreateDTO entity) throws InvalidRelationEntityIdException {
+        System.out.println(entity.getImage() == null ? null : entity.getImage().length);
         Product product = beanMappingService.mapTo(entity, Product.class);
         productService.create(product);
+        System.out.println(product.getImage() == null ? null : product.getImage().length);
 
         for (Long id : entity.getProductCategoryIds()) {
             ProductCategory category = productCategoryService.findById(id);

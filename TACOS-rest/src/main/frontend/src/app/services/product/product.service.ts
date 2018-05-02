@@ -48,5 +48,6 @@ export interface ProductCreate {
   name: String,
   description: String,
   templateIds: number[],
-  productCategoryIds: number[]
+  productCategoryIds: number[],
+  image: any
 }

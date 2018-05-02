@@ -58,6 +58,8 @@ import { ProductListComponent } from './components/product-list/product-list.com
 import { ProductListNodeComponent } from './components/product-list/product-list-node/product-list-node.component';
 import { BasketProductListComponent } from './marketplace/basket/basket-product-list/basket-product-list.component';
 import { BasketProductListNodeComponent } from './marketplace/basket/basket-product-list/basket-product-list-node/basket-product-list-node.component';
+import { AddProductComponent } from './components/add-product/add-product.component';
+import { AddProductPageComponent } from './admin/add-product-page/add-product-page.component';
 
 @NgModule({
   declarations: [
@@ -97,6 +99,8 @@ import { BasketProductListNodeComponent } from './marketplace/basket/basket-prod
     ProductListNodeComponent,
     BasketProductListComponent,
     BasketProductListNodeComponent,
+    AddProductComponent,
+    AddProductPageComponent
   ],
   imports: [
     BrowserModule,
