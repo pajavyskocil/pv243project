@@ -15,10 +15,7 @@
   </div>
 
   <div class="text-center mt-4">
-    <button class="btn btn-primary" routerLink="./..">Back</button>
-    <button class="btn btn-primary" [hidden]="!isSubmitted()" (click)="cancelOrder()">Cancel order</button>
-    <button class="btn btn-primary" [hidden]="!isSubmitted()" (click)="processOrder()" >Process order</button>
-    <button class="btn btn-primary" [hidden]="!(isSubmitted() || isProcessed())" (click)="finishOrder()" >Finish order</button>
+    <button class="btn btn-info" routerLink="/marketplace/profile">Back</button>
   </div>
 
 </div>

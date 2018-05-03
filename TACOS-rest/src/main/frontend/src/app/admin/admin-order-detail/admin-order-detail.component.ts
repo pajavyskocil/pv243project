@@ -3,11 +3,11 @@ import {Order, OrderService} from "../../services/order/order.service";
 import {ActivatedRoute} from "@angular/router";
 
 @Component({
-  selector: 'app-order-detail-page',
-  templateUrl: './order-detail-page.component.html',
-  styleUrls: ['./order-detail-page.component.css']
+  selector: 'app-admin-order-detail',
+  templateUrl: './admin-order-detail.component.html',
+  styleUrls: ['./admin-order-detail.component.css']
 })
-export class OrderDetailPageComponent implements OnInit {
+export class AdminOrderDetailComponent implements OnInit {
 
   order : Order;
   orderId : number;

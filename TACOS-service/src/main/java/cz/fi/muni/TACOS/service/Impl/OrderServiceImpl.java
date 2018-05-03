@@ -83,7 +83,7 @@ public class OrderServiceImpl extends AbstractEntityService<Order> implements Or
 
 	@Override
 	public void finishOrder(Order order) {
-    	if (!(order.getState() == OrderState.SUBMITTED | order.getState() == OrderState.PROCESSED)) {
+    	if (!(order.getState() == OrderState.SUBMITTED || order.getState() == OrderState.PROCESSED)) {
     		throw new IllegalArgumentException("Given order can not be finished due to its state: " + order.getState());
 		}
 		order.setFinished(LocalDate.now());

@@ -58,8 +58,8 @@
     </div>
 
     <div class="text-center mt-4">
-      <button class="btn btn-default" routerLink="/admin/users">Cancel</button>
-      <button class="btn btn-default" [disabled]="formGroup.invalid || userRole == undefined" (click)="createUser(name.value, surname.value, userRole, email.value, password.value)">Submit</button>
+      <button class="btn btn-info" routerLink="/admin/users">Cancel</button>
+      <button class="btn btn-info" [disabled]="formGroup.invalid || userRole == undefined" (click)="createUser(name.value, surname.value, userRole, email.value, password.value)">Submit</button>
     </div>
   </form>
 

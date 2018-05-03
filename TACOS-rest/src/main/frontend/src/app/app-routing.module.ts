@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {UserDetailIdComponent} from "./components/user-detail-id/user-detail-id.component";
-import {UserDetailEmailComponent} from "./components/user-detail-email/user-detail-email.component";
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { EshopComponent } from './marketplace/eshop/eshop.component';
-import { ProfileComponent } from './marketplace/profile/profile.component';
 import { BasketComponent } from './marketplace/basket/basket.component';
 import { SubcategoryComponent } from './marketplace/eshop/subcategory/subcategory.component';
 import { ProductDetailComponent } from './marketplace/eshop/product-detail/product-detail.component';
@@ -15,7 +13,9 @@ import {OrdersPageComponent} from "./admin/orders-page/orders-page.component";
 import {RegisterUserPageComponent} from "./register-user-page/register-user-page.component";
 import {LoginPageComponent} from "./login-page/login-page.component";
 import {AddUserComponent} from "./admin/add-user/add-user.component";
-import {OrderDetailPageComponent} from "./components/order-detail-page/order-detail-page.component";
+import {MarketplaceOrderDetailComponent} from "./marketplace/marketplace-order-detail/marketplace-order-detail.component";
+import {MarketplaceProfileComponent} from "./marketplace/marketplace-profile/marketplace-profile.component";
+import {AdminOrderDetailComponent} from "./admin/admin-order-detail/admin-order-detail.component";
 import {AddProductComponent} from "./components/add-product/add-product.component";
 import {AddProductPageComponent} from "./admin/add-product-page/add-product-page.component";
 import {TemplateDetailPageComponent} from "./components/template-detail-page/template-detail-page.component";
@@ -40,6 +40,11 @@ const routes: Routes = [
     path: 'admin',
     component: AdminComponent,
     children: [
+      {
+        path: '',
+        redirectTo: '/admin/profile',
+        pathMatch: 'full'
+      },
       {
         path: 'profile',
         component: AdminProfileComponent
@@ -94,7 +99,7 @@ const routes: Routes = [
       },
       {
         path: 'orders/:id',
-        component: OrderDetailPageComponent
+        component: AdminOrderDetailComponent
       },
       {
         path: 'users/:id',
@@ -127,10 +132,6 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'users/filter/email/:email',
-    component: UserDetailEmailComponent
-  },
-  {
     path: 'marketplace',
     component: MarketplaceComponent,
     children: [
@@ -140,8 +141,13 @@ const routes: Routes = [
       },
       {
         path: 'profile',
-        component: ProfileComponent
+        component: MarketplaceProfileComponent
       },
+      {
+        path: 'orders/:id',
+        component: MarketplaceOrderDetailComponent
+      },
+
       {
         path: 'basket',
         component: BasketComponent
@@ -156,7 +162,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/eshop',
+        redirectTo: '/marketplace/eshop',
         pathMatch: 'full'
       }
     ]

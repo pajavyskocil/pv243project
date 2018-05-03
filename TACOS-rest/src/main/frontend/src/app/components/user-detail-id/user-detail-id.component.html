@@ -4,9 +4,9 @@
   </app-user-detail>
 
   <div class="text-center mt-4">
-    <button class="btn btn-default" routerLink="./..">Back</button>
-    <button class="btn btn-default" [hidden]="isSubmitter()" (click)="makeSubmitter()">Make Submitter</button>
-    <button class="btn btn-default" [hidden]="isPractitioner()" (click)="makePractitioner()">Make Practitioner</button>
-    <button class="btn btn-default" [hidden]="isSuperadmin()" (click)="makeSuperAdmin()" >Make SuperAdmin</button>
+    <button class="btn btn-info" routerLink="./..">Back to list all users</button>
+    <button class="btn btn-info" [hidden]="isSubmitter()" (click)="makeSubmitter()">Make Submitter</button>
+    <button class="btn btn-info" [hidden]="isPractitioner()" (click)="makePractitioner()">Make Practitioner</button>
+    <button class="btn btn-info" [hidden]="isSuperadmin()" (click)="makeSuperAdmin()" >Make SuperAdmin</button>
   </div>
 </div>

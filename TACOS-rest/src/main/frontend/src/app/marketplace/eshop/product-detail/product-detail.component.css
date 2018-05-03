@@ -23,6 +23,7 @@
   bottom: 0;
   right: 10%;
   background: #ffffff;
+  z-index: 1;
 }
 
 .template-select {

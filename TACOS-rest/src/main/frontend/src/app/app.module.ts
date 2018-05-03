@@ -13,13 +13,11 @@ import { AppComponent } from './app.component';
 
 
 import { FormsModule } from '@angular/forms';
-import { UserDetailComponent } from './components/user-detail/user-detail.component';
+import { UserDetailComponent } from './components/user-detail-id/user-detail/user-detail.component';
 import { UserDetailIdComponent } from './components/user-detail-id/user-detail-id.component';
-import { UserDetailEmailComponent } from './components/user-detail-email/user-detail-email.component';
 import { MarketplaceComponent } from './marketplace/marketplace.component';
 import { MarketplaceHeaderComponent } from './marketplace/marketplace-header/marketplace-header.component';
 import { EshopComponent } from './marketplace/eshop/eshop.component';
-import { ProfileComponent } from './marketplace/profile/profile.component';
 import { BasketComponent } from './marketplace/basket/basket.component';
 
 import { UserService } from "./services/user/user.service";
@@ -52,14 +50,17 @@ import { RegisterUserPageComponent } from './register-user-page/register-user-pa
 import { HeaderComponent } from './components/header/header.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { AddUserComponent } from './admin/add-user/add-user.component';
-import { OrderDetailPageComponent } from './components/order-detail-page/order-detail-page.component';
-import { OrderDetailComponent } from './components/order-detail-page/order-detail/order-detail.component';
+import { OrderDetailComponent } from './components/order-detail/order-detail.component';
 import { ProductListComponent } from './components/product-list/product-list.component';
 import { ProductListNodeComponent } from './components/product-list/product-list-node/product-list-node.component';
 import { BasketProductListComponent } from './marketplace/basket/basket-product-list/basket-product-list.component';
 import { BasketProductListNodeComponent } from './marketplace/basket/basket-product-list/basket-product-list-node/basket-product-list-node.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddProductPageComponent } from './admin/add-product-page/add-product-page.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { MarketplaceProfileComponent } from './marketplace/marketplace-profile/marketplace-profile.component';
+import {ProfileComponent} from "./components/profile/profile.component";
+import { AdminOrderDetailComponent } from './admin/admin-order-detail/admin-order-detail.component';
 import { TemplateListComponent } from './components/template-list/template-list.component';
 import { TemplateListNodeComponent } from './components/template-list/template-list-node/template-list-node.component';
 import { TemplateDetailPageComponent } from './components/template-detail-page/template-detail-page.component';
@@ -95,13 +96,13 @@ import { CreatedProductListNodeComponent } from './components/created-product-li
 import { ProductsPageComponent } from './admin/products-page/products-page.component';
 import { ProductDetailPageComponent } from './components/product-detail-page/product-detail-page.component';
 import { ProductDetailAdminComponent } from './components/product-detail-page/product-detail-admin/product-detail-admin.component';
+import {MarketplaceOrderDetailComponent} from "./marketplace/marketplace-order-detail/marketplace-order-detail.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     UserDetailComponent,
     UserDetailIdComponent,
-    UserDetailEmailComponent,
     MarketplaceComponent,
     MarketplaceHeaderComponent,
     EshopComponent,
@@ -128,13 +129,17 @@ import { ProductDetailAdminComponent } from './components/product-detail-page/pr
     HeaderComponent,
     LoginPageComponent,
     AddUserComponent,
-    OrderDetailPageComponent,
+    MarketplaceOrderDetailComponent,
     OrderDetailComponent,
     ProductListComponent,
     ProductListNodeComponent,
     BasketProductListComponent,
     BasketProductListNodeComponent,
     AddProductComponent,
+    AddProductPageComponent,
+    FooterComponent,
+    MarketplaceProfileComponent,
+    AdminOrderDetailComponent,
     AddProductPageComponent,
     TemplateListComponent,
     TemplateListNodeComponent,

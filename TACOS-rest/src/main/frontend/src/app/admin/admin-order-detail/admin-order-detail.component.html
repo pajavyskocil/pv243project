@@ -1,0 +1,23 @@
+<div *ngIf="loaded" class="card detail">
+  <h4 class="card-header">Order detail</h4>
+  <app-order-detail
+    [order]="this.order">
+  </app-order-detail>
+
+  <div class="products">
+    <h4>Products</h4>
+    <app-product-list  [products]="this.order.products">
+    </app-product-list>
+  </div>
+
+  <div  class="card-footer text-right">
+    <h4>Price : {{order.price}} ,-</h4>
+  </div>
+  <div class="text-center mt-4">
+    <button class="btn btn-info" routerLink="./..">Back to list all orders</button>
+    <button class="btn btn-info" [hidden]="!isSubmitted()" (click)="cancelOrder()">Cancel order</button>
+    <button class="btn btn-info" [hidden]="!isSubmitted()" (click)="processOrder()" >Process order</button>
+    <button class="btn btn-info" [hidden]="!(isSubmitted() || isProcessed())" (click)="finishOrder()" >Finish order</button>
+  </div>
+</div>
+
