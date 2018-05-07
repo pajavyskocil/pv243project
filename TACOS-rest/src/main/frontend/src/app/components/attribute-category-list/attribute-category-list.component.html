@@ -1,0 +1,19 @@
+<div class="card attribute-category-list" >
+  <div class="row header">
+    <div class="col-lg-3 text-center">
+      Id
+    </div>
+    <div class="col-lg-3 text-center">
+      Name
+    </div>
+    <div class="col-lg-3 text-center">
+      Minimal Price
+    </div>
+  </div>
+  <app-attribute-category-list-node *ngFor="let attributeCategory of this.attributeCategories; let i = index"
+                          [attributeCategory] = attributeCategory class="col-sm-12 col-md-12 col-lg-12" (deleteAction) = "deleteAttributeCategory(i)">
+  </app-attribute-category-list-node>
+  <div *ngIf="this.attributeCategories == null || this.attributeCategories.length == 0" class="-attribute-category-list-node">
+  </div>
+
+</div>

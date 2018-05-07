@@ -1,0 +1,3 @@
+<ng-select class="templates-selector" [multiple]="true" [(ngModel)]="selectedTemplateIds"  (ngModelChange)="setTemplateIds($event)"
+           placeholder="Select templates" [items]="templates" bindValue="id" bindLabel="name">
+</ng-select>

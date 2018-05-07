@@ -7,6 +7,8 @@ import cz.fi.muni.TACOS.persistence.entity.CreatedProduct;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Vojtech Sassmann <vojtech.sassmann@gmail.com>
@@ -23,7 +25,10 @@ public class AttributeDaoImpl extends AbstractDao<Attribute> implements Attribut
         if (category != null) {
             category.removeAttribute(entity);
         }
-        for (CreatedProduct createdProduct : entity.getCreatedProducts()) {
+
+        Set<CreatedProduct> createdProductsCopy = new HashSet<>(entity.getCreatedProducts());
+
+        for (CreatedProduct createdProduct : createdProductsCopy) {
             createdProduct.removeAttribute(entity);
         }
         super.delete(entity);

@@ -1,0 +1,21 @@
+.product-detail {
+  margin-top: 20px;
+  padding-left: 20px;
+}
+
+.product-image {
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  margin-left: 10px;
+}
+
+.image {
+  height: 260px;
+  background: #ffffff;
+  border: solid 1px #dedede;
+}
+
+.product-description {
+  font-size: 20px;
+  padding-left: 20px;
+}

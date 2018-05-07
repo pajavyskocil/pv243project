@@ -1,0 +1,9 @@
+<div class="card products-page">
+  <h4 class="card-header">Products</h4>
+  <app-product-list
+    [products] = this.products >
+  </app-product-list>
+  <div class="text-center mt-4">
+    <button type="button" class="btn btn-default" routerLink="/admin/addProduct">Create new product</button>
+  </div>
+</div>

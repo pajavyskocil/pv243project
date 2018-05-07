@@ -1,0 +1,9 @@
+<div class="card product-categories-page">
+  <h4 class="card-header">Product categories</h4>
+  <app-product-category-list
+    [productCategories] = this.productCategories >
+  </app-product-category-list>
+  <div class="text-center mt-4">
+    <button type="button" class="btn btn-default" routerLink="/admin/create-product-category">Create new product category</button>
+  </div>
+</div>

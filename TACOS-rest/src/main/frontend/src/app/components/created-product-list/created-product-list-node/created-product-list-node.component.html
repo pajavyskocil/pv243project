@@ -1,0 +1,21 @@
+<div class="card created-product-list-node">
+  <div class="row">
+    <div class="col-lg-2 text-center">
+      <div class="card text-center">
+        <img class="img-thumbnail" [src]="createdProduct.product.image">
+      </div>
+    </div>
+    <div class="col-lg-3 text-center ">
+      <a href="">{{createdProduct.product.name}}</a>
+    </div>
+    <div class="col-lg-2 text-center">
+      {{createdProduct.count}}
+    </div>
+    <div class="col-lg-2 text-center">
+      {{createdProduct.price}}
+    </div>
+    <div class="col-lg-3 text-center">
+      {{createdProduct.count * createdProduct.price}}
+    </div>
+  </div>
+</div>

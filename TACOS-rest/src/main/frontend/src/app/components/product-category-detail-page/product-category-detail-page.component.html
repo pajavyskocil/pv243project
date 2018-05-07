@@ -1,0 +1,23 @@
+<div *ngIf="loaded" class="card detail">
+  <h4 class="card-header">Product category detail</h4>
+  <app-product-category-detail
+    [productCategory]="this.productCategory">
+  </app-product-category-detail>
+
+  <div class="products">
+    <h4>Products</h4>
+    <app-product-list  [products]="this.productCategory.products">
+    </app-product-list>
+  </div>
+
+  <div class="subCategories">
+    <h4>Subcategories</h4>
+    <app-product-category-list  [productCategories]="this.productCategory.subCategories">
+    </app-product-category-list>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" routerLink="./..">Back</button>
+  </div>
+
+</div>

@@ -1,0 +1,18 @@
+<div class="card template-list" >
+  <div class="row header">
+    <div class="col-lg-3 text-center">
+      Id
+    </div>
+    <div class="col-lg-3 text-center">
+      Name
+    </div>
+    <div class="col-lg-3 text-center">
+      Minimal Price
+    </div>
+  </div>
+  <app-template-list-node *ngFor="let template of this.templates; let i = index"
+                          [template] = template class="col-sm-12 col-md-12 col-lg-12" (deleteAction)="deleteTemplate(i)">
+  </app-template-list-node>
+  <div *ngIf="this.templates == null || this.templates.length == 0" class="template-list-node">
+  </div>
+</div>

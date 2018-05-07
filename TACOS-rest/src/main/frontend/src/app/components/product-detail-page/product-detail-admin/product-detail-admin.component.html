@@ -1,0 +1,12 @@
+<div *ngIf="product != undefined" class="product-detail">
+  <!--Product header-->
+  <h2>{{product.name}}</h2>
+  <div class="row">
+    <div class="thumbnail m-2">
+      <img class="col-md-4 col-s-11 shadow product-image" [src]="'data:image/png;base64,' + product.image">
+    </div>
+    <div class="col-md-8 col-s-12 product-description">
+      {{product.description}}
+    </div>
+  </div>
+</div>

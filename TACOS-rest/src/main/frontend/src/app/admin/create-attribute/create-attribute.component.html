@@ -1,0 +1,36 @@
+<div *ngIf="loadedAttributeCategories" class="card create-attribute">
+  <form [formGroup]="formGroup">
+    <p class="h4 text-center mb-4">Create attribute</p>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+      <input type="text" #name class="form-control" placeholder="Name" formControlName="nameCtrl" required >
+      <div *ngIf="formGroup.controls['nameCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['nameCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+      <input type="text" #description class="form-control" placeholder="Description">
+    </div>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+      <input type="number" #price class="form-control" placeholder="Price" formControlName="priceCtrl" required >
+      <div *ngIf="formGroup.controls['priceCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['priceCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <app-attribute-category-selector [attributeCategories]="attributeCategories"
+                             (attributeCategoryId)="setAttributeCategoryId($event)">
+    </app-attribute-category-selector>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-default" routerLink="/admin/attributes">Cancel</button>
+      <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="createAttribute(name.value, price.value, description.value)">Create</button>
+    </div>
+  </form>
+
+</div>

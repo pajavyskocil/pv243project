@@ -60,6 +60,41 @@ import { BasketProductListComponent } from './marketplace/basket/basket-product-
 import { BasketProductListNodeComponent } from './marketplace/basket/basket-product-list/basket-product-list-node/basket-product-list-node.component';
 import { AddProductComponent } from './components/add-product/add-product.component';
 import { AddProductPageComponent } from './admin/add-product-page/add-product-page.component';
+import { TemplateListComponent } from './components/template-list/template-list.component';
+import { TemplateListNodeComponent } from './components/template-list/template-list-node/template-list-node.component';
+import { TemplateDetailPageComponent } from './components/template-detail-page/template-detail-page.component';
+import { TemplateDetailComponent } from './components/template-detail-page/template-detail/template-detail.component';
+import { AttributeCategoryListComponent } from './components/attribute-category-list/attribute-category-list.component';
+import { AttributeCategoryListNodeComponent } from './components/attribute-category-list/attribute-category-list-node/attribute-category-list-node.component';
+import { AttributeCategoryDetailPageComponent } from './components/attribute-category-detail-page/attribute-category-detail-page.component';
+import { AttributeCategoryDetailComponent } from './components/attribute-category-detail-page/attribute-category-detail/attribute-category-detail.component';
+import { AttributeListComponent } from './components/attribute-list/attribute-list.component';
+import { AttributeListNodeComponent } from './components/attribute-list/attribute-list-node/attribute-list-node.component';
+import { AttributeDetailPageComponent } from './components/attribute-detail-page/attribute-detail-page.component';
+import { AttributeDetailComponent } from './components/attribute-detail-page/attribute-detail/attribute-detail.component';
+import { ProductCategoryListComponent } from './components/product-category-list/product-category-list.component';
+import { ProductCategoryListNodeComponent } from './components/product-category-list/product-category-list-node/product-category-list-node.component';
+import { ProductCategoryDetailPageComponent } from './components/product-category-detail-page/product-category-detail-page.component';
+import { ProductCategoryDetailComponent } from './components/product-category-detail-page/product-category-detail/product-category-detail.component';
+import { TemplatesPageComponent } from './admin/templates-page/templates-page.component';
+import { AttributeCategoriesPageComponent } from './admin/attribute-categories-page/attribute-categories-page.component';
+import { AttributesPageComponent } from './admin/attributes-page/attributes-page.component';
+import { ProductCategoriesPageComponent } from './admin/product-categories-page/product-categories-page.component';
+import { CreateTemplateComponent } from './admin/create-template/create-template.component';
+import { CreateAttributeComponent } from './admin/create-attribute/create-attribute.component';
+import { CreateAttributeCategoryComponent } from './admin/create-attribute-category/create-attribute-category.component';
+import { CreateProductCategoryComponent } from './admin/create-product-category/create-product-category.component';
+import { ProductsSelectorComponent } from './admin/create-template/products-selector/products-selector.component';
+import { AttributeCategoriesSelectorComponent } from './admin/create-template/attribute-categories-selector/attribute-categories-selector.component';
+import { AttributesSelectorComponent } from './admin/create-attribute-category/attributes-selector/attributes-selector.component';
+import { TemplatesSelectorComponent } from './admin/create-attribute-category/templates-selector/templates-selector.component';
+import { AttributeCategorySelectorComponent } from './admin/create-attribute/attribute-category-selector/attribute-category-selector.component';
+import { ProductCategorySelectorComponent } from './admin/create-product-category/product-category-selector/product-category-selector.component';
+import { CreatedProductListComponent } from './components/created-product-list/created-product-list.component';
+import { CreatedProductListNodeComponent } from './components/created-product-list/created-product-list-node/created-product-list-node.component';
+import { ProductsPageComponent } from './admin/products-page/products-page.component';
+import { ProductDetailPageComponent } from './components/product-detail-page/product-detail-page.component';
+import { ProductDetailAdminComponent } from './components/product-detail-page/product-detail-admin/product-detail-admin.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +135,42 @@ import { AddProductPageComponent } from './admin/add-product-page/add-product-pa
     BasketProductListComponent,
     BasketProductListNodeComponent,
     AddProductComponent,
-    AddProductPageComponent
+    AddProductPageComponent,
+    TemplateListComponent,
+    TemplateListNodeComponent,
+    TemplateDetailPageComponent,
+    TemplateDetailComponent,
+    AttributeCategoryListComponent,
+    AttributeCategoryListNodeComponent,
+    AttributeCategoryDetailPageComponent,
+    AttributeCategoryDetailComponent,
+    AttributeListComponent,
+    AttributeListNodeComponent,
+    AttributeDetailPageComponent,
+    AttributeDetailComponent,
+    ProductCategoryListComponent,
+    ProductCategoryListNodeComponent,
+    ProductCategoryDetailPageComponent,
+    ProductCategoryDetailComponent,
+    TemplatesPageComponent,
+    AttributeCategoriesPageComponent,
+    AttributesPageComponent,
+    ProductCategoriesPageComponent,
+    CreateTemplateComponent,
+    CreateAttributeComponent,
+    CreateAttributeCategoryComponent,
+    CreateProductCategoryComponent,
+    ProductsSelectorComponent,
+    AttributeCategoriesSelectorComponent,
+    AttributesSelectorComponent,
+    TemplatesSelectorComponent,
+    AttributeCategorySelectorComponent,
+    ProductCategorySelectorComponent,
+    CreatedProductListComponent,
+    CreatedProductListNodeComponent,
+    ProductsPageComponent,
+    ProductDetailPageComponent,
+    ProductDetailAdminComponent,
   ],
   imports: [
     BrowserModule,

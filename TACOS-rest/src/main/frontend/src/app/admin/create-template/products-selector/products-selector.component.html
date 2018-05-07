@@ -1,0 +1,3 @@
+<ng-select class="products-selector" [multiple]="true" [(ngModel)]="selectedProductIds"  (ngModelChange)="setProductIds($event)"
+           placeholder="Select products" [items]="products" bindValue="id" bindLabel="name">
+</ng-select>

@@ -1,5 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {CreatedProduct} from "../../services/createdProduct/created-product.service";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Product, ProductService} from "../../services/product/product.service";
 
 @Component({
   selector: 'app-product-list',
@@ -9,11 +9,20 @@ import {CreatedProduct} from "../../services/createdProduct/created-product.serv
 export class ProductListComponent implements OnInit {
 
   @Input()
-  public products : CreatedProduct[];
+  public products : Product[];
 
-  constructor() { }
+  @Output()
+  delete : EventEmitter<any> = new EventEmitter();
+
+  constructor(private productService: ProductService) { }
+
 
   ngOnInit() {
   }
 
+  public deleteProduct(i : number) {
+    this.productService.deleteProduct(this.products[i]).subscribe((removedProduct) => {
+      this.products.splice(i, 1);
+    });
+  }
 }

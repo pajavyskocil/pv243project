@@ -1,5 +1,5 @@
 <form [formGroup]="formGroup">
-  <p class="h4 text-center mb-4">Add product</p>
+  <p class="h4 text-center mb-4">Create product</p>
   <div class="md-form">
     <input [(ngModel)]="productToBeCreated.name" type="text" #name class="form-control" placeholder="Product name" formControlName="nameCtrl" required >
     <div *ngIf="formGroup.controls['nameCtrl'].touched">
@@ -17,7 +17,7 @@
 
   <div class="text-center mt-4">
     <button class="btn btn-default" routerLink="/admin/products">Cancel</button>
-    <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="submit()">Submit</button>
+    <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="submit()">Create</button>
   </div>
 
   <img *ngIf="data != undefined" [src]="data">

@@ -1,0 +1,29 @@
+<div *ngIf="loadedProductCategories" class="card create-product-category">
+  <form [formGroup]="formGroup">
+    <p class="h4 text-center mb-4">Create product category</p>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+      <input type="text" #name class="form-control" placeholder="Name" formControlName="nameCtrl" required >
+      <div *ngIf="formGroup.controls['nameCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['nameCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <app-product-category-selector [productCategories]="productCategories"
+                                     (productCategoryId)="setProductCategoryId($event)">
+    </app-product-category-selector>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+    Select product image
+    <input type="file" accept="image/png" (change)="fileSelected($event)">
+    </div>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-default" routerLink="/admin/product-categories">Cancel</button>
+      <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="createProductCategory(name.value)">Create</button>
+    </div>
+  </form>
+
+</div>

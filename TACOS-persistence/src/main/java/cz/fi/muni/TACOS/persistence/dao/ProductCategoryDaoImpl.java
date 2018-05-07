@@ -7,7 +7,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Implementation of ProductCategoryDao
@@ -23,7 +25,9 @@ public class ProductCategoryDaoImpl extends AbstractDao<ProductCategory> impleme
     public void delete(ProductCategory entity) {
         ProductCategory parentCategory = entity.getParentCategory();
 
-        for (ProductCategory category : entity.getSubCategories()) {
+        Set<ProductCategory> subCategoriesCopy = new HashSet<>(entity.getSubCategories());
+
+        for (ProductCategory category : subCategoriesCopy) {
             delete(category);
         }
 

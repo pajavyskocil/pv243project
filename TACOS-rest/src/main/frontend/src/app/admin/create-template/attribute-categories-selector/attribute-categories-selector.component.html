@@ -1,0 +1,3 @@
+<ng-select class="attribute-categories-selector" [multiple]="true" [(ngModel)]="selectedAttributeCategoryIds"  (ngModelChange)="setAttributeCategoryIds($event)"
+           placeholder="Select attribute categories" [items]="attributeCategories" bindValue="id" bindLabel="name">
+</ng-select>

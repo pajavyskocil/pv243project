@@ -1,0 +1,17 @@
+<div *ngIf="loaded" class="card detail">
+  <h4 class="card-header">Product detail</h4>
+  <app-product-detail-admin
+    [product]="this.product">
+  </app-product-detail-admin>
+
+  <div class="templates">
+    <h4>Templates</h4>
+    <app-template-list  [templates]="this.product.templates">
+    </app-template-list>
+  </div>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" routerLink="./..">Back</button>
+  </div>
+
+</div>

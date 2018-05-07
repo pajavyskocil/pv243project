@@ -1,0 +1,20 @@
+<div class="template-list-node">
+  <div class="row">
+    <div class="col-lg-3 text-center">
+      <a [routerLink]="['/admin/templates/', this.template.id]">
+        {{template.id}}
+      </a>
+    </div>
+    <div class="col-lg-3 text-center">
+      {{template.name}}
+    </div>
+    <div class="col-lg-3 text-center">
+      {{template.minimalPrice}}
+    </div>
+    <div class="col-lg-2 text-center">
+      <button type="button" class="close" aria-label="Close" (click)="deleteTemplate()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>

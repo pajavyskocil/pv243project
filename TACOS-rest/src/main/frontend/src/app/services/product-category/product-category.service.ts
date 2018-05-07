@@ -55,5 +55,5 @@ export interface ProductCategory {
 export interface ProductCategoryCreate {
   name: String,
   image: String,
-  parentCategory: number
+  parentCategoryId: number
 }

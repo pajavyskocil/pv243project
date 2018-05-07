@@ -1,0 +1,11 @@
+<div *ngIf="loaded" class="card detail">
+  <h4 class="card-header">Attribute detail</h4>
+  <app-attribute-detail
+    [attribute]="this.attribute">
+  </app-attribute-detail>
+
+  <div class="text-center mt-4">
+    <button class="btn btn-primary" routerLink="./..">Back</button>
+  </div>
+
+</div>

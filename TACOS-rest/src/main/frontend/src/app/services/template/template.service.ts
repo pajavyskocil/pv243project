@@ -38,8 +38,7 @@ export interface Template {
 
 export interface TemplateCreate {
   name: String,
-  minimalPrice: number,
-  attributesCategoryIds: number[],
+  attributeCategoryIds: number[],
   productIds: number[]
 
 }

@@ -1,0 +1,27 @@
+<div *ngIf="loadedAttributes && loadedTemplates" class="card create-attribute-category">
+  <form [formGroup]="formGroup">
+    <p class="h4 text-center mb-4">Create attribute category</p>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+      <input type="text" #name class="form-control" placeholder="Name" formControlName="nameCtrl" required >
+      <div *ngIf="formGroup.controls['nameCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['nameCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <app-templates-selector [templates]="templates"
+                           (templateIds)="setTemplateIds($event)">
+    </app-templates-selector>
+
+    <app-attributes-selector [attributes]="attributes"
+                                       (attributeIds)="setAttributeIds($event)">
+    </app-attributes-selector>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-default" routerLink="/admin/attribute-categories">Cancel</button>
+      <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="createAttributeCategory(name.value)">Create</button>
+    </div>
+  </form>
+
+</div>

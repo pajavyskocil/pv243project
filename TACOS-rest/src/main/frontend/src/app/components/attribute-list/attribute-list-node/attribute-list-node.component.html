@@ -1,0 +1,20 @@
+<div class="attribute-list-node">
+  <div class="row">
+    <div class="col-lg-3 text-center">
+      <a [routerLink]="['/admin/attributes/', this.attribute.id]">
+        {{attribute.id}}
+      </a>
+    </div>
+    <div class="col-lg-3 text-center">
+      {{attribute.name}}
+    </div>
+    <div class="col-lg-3 text-center">
+      {{attribute.price}}
+    </div>
+    <div class="col-lg-2 text-center">
+      <button type="button" class="close" aria-label="Close" (click)="deleteAttribute()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  </div>
+</div>

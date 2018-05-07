@@ -1,21 +1,22 @@
-<div class="card product-list-node">
+<div class="product-list-node">
   <div class="row">
-    <div class="col-lg-2 text-center">
-      <div class="card text-center">
-        <img class="img-thumbnail" [src]="product.product.image">
+    <div class="col-lg-3 text-center">
+      <div class="thumbnail m-2">
+        <img class="col-md-4 col-s-11 shadow product-image" [src]="'data:image/png;base64,' + this.product.image">
       </div>
     </div>
-    <div class="col-lg-3 text-center ">
-      <a href="">{{product.product.name}}</a>
-    </div>
-    <div class="col-lg-2 text-center">
-      {{product.count}}
-    </div>
-    <div class="col-lg-2 text-center">
-      {{product.price}}
+    <div class="col-lg-3 text-center">
+      <a [routerLink]="['/admin/products/', this.product.id]">
+        {{product.id}}
+      </a>
     </div>
     <div class="col-lg-3 text-center">
-      {{product.count * product.price}}
+      {{product.name}}
+    </div>
+    <div class="col-lg-2 text-center">
+      <button type="button" class="close" aria-label="Close" (click)="deleteProduct()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   </div>
 </div>

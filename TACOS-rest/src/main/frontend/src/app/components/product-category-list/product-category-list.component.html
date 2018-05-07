@@ -1,0 +1,19 @@
+<div class="card product-category-list" >
+  <div class="row header">
+    <div class="col-lg-3 text-center">
+      Picture
+    </div>
+    <div class="col-lg-3 text-center">
+      Id
+    </div>
+    <div class="col-lg-3 text-center">
+      Name
+    </div>
+  </div>
+  <app-product-category-list-node *ngFor="let productCategory of this.productCategories; let i = index"
+                                    [productCategory] = productCategory class="col-sm-12 col-md-12 col-lg-12" (deleteAction)="deleteProductCategory(i)">
+  </app-product-category-list-node>
+  <div *ngIf="this.productCategories == null || this.productCategories.length == 0" class="-product-category-list-node">
+  </div>
+
+</div>

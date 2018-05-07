@@ -1,0 +1,27 @@
+<div *ngIf="loadedCategories && loadedProducts" class="card create-template">
+  <form [formGroup]="formGroup">
+    <p class="h4 text-center mb-4">Create template</p>
+
+    <div class="md-form">
+      <i class="fa grey-text"></i>
+      <input type="text" #name class="form-control" placeholder="Name" formControlName="nameCtrl" required >
+      <div *ngIf="formGroup.controls['nameCtrl'].touched">
+        <div class="alert alert-danger" *ngIf="formGroup.controls['nameCtrl'].errors?.required">This field is required!</div>
+      </div>
+    </div>
+
+    <app-products-selector [products]="products"
+                           (productIds)="setProductIds($event)">
+    </app-products-selector>
+
+    <app-attribute-categories-selector [attributeCategories]="attributeCategories"
+                                        (attributeCategoryIds)="setAttributeCategoryIds($event)">
+    </app-attribute-categories-selector>
+
+    <div class="text-center mt-4">
+      <button class="btn btn-default" routerLink="/admin/templates">Cancel</button>
+      <button class="btn btn-default" [disabled]="formGroup.invalid" (click)="createTemplate(name.value)">Create</button>
+    </div>
+  </form>
+
+</div>

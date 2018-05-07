@@ -1,0 +1,3 @@
+<ng-select class="product-category-selector" [(ngModel)]="selectedProductCategoryId"  (ngModelChange)="setProductCategoryId($event)"
+           placeholder="Select parent category" [items]="productCategories" bindValue="id" bindLabel="name">
+</ng-select>
